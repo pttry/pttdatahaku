@@ -10,3 +10,8 @@ Description: PTT:n datanhaku käytänteiden kuvaus ja apu.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    pxweb,
+    dplyr,
+    statfitools,
+    forcats

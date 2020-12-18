@@ -18,4 +18,7 @@
      - numerosarake nimellä "values"
        - PITÄISIKÖ MUUNTAA KAIKKI PERUSLUVUIKSI?
 
+### pxweb haut
 
+- Aika ja aluemuuttujista kaikki anonyymisti (*)
+- Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
