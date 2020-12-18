@@ -4,13 +4,18 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pttdatahaku is to ...
 
-## Installation
+### Haettavat tiedot muokataan seuraavaan muotoon:
 
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+- Pitkä tibble
+     - aikamuuttujat
+       - "time"
+       - Date -muodossa
+     - muuttujat
+       - factor -muodossa
+       - sekä koodi että nimi sarakkeet (_code, _name)
+       - Aluemuuttujalla alueen nimi, esim kunta_code ja kunta_name
+     - numerosarake nimellä "values"
+       - PITÄISIKÖ MUUNTAA KAIKKI PERUSLUVUIKSI?
 
 
