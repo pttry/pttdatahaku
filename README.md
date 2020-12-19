@@ -13,6 +13,7 @@
        - Date -muodossa
      - kategoriset muuttujat
        - factor -muodossa
+             - Minun tämänhetkinen kokemus on että alueet faktoreina. Oisko jotain hyviä syitä miksi char ois parempi?
        - Aluemuuttujat
            - sekä koodi että nimi sarakkeet ("*_code", "*_name")
            - Ei "Alue"-nimistä muuttujaa
