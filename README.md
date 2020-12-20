@@ -23,11 +23,6 @@
        - PITÄISIKÖ MUUNTAA KAIKKI PERUSLUVUIKSI?
              - mikä on "perusluku"? Double?
 
-- TIEDOSTOMUOTO?
-     - .rds?
-
-
-
 
 ### pxweb haut
 
