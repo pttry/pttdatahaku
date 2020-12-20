@@ -16,7 +16,7 @@
        - factor -muodossa
              - Minun tämänhetkinen kokemus on että alueet faktoreina. Oisko jotain hyviä syitä miksi char ois parempi?
        - Aluemuuttujat
-           - sekä koodi että nimi sarakkeet ("*_code", "*_name")
+           - sekä koodi että nimi sarakkeet ("*_code", "*_name_")
            - Ei "Alue"-nimistä muuttujaa
            - Aluemuuttujalla alueen nimi, esim kunta_code ja kunta_name
      - numerosarake nimellä "values"
