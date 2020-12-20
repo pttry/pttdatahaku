@@ -37,3 +37,6 @@
         
  ### Apufunktiot
    - *filter_region_level* tällä hetkellä paketissa statfiLaborMarkets. pxwebistä taulukot antavat tiedot suoraan eri tasoilla aggregoitua päälekkäin samassa tiedostossa. Mulla on ollut käytössä funktio, joka erottelee tällaisesta aineistosta eri aggregointitasot omiin data.frameihin. 
+   - *clean_names*
+   - *make_names*
+   - *clean_times*
