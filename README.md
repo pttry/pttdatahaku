@@ -22,6 +22,7 @@
      - numerosarake nimellä "values"
        - PITÄISIKÖ MUUNTAA KAIKKI PERUSLUVUIKSI?
              - mikä on "perusluku"? Double?
+             - Mittayksikkö tässä hain. Ettei käytettäisi miljoonia, tuhansia, ym, vaan muunnettaisiin haun yhteydessä, niin että ei tarvisi arvailla yksikköä. 
 
 
 ### pxweb haut
