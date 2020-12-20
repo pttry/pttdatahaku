@@ -8,6 +8,7 @@
 ### Haettavat tiedot muokataan seuraavaan muotoon:
 
 - Pitkä tibble
+     - kaikki muuttujanimet vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
      - aikamuuttujat
        - "time"
        - Date -muodossa
