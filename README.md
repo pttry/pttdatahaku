@@ -40,3 +40,4 @@
    - *clean_names*
    - *make_names*
    - *clean_times*
+   - Jos aineistot säilötään jollain palvelimella, tarvitaanko oma funktio, joka hakee aineistoja tältä palvelimelta?
