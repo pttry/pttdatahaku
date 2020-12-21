@@ -9,6 +9,7 @@
 
 - Pitkä tibble
      - kaikki muuttujanimet vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
+     - muuttujatnimissä ei tyhjää välimerkkiä, sen sijaan alaviiva
      - aikamuuttujat
        - "time"
        - Date -muodossa
