@@ -37,6 +37,9 @@
         pxwebin aineistolle erikseen. Tuntuvat aina vaativan vähän oman 
         koodinsa. Nämä koodit nimettäisiin pxwebin aineistonumerojen mukaan.
         
+Hakufuktion:
+  *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
+        
  ### Apufunktiot
    - *filter_region_level* tällä hetkellä paketissa statfiLaborMarkets. pxwebistä taulukot antavat tiedot suoraan eri tasoilla aggregoitua päälekkäin samassa tiedostossa. Mulla on ollut käytössä funktio, joka erottelee tällaisesta aineistosta eri aggregointitasot omiin data.frameihin. 
    - *clean_names*

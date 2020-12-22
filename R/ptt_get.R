@@ -19,19 +19,37 @@
 #'
 #'   pp <- ptt_get_statfi(url, query)
 #'
+#'   url <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/Kokeelliset_tilastot/nopsu/koeti_nopsu_pxt_11mx.px"
+#'   query <-
+#'    list("Vuosineljännes"=c("2019Q1", "2019Q2", "2019Q3", "2019Q4"),
+#'         "Tiedot"=c("alkuperainen_euro","tyopaivakorjattu_euro","kausitasoitettu_euro","trendi_euro"))
+#'
 ptt_get_statfi <- function(url, query){
   px_data <- pxweb::pxweb_get(url = url, query = query)
+
+  codes_names <- px_code_name(px_data)
+
   px_df <- as.data.frame(px_data, column.name.type = "code",
-                         variable.value.type = "code")
-  # Täytyy korvata
-  px_df <- statfitools::clean_times(px_df)
+                         variable.value.type = "code") %>%
+    statfitools::clean_times2() %>%
+    tidyr::pivot_longer(where(is.numeric), names_to = dplyr::last(names(codes_names)), values_to = "values") %>%
+    dplyr::mutate(across(where(is.character),
+                  ~factor(.x, levels = names(codes_names[[cur_column()]]), labels = codes_names[[cur_column()]]), .names = "{.col}_name")) %>%
+    rename_with(.cols = where(is.character), ~paste0(.x, "_code")) %>%
+    statfitools::clean_names() %>%
+    relocate(time) %>%
+    relocate(values, .after = last_col())
 
-  px_df <- px_df %>%
-    mutate(across(where(is.character),
-                  ~forcats::as_factor(pxweb:::pxd_values_to_valuetexts(px_data,
-                                                    variable_code = cur_column(),
-                                                    .x)),
-                  .names = "{.col}_name"))
+    px_df
+}
 
-  px_df
+
+#' Get code name mapping from pxweb_data
+#'
+#' @param px_data A pxweb_data object.
+#'
+px_code_name <- function(px_data){
+  purrr::map(rlang::set_names(px_data$pxweb_metadata$variables,
+                              sapply(px_data$pxweb_metadata$variables, "[[", "code")),
+             ~rlang::set_names(.x$valueTexts, .x$values))
 }

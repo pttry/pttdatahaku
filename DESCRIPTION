@@ -14,4 +14,7 @@ Imports:
     pxweb,
     dplyr,
     statfitools,
-    forcats
+    forcats,
+    rlang,
+    purrr,
+    tidyr
