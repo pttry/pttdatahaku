@@ -1,18 +1,20 @@
 #' Get PTT data from statfi
 #'
-#' @param url
-#' @param query
+#' Downloads data from statfi and modifies data to ptt-form.
 #'
-#' @importFrom pxweb as.data.frame.pxweb_data
+#' @param url A pxweb object or url that can be coherced to a pxweb object
+#' @param query A json string, json file or list object that can be coherced to a pxweb_query object.
+#'
+#' @import pxweb
 #' @import dplyr
 #' @export
 #'
-#' @example
+#' @examples
 #'   url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px"
 #'   query <-
 #'     list("Vuosi"=c("1970","1975"),
 #'          "Alue"=c("SSS","KU020","KU005"),
-#'          "Ikä"=c("SSS","15-19"),
+#'          "Ik\U00E4"=c("SSS","15-19"),
 #'          "Sukupuoli"=c("SSS","1","2"),
 #'          "Koulutusaste"=c("SSS","3T8"),
 #'          "Tiedot"=c("vaesto"))
@@ -21,9 +23,14 @@
 #'
 #'   url <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/Kokeelliset_tilastot/nopsu/koeti_nopsu_pxt_11mx.px"
 #'   query <-
-#'    list("Vuosineljännes"=c("2019Q1", "2019Q2", "2019Q3", "2019Q4"),
-#'         "Tiedot"=c("alkuperainen_euro","tyopaivakorjattu_euro","kausitasoitettu_euro","trendi_euro"))
+#'    list("Vuosinelj\U00E4nnes"=c("2019Q1", "2019Q2", "2019Q3", "2019Q4"),
+#'         "Tiedot"=c("alkuperainen_euro",
+#'                    "tyopaivakorjattu_euro",
+#'                    "kausitasoitettu_euro",
+#'                    "trendi_euro"))
 #'
+#'   pp2 <- ptt_get_statfi(url, query)
+
 ptt_get_statfi <- function(url, query){
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
@@ -43,10 +50,13 @@ ptt_get_statfi <- function(url, query){
     px_df
 }
 
+utils::globalVariables(c("time", "values", "where"))
+
 
 #' Get code name mapping from pxweb_data
 #'
 #' @param px_data A pxweb_data object.
+#' @return A named (column codes) list of named (codes) vectors (names).
 #'
 px_code_name <- function(px_data){
   purrr::map(rlang::set_names(px_data$pxweb_metadata$variables,
