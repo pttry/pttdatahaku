@@ -4,12 +4,14 @@
 \alias{ptt_get_statfi}
 \title{Get PTT data from statfi}
 \usage{
-ptt_get_statfi(url, query)
+ptt_get_statfi(url, query, names = "all")
 }
 \arguments{
 \item{url}{A pxweb object or url that can be coherced to a pxweb object}
 
 \item{query}{A json string, json file or list object that can be coherced to a pxweb_query object.}
+
+\item{names}{Whether to add columns for names. "all", "none" or vector of variable names.}
 }
 \description{
 Downloads data from statfi and modifies data to ptt-form.
@@ -25,6 +27,8 @@ Downloads data from statfi and modifies data to ptt-form.
          "Tiedot"=c("vaesto"))
 
   pp <- ptt_get_statfi(url, query)
+  pp <- ptt_get_statfi(url, query, names = "none")
+  pp <- ptt_get_statfi(url, query, names = c("Alue"))
 
   url <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/Kokeelliset_tilastot/nopsu/koeti_nopsu_pxt_11mx.px"
   query <-
@@ -34,5 +38,5 @@ Downloads data from statfi and modifies data to ptt-form.
                    "kausitasoitettu_euro",
                    "trendi_euro"))
 
-  pp2 <- ptt_get_statfi(url, query)
+  pp2 <- ptt_get_statfi(url, query, names = )
 }
