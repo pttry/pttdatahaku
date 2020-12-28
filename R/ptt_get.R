@@ -63,3 +63,22 @@ px_code_name <- function(px_data){
                               sapply(px_data$pxweb_metadata$variables, "[[", "code")),
              ~rlang::set_names(.x$valueTexts, .x$values))
 }
+
+
+#' Statfi url
+#'
+#' Gives full statfi url
+#'
+#' @param ... Character vectors.
+#' @param .base_url A base url for statfi.
+#'
+#' @export
+#'
+#' @examples
+#'   statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
+#'
+statfi_url <- function(..., .base_url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi"){
+  file.path(.base_url, ..., fsep = "/")
+}
+
+
