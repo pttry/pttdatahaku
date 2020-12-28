@@ -14,6 +14,7 @@ pxweb_print_full_query <- function(url){
   names(query_list) <- codes
 
   pxq <- pxweb::pxweb_query(query_list)
+
   full_query <- pxweb:::pxweb_add_metadata_to_query(pxq, meta)
   cat(pxweb:::pxweb_query_as_rcode(full_query), sep ="\n")
 }
