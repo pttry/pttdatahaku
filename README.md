@@ -45,4 +45,10 @@ Hakufuktion:
    - *clean_names*
    - *make_names*
    - *clean_times*
+   - *statfi_url* 
+      - Koko statfi osoite loppuosan perusteella.
+      - statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
+   - *pxweb_print_full_query* 
+      - Kirjoittaa hakulistan taulun kaikille tiedoille.
+      - `pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))`
    - Jos aineistot säilötään jollain palvelimella, tarvitaanko oma funktio, joka hakee aineistoja tältä palvelimelta?
