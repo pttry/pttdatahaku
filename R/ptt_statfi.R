@@ -29,9 +29,9 @@
 #'                    "kausitasoitettu_euro",
 #'                    "trendi_euro"))
 #'
-#'   pp2 <- ptt_get_statfi(url, query)
+#'   pp2 <- ptt_get_statfi(url, query, names = FALSE)
 
-ptt_get_statfi <- function(url, query){
+ptt_get_statfi <- function(url, query, names = TRUE){
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
   codes_names <- px_code_name(px_data)
@@ -40,9 +40,16 @@ ptt_get_statfi <- function(url, query){
                          variable.value.type = "code") %>%
     statfitools::clean_times2() %>%
     tidyr::pivot_longer(where(is.numeric), names_to = dplyr::last(names(codes_names)), values_to = "values") %>%
-    dplyr::mutate(across(where(is.character),
-                  ~factor(.x, levels = names(codes_names[[cur_column()]]), labels = codes_names[[cur_column()]]), .names = "{.col}_name")) %>%
-    rename_with(.cols = where(is.character), ~paste0(.x, "_code")) %>%
+    {if (names)
+      {
+      dplyr::mutate(., across(where(is.character),
+                           ~factor(.x,
+                                   levels = names(codes_names[[cur_column()]]),
+                                   labels = codes_names[[cur_column()]]),
+                           .names = "{.col}_name")) %>%
+        rename_with(.cols = where(is.character), ~paste0(.x, "_code"))
+      } else {.}
+    }  %>%
     statfitools::clean_names() %>%
     relocate(time) %>%
     relocate(values, .after = last_col())
