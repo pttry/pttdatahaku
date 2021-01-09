@@ -7,37 +7,35 @@
 
 ### Haettavat tiedot muokataan seuraavaan muotoon:
 
-- Pitkä tibble
-     - kaikki muuttujanimet vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
-     - muuttujatnimissä ei tyhjää välimerkkiä, sen sijaan alaviiva
-     - aikamuuttujat
-       - "time"
-       - Date -muodossa
-     - kategoriset muuttujat
-       - factor -muodossa
-             - Minun tämänhetkinen kokemus on että alueet faktoreina. Oisko jotain hyviä syitä miksi char ois parempi?
-       - Aluemuuttujat
-           - sekä koodi että nimi sarakkeet ("*_code", "*_name_")
-           - Ei "Alue"-nimistä muuttujaa
-           - Aluemuuttujalla alueen nimi, esim kunta_code ja kunta_name
-     - numerosarake nimellä "values"
-       - PITÄISIKÖ MUUNTAA KAIKKI PERUSLUVUIKSI?
-             - mikä on "perusluku"? Double?
-             - Mittayksikkö tässä hain. Ettei käytettäisi miljoonia, tuhansia, ym, vaan muunnettaisiin haun yhteydessä, niin että ei tarvisi arvailla yksikköä. 
+ - Pitkä tibble
+ - muuttujanimet
+            - vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
+            - ei tyhjää välimerkkiä, sen sijaan alaviiva
+            - Aluemuuttujat
+                - sekä koodi että nimi sarakkeet ("*_code", "*_name_"), e.g. _(seutu)kunta_code_, _(maa)kunta_name_. 
+                - ei "Alue"-nimistä muuttujaa, aluemuuttujalla alueen nimi
+            - numerosarake nimellä "values"
+  - muuttujatyypit
+            - aikamuuttujat
+                - "time"
+                - Date -muodossa
+            - kategoriset muuttujat
+                - factor -muodossa
+                - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
+            - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
+  - missing values merkataan NA
 
 
 ### pxweb haut
 
 - Aika ja aluemuuttujista kaikki anonyymisti (*)
 - Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
-- pxweb haku template/yhteinäinen koodi
 
-- TÄÄLLÄ KOODIT AINEISTOJEN HAKUUN JA PÄIVITTÄMISEEN?
-      - minä olen kirjoittanut koodit kullekin tarvitsemalleni
-        pxwebin aineistolle erikseen. Tuntuvat aina vaativan vähän oman 
-        koodinsa. Nämä koodit nimettäisiin pxwebin aineistonumerojen mukaan.
+- Täällä koodit aineistojen hakuun ja päivittämiseen?
+      - kullekin pxwebin taululle oma valmis hakukoodi?
+      - Nämä koodit nimettäisiin pxwebin aineistonumerojen mukaan.
         
-Hakufuktion:
+Hakufunktio:
   *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
         
  ### Apufunktiot
