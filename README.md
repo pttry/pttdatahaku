@@ -9,20 +9,20 @@
 
  - Pitkä tibble
  - muuttujanimet
-            - vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
-            - ei tyhjää välimerkkiä, sen sijaan alaviiva
-            - Aluemuuttujat
-                - sekä koodi että nimi sarakkeet ("*_code", "*_name_"), e.g. _(seutu)kunta_code_, _(maa)kunta_name_. 
-                - ei "Alue"-nimistä muuttujaa, aluemuuttujalla alueen nimi
+     - vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
+     - ei tyhjää välimerkkiä, sen sijaan alaviiva
+     - Aluemuuttujat
+            - sekä koodi että nimi sarakkeet ("*_code", "*_name_"), e.g. _(seutu)kunta_code_, _(maa)kunta_name_. 
+            - ei "Alue"-nimistä muuttujaa, aluemuuttujalla alueen nimi
             - numerosarake nimellä "values"
   - muuttujatyypit
-            - aikamuuttujat
-                - "time"
-                - Date -muodossa
-            - kategoriset muuttujat
-                - factor -muodossa
-                - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
-            - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
+      - aikamuuttujat
+            - "time"
+            - Date -muodossa
+      - kategoriset muuttujat
+            - factor -muodossa
+            - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
+      - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
   - missing values merkataan NA
 
 
