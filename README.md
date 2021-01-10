@@ -54,3 +54,4 @@ Hakufunktio:
    - Jos aineistot säilötään jollain palvelimella, tarvitaanko oma funktio, joka hakee aineistoja tältä palvelimelta?
    - Funktio joka hakee datalähteen kuvioihin. Pystyisikö datalähde kulkea datan mukana esimerkiksi attribuuttina. 
         - Datalähteen muoto? StatFin ja taulun numero?
+        - voisi olla myös jotain mitä *ptt_get_statfi* automaattisesti aina tekee
