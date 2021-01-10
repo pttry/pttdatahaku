@@ -39,7 +39,7 @@ Hakufunktio:
   *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
         
  ### Apufunktiot
-   - *filter_region_level* tällä hetkellä paketissa statfiLaborMarkets. pxwebistä taulukot antavat tiedot suoraan eri tasoilla aggregoitua päälekkäin samassa tiedostossa. Mulla on ollut käytössä funktio, joka erottelee tällaisesta aineistosta eri aggregointitasot omiin data.frameihin. 
+  ## Olemassa
    - *clean_names*
    - *make_names*
    - *clean_times*
@@ -49,4 +49,8 @@ Hakufunktio:
    - *pxweb_print_full_query* 
       - Kirjoittaa hakulistan taulun kaikille tiedoille.
       - `pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))`
+  ## Suunnitteilla
+   - *filter_region_level* tällä hetkellä paketissa statfiLaborMarkets. pxwebistä taulukot antavat tiedot suoraan eri tasoilla aggregoitua päälekkäin samassa tiedostossa. Mulla on ollut käytössä funktio, joka erottelee tällaisesta aineistosta eri aggregointitasot omiin data.frameihin. 
    - Jos aineistot säilötään jollain palvelimella, tarvitaanko oma funktio, joka hakee aineistoja tältä palvelimelta?
+   - Funktio joka hakee datalähteen kuvioihin. Pystyisikö datalähde kulkea datan mukana esimerkiksi attribuuttina. 
+        - Datalähteen muoto? StatFin ja taulun numero?
