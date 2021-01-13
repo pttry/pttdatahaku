@@ -55,3 +55,4 @@ Hakufunktio:
    - Funktio joka hakee datalähteen kuvioihin. Pystyisikö datalähde kulkea datan mukana esimerkiksi attribuuttina. 
         - Datalähteen muoto? StatFin ja taulun numero?
         - voisi olla myös jotain mitä *ptt_get_statfi* automaattisesti aina tekee
+        - ggptt voisi osata ottaa tämän attribuutin suoraan ggplot-funktioon syötetystä datasta ja luoda siitä captionin. 
