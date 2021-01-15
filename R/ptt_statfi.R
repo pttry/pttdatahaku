@@ -51,13 +51,10 @@ ptt_get_statfi <- function(url, query, names = "all"){
   px_df <- as.data.frame(px_data, column.name.type = "code",
                          variable.value.type = "code") %>%
     statfitools::clean_times2() %>%
-    tidyr::pivot_longer(where(is.numeric), names_to = dplyr::last(names(codes_names)), values_to = "values") %>%
-    dplyr::mutate(across(any_of(to_name) & where(is.character),
-                           ~factor(.x,
-                                   levels = names(codes_names[[cur_column()]]),
-                                   labels = codes_names[[cur_column()]]),
-                           .names = "{.col}_name")) %>%
-    dplyr::rename_with(.cols = any_of(to_name) & where(is.character), ~paste0(.x, "_code")) %>%
+    tidyr::pivot_longer(where(is.numeric),
+                        names_to = dplyr::last(names(codes_names)),
+                        values_to = "values") %>%
+    codes2names(codes_names, to_name) %>%
     dplyr::mutate(across(where(is.character), ~forcats::as_factor(.x))) %>%
     statfitools::clean_names() %>%
     relocate(time) %>%
@@ -72,6 +69,9 @@ utils::globalVariables(c("time", "values", "where"))
 #' Get code name mapping from pxweb_data
 #'
 #' @param px_data A pxweb_data object.
+#'
+#' @export
+#'
 #' @return A named (column codes) list of named (codes) vectors (names).
 #'
 px_code_name <- function(px_data){
