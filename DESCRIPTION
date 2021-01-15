@@ -1,7 +1,7 @@
 Package: pttdatahaku
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(person("Janne", "Huovari", email = "janne.huovari@ptt.fi",
                   role = c("aut", "cre")),
              person("Juho", "Alasalmi", email = "juho.alasalmi@ptt.fi",
@@ -17,5 +17,7 @@ Imports:
     forcats,
     rlang,
     purrr,
-    tidyr
+    tidyr,
+    qs,
+    here
 RoxygenNote: 7.1.1

@@ -5,7 +5,7 @@
 <!-- badges: end -->
 
 
-### Haettavat tiedot muokataan seuraavaan muotoon:
+## Haettavat tiedot muokataan seuraavaan muotoon:
 
  - Pitkä tibble
  - muuttujanimet
@@ -26,7 +26,7 @@
   - missing values merkataan NA
 
 
-### pxweb haut
+## pxweb haut
 
 - Aika ja aluemuuttujista kaikki anonyymisti (*)
 - Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
@@ -37,8 +37,18 @@
         
 Hakufunktio:
   *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
+  
+## Tietojen tallentaminen ja lukeminen
+
+- Tulevaisuudessa tietokanta? Nyt projektin data-kansioon
+- Funktiot:
+   - ptt_save_data()
+   - ptt_read_data()
+
+
+
         
- ## Apufunktiot
+## Apufunktiot
   ### Olemassa
    - *clean_names*
    - *make_names*
