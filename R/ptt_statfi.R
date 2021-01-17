@@ -32,7 +32,7 @@
 #'                    "kausitasoitettu_euro",
 #'                    "trendi_euro"))
 #'
-#'   pp2 <- ptt_get_statfi(url, query, names = )
+#'   pp2 <- ptt_get_statfi(url, query)
 
 ptt_get_statfi <- function(url, query, names = "all"){
   px_data <- pxweb::pxweb_get(url = url, query = query)
