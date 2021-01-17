@@ -44,6 +44,7 @@ Hakufunktio:
 - Funktiot:
    - ptt_save_data()
    - ptt_read_data()
+- Datatiedostojen yhteinäiset nimet? Olisiko taulun koodi pxwebissa hyva tunniste tiedostoniimeen, e.g. data_1001
 
 
 
