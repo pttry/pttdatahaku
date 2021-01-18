@@ -4,7 +4,7 @@
 \alias{ptt_get_statfi}
 \title{Get PTT data from statfi}
 \usage{
-ptt_get_statfi(url, query, names = "all")
+ptt_get_statfi(url, query, names = "all", check_classifications = TRUE)
 }
 \arguments{
 \item{url}{A pxweb object or url that can be coherced to a pxweb object}

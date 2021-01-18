@@ -2,6 +2,7 @@
 
 export(codes2names)
 export(ptt_capture_citation)
+export(ptt_check_region_classifications)
 export(ptt_db_update)
 export(ptt_get_statfi)
 export(px_code_name)
