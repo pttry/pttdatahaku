@@ -47,7 +47,6 @@ ptt_save_db_list <- function(db_list, db_list_name = deparse1(substitute(db_list
   db_file = file.path(db_path, paste0(db_list_name, ".rds"))
   saveRDS(db_list, db_file)
 
-
 }
 
 #' @describeIn ptt_save_db_list
@@ -62,7 +61,7 @@ ptt_read_db_list <- function(db_list_name, create = FALSE){
     db_list <- list()
     message("A new database list created")
   } else {
-    stop("File for ", db_list_name, " did non exists")
+    stop("File for ", db_list_name, " does not exist.")
   }
 
   db_list

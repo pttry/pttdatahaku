@@ -69,9 +69,9 @@ ptt_get_statfi <- function(url, query, names = "all", check_classifications = TR
     }
 
 
-    attributes(px_df)$citation <- ptt_capture_citation(px_data)
+  attributes(px_df)$citation <- ptt_capture_citation(px_data)
 
-    px_df
+  px_df
 }
 
 utils::globalVariables(c("time", "values", "where"))
@@ -125,7 +125,7 @@ ptt_capture_citation <- function(x) {
   api_info <- pxweb_api_catalogue()[[pxweb:::pxweb_api_name.pxweb(pxweb(x$url))]]
   list(full_citation = citation[2],
        bibtex_citation = citation[4],
-       table_name = px_data$pxweb_metadata$title,
+       table_name = x$pxweb_metadata$title,
        table_code = stringr::str_remove(
                          stringr::str_remove(
                              stringr::str_remove(tail(unlist(stringr::str_split(x$url, pattern = "/")), n= 1),
