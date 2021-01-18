@@ -37,10 +37,11 @@
 #'       )
 #'     )
 #'
-#'  y <- ptt_db_update(test_db_list)
+#'  ptt_db_update(db_list = test_db_list)
 #'
 
 
 ptt_db_update <- function(db_list){
-  purrr::map(db_list, ~eval(parse(text = .x$call), envir = .x))
+  dat_list <- purrr::map(db_list, ~eval(parse(text = .x$call), envir = .x))
+  purrr::imap(dat_list, ~ptt_save_data(.x, .y))
 }
