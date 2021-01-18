@@ -1,13 +1,18 @@
-#' Update PTT database
+#' Add and update PTT database
+#'
+#' @param db_list A PTT database list
+#' @param dp_list_name A database list name
+#' @param add A query list to add
 #'
 #' @export
 #'
 #' @import dplyr
 #'
 #' @examples
-#'   test_db_list <-
-#'     list(
-#'       test1 = list(
+#'  ptt_add_query(
+#'    "test_db",
+#'    "test1",
+#'    list(
 #'         url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
 #'         query =
 #'           list(
@@ -20,8 +25,13 @@
 #'         call = c(
 #'           "ptt_get_statfi(url, query)"
 #'         )
-#'       ),
-#'       test2 = list(
+#'       )
+#'    )
+#'
+#'  ptt_add_query(
+#'    "test_db",
+#'    "test2",
+#'    list(
 #'         url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
 #'         query =
 #'           list(
@@ -35,13 +45,35 @@
 #'           "ptt_get_statfi(url, query)"
 #'         )
 #'       )
-#'     )
+#'    )
 #'
-#'  ptt_db_update(db_list = test_db_list)
+#'
+#'
+#'  ptt_db_update(db_list_name = "test_db")
+#'
+#'  test1_dat <- ptt_read_data("test1")
 #'
 
 
-ptt_db_update <- function(db_list){
+ptt_db_update <- function(db_list_name){
+  db_list <- ptt_read_db_list(db_list_name, create = FALSE)
   dat_list <- purrr::map(db_list, ~eval(parse(text = .x$call), envir = .x))
   purrr::imap(dat_list, ~ptt_save_data(.x, .y))
+  invisible(NULL)
 }
+
+
+#' @describeIn ptt_db_update
+
+ptt_add_query <- function(db_list_name, name, q_list){
+
+  # read or create db
+  db_list <- ptt_read_db_list(db_list_name, create = TRUE)
+
+  db_list[[name]] <- q_list
+
+  ptt_save_db_list(db_list, db_list_name)
+
+}
+
+

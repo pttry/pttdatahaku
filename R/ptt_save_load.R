@@ -27,3 +27,43 @@ ptt_read_data <- function(x_name){
 
 
 db_path <- "~/../Pellervon Taloustutkimus PTT ry/Pellervon taloustutkimus - Datapankki/Tietokanta"
+
+
+#' Save and read database list
+#'
+#'
+#' @param db_list A database list.
+#' @param db_list_name A database list name.
+#' @param create A logical whether to create in non exits
+#'
+#' @export
+#'
+#' @examples
+#'   db_t <- ptt_read_db_list("test_db")
+#'
+ptt_save_db_list <- function(db_list, db_list_name = deparse1(substitute(db_list))){
+
+  # read or create db
+  db_file = file.path(db_path, paste0(db_list_name, ".rds"))
+  saveRDS(db_list, db_file)
+
+
+}
+
+#' @describeIn ptt_save_db_list
+#'
+ptt_read_db_list <- function(db_list_name, create = FALSE){
+
+  # read or create db
+  db_file = file.path(db_path, paste0(db_list_name, ".rds"))
+  if (file.exists(db_file)){
+    db_list <- readRDS(db_file)
+  } else if (create) {
+    db_list <- list()
+    message("A new database list created")
+  } else {
+    stop("File for ", db_list_name, " did non exists")
+  }
+
+  db_list
+}

@@ -67,7 +67,10 @@ ptt_get_statfi <- function(url, query, names = "all", check_classifications = TR
         message("Region classification check: Either no region variables to check or region variables not with names 'alue_code' and 'alue_name'.")
       }
     }
+
+
     attributes(px_df)$citation <- ptt_capture_citation(px_data)
+
     px_df
 }
 
