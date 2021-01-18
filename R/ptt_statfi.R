@@ -60,6 +60,7 @@ ptt_get_statfi <- function(url, query, names = "all"){
     relocate(time) %>%
     relocate(values, .after = last_col())
 
+    attributes(px_df)$citation <- ptt_capture_citation(px_data)
     px_df
 }
 
@@ -98,3 +99,34 @@ statfi_url <- function(..., .base_url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi")
 }
 
 
+#' Extract citation information from pxweb_data object.
+#'
+#' @param x, pxweb_data object
+#'
+#' @return list, a list containing citation information
+#' @export
+#'
+#' @examples
+ptt_capture_citation <- function(x) {
+
+  citation <- capture.output(pxweb::pxweb_cite(x))
+  citation[citation == ""] <- "break_here"
+  citation <- unlist(stringr::str_split(paste(citation, collapse = " "), pattern = "break_here"))
+  api_info <- pxweb_api_catalogue()[[pxweb:::pxweb_api_name.pxweb(pxweb(x$url))]]
+  list(full_citation = citation[2],
+       bibtex_citation = citation[4],
+       table_name = px_data$pxweb_metadata$title,
+       table_code = str_remove(
+                         str_remove(
+                            str_remove(tail(unlist(str_split(x$url, pattern = "/")), n= 1),
+                                   pattern = "statfin_"),
+                            pattern = "pxt_"),
+                         pattern = ".px"),
+       author = utils::person(api_info$citation$organization),
+       organization = api_info$citation$organization,
+       address = api_info$citation$address,
+       year = as.POSIXlt(x$time_stamp)$year + 1900L,
+       url = x$url,
+       note = paste0("[Data accessed ", x$time_stamp,
+                     " using pxweb R package ", utils::packageVersion("pxweb"), "]"))
+}

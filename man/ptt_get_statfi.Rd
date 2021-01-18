@@ -38,5 +38,5 @@ Downloads data from statfi and modifies data to ptt-form.
                    "kausitasoitettu_euro",
                    "trendi_euro"))
 
-  pp2 <- ptt_get_statfi(url, query, names = )
+  pp2 <- ptt_get_statfi(url, query)
 }
