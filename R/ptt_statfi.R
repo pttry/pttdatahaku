@@ -165,7 +165,7 @@ get_table_code <- function(url){
 ptt_check_region_classifications <- function(data, supress_ok_message = TRUE) {
 
   print("Checking region classifications...")
-  code_prefixes <- unique(sapply(data$alue_code, gsub, pattern = "[^a-zA-Z]", replacement = ""))
+  code_prefixes <- unique(sapply(unique(data$alue_code), gsub, pattern = "[^a-zA-Z]", replacement = ""))
   code_prefixes <- code_prefixes[!code_prefixes == "SSS"] # remove later
   prefix_to_name = c("SSS" = "koko maa", "KU" = "kunta", "SK" = "seutukunta", "MK" = "maakunta", "ELY" = "ely", "SA" = "suuralue")
   status <- logical(length(code_prefixes))
