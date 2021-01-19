@@ -21,7 +21,7 @@ The foldet must be synced.
 }
 \section{Functions}{
 \itemize{
-\item \code{ptt_read_data}: 
+\item \code{ptt_read_data}: Read data
 }}
 
 \examples{

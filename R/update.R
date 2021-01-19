@@ -46,6 +46,7 @@ ptt_db_update <- function(db_list_name, tables = "all"){
 
 
 #' @describeIn ptt_db_update Add to query
+#' @export
 
 ptt_add_query <- function(db_list_name, table_name, url, query_list,
                           call = "ptt_get_statfi(url, query)"){

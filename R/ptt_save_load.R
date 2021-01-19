@@ -19,7 +19,8 @@ ptt_save_data <- function(x, x_name = deparse1(substitute(x))){
 }
 
 #'
-#' @describeIn ptt_save_data
+#' @describeIn ptt_save_data Read data
+#' @export
 #'
 ptt_read_data <- function(x_name){
 
@@ -51,7 +52,8 @@ ptt_save_db_list <- function(db_list, db_list_name = deparse1(substitute(db_list
 
 }
 
-#' @describeIn ptt_save_db_list
+#' @describeIn ptt_save_db_list Read database list.
+#' @export
 #'
 ptt_read_db_list <- function(db_list_name, create = FALSE){
 

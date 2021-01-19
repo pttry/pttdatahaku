@@ -21,7 +21,7 @@ Save and read database list
 }
 \section{Functions}{
 \itemize{
-\item \code{ptt_read_db_list}: 
+\item \code{ptt_read_db_list}: Read database list.
 }}
 
 \examples{
