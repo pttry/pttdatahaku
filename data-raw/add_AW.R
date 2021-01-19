@@ -7,8 +7,7 @@
 #                                 koulutusrakenne](http://www.stat.fi/til/vkour/index.html))
 # 12bs -- 15 vuotta täyttänyt väestö koulutusasteen, maakunnan, kunnan, sukupuolen ja ikäryhmän mukaan, 2007-2019
 # pxweb_print_full_query(statfi_url("StatFin/kou/vkour/statfin_vkour_pxt_12bs.px"))
-ptt_add_query("aw_db",
-              "vkour_12bq",
+ptt_add_query(db_list_name = "aw_db",
               url = statfi_url("StatFin/kou/vkour/statfin_vkour_pxt_12bs.px"),
               query_list =
                 list("Vuosi"=c("*"),
@@ -18,7 +17,7 @@ ptt_add_query("aw_db",
                    "Tiedot"=c("kaste100","kaste0","kaste10","kaste3","kaste4","kaste15","kaste5","kaste6","kaste7","kaste8","vktm")),
               call = "ptt_get_statfi(url, query, , check_classifications = FALSE)")
 
-ptt_db_update("aw_db")
+ptt_db_update("aw_db", tables = "vkour_12bs")
 
 #
 # -   Väestön ikärakenne

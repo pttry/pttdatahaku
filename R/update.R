@@ -2,7 +2,8 @@
 #'
 #' @param db_list A PTT database list.
 #' @param dp_list_name A database list name.
-#' @param table_name A name of table to add.
+#' @param table_code A name of table to add. If NULL (default) the name is
+#'                   constructed for url.
 #' @param url A url of table in statfin
 #' @param query_list A query list from \code{\link{pxweb_print_full_query}}.
 #' @param tables A character vector of tables to update.
@@ -48,13 +49,15 @@ ptt_db_update <- function(db_list_name, tables = "all"){
 #' @describeIn ptt_db_update Add to query
 #' @export
 
-ptt_add_query <- function(db_list_name, table_name, url, query_list,
+ptt_add_query <- function(db_list_name, url, query_list, table_code = NULL,
                           call = "ptt_get_statfi(url, query)"){
 
   # read or create db
   db_list <- ptt_read_db_list(db_list_name, create = TRUE)
 
-  db_list[[table_name]] <- list(url = url, query = query_list, call = call)
+  if (is.null(table_code)) table_code <- get_table_code(url)
+
+  db_list[[table_code]] <- list(url = url, query = query_list, call = call)
 
   ptt_save_db_list(db_list, db_list_name)
 

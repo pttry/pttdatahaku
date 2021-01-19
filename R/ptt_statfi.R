@@ -126,12 +126,7 @@ ptt_capture_citation <- function(x) {
   list(full_citation = citation[2],
        bibtex_citation = citation[4],
        table_name = x$pxweb_metadata$title,
-       table_code = stringr::str_remove(
-                         stringr::str_remove(
-                             stringr::str_remove(tail(unlist(stringr::str_split(x$url, pattern = "/")), n= 1),
-                                   pattern = "statfin_"),
-                            pattern = "pxt_"),
-                         pattern = ".px"),
+       table_code = get_table_code(x$url),
        author = utils::person(api_info$citation$organization),
        organization = api_info$citation$organization,
        address = api_info$citation$address,
@@ -139,6 +134,18 @@ ptt_capture_citation <- function(x) {
        url = x$url,
        note = paste0("[Data accessed ", x$time_stamp,
                      " using pxweb R package ", utils::packageVersion("pxweb"), "]"))
+}
+
+#' Get table code
+#'
+#' @param url
+get_table_code <- function(url){
+  stringr::str_remove(
+    stringr::str_remove(
+      stringr::str_remove(tail(unlist(stringr::str_split(url, pattern = "/")), n= 1),
+                          pattern = "statfin_"),
+      pattern = "pxt_"),
+    pattern = ".px")
 }
 
 
