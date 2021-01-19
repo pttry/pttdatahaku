@@ -10,9 +10,9 @@ codes2names(.data, codes_names, to_name = names(codes_names))
 \item{.data}{A data.frame or similar.}
 
 \item{codes_names}{A named (column codes) list of named (codes) vectors (names).
-For example from \link{\code{px_code_name}}.}
+For example from [px_code_name()].}
 
-\item{to_name}{A columns to name. Default are names from \code{codes_names} list.}
+\item{to_name}{A columns to name. Default are names from [codes_names] list.}
 }
 \value{
 A modified data.frame or similar.

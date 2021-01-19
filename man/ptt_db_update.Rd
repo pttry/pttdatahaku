@@ -2,33 +2,47 @@
 % Please edit documentation in R/update.R
 \name{ptt_db_update}
 \alias{ptt_db_update}
-\title{Update PTT database}
+\alias{ptt_add_query}
+\title{Add and update PTT database}
 \usage{
-ptt_db_update(db_list)
+ptt_db_update(db_list_name, tables = "all")
+
+ptt_add_query(
+  db_list_name,
+  table_name,
+  url,
+  query_list,
+  call = "ptt_get_statfi(url, query)"
+)
+}
+\arguments{
+\item{tables}{A character vector of tables to update.}
+
+\item{table_name}{A name of table to add.}
+
+\item{url}{A url of table in statfin}
+
+\item{query_list}{A query list from \code{\link{pxweb_print_full_query}}.}
+
+\item{db_list}{A PTT database list.}
+
+\item{dp_list_name}{A database list name.}
 }
 \description{
-Update PTT database
+Add and update PTT database
 }
+\section{Functions}{
+\itemize{
+\item \code{ptt_add_query}: Add to query
+}}
+
 \examples{
-  test_db_list <-
-    list(
-      test1 = list(
-        url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
-        query =
-          list(
-            "Vuosi"=c("1970","1975"),
-             "Alue"=c("SSS","KU020","KU005"),
-             "Ik\U00E4"=c("SSS","15-19"),
-             "Sukupuoli"=c("SSS","1","2"),
-             "Koulutusaste"=c("SSS","3T8"),
-             "Tiedot"=c("vaesto")),
-        call = c(
-          "ptt_get_statfi(url, query)"
-        )
-      ),
-      test2 = list(
-        url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
-        query =
+
+ ptt_add_query(
+   "test_db",
+   "test2",
+   url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
+   query_list =
           list(
             "Vuosi"=c("1980"),
              "Alue"=c("SSS"),
@@ -36,12 +50,11 @@ Update PTT database
              "Sukupuoli"=c("SSS","1","2"),
              "Koulutusaste"=c("SSS","3T8"),
              "Tiedot"=c("vaesto")),
-        call = c(
-          "ptt_get_statfi(url, query)"
-        )
-      )
-    )
+   call = c("ptt_get_statfi(url, query)")
+   )
 
- ptt_db_update(db_list = test_db_list)
+ ptt_db_update(db_list_name = "test_db")
+
+ test1_dat <- ptt_read_data("test1")
 
 }

@@ -7,6 +7,8 @@
 ptt_check_region_classifications(data, supress_ok_message = TRUE)
 }
 \arguments{
+\item{data}{A data to check.}
+
 \item{supress_ok_message}{logical, whether indicates if no problems. Defaults to TRUE.}
 }
 \value{

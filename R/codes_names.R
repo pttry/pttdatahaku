@@ -2,8 +2,8 @@
 #'
 #' @param .data A data.frame or similar.
 #' @param codes_names A named (column codes) list of named (codes) vectors (names).
-#'        For example from \link{\code{px_code_name}}.
-#' @param to_name A columns to name. Default are names from \code{codes_names} list.
+#'        For example from [px_code_name()].
+#' @param to_name A columns to name. Default are names from [codes_names] list.
 #'
 #' @export
 #'

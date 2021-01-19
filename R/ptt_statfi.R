@@ -116,7 +116,7 @@ statfi_url <- function(..., .base_url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi")
 #' @return list, a list containing citation information
 #' @export
 #'
-#' @examples
+
 ptt_capture_citation <- function(x) {
 
   citation <- capture.output(pxweb::pxweb_cite(x))
@@ -149,13 +149,12 @@ ptt_capture_citation <- function(x) {
 #' from the package statficlassifications. Currently the input data has to have the region
 #' variable names 'alue_name' and 'alue_code' for region names and codes respectively.
 #'
-#' @param data
+#' @param data A data to check.
 #' @param supress_ok_message logical, whether indicates if no problems. Defaults to TRUE.
 #'
 #' @return Possibly a warning.
 #' @export
 #'
-#' @examples
 ptt_check_region_classifications <- function(data, supress_ok_message = TRUE) {
 
   print("Checking region classifications...")
