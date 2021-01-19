@@ -7,6 +7,8 @@
 #' @param x A data to save
 #' @param x_name A name of data. In saving defaults to a x object name.
 #'
+#' @export
+#'
 #' @examples
 #' test_dat <- data.frame(a = c(1,2))
 #' ptt_save_data(test_dat)
