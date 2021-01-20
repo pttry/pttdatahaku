@@ -38,6 +38,9 @@ ptt_get_statfi <- function(url, query, names = "all", check_classifications = TR
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
   codes_names <- px_code_name(px_data)
+  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = TRUE, as_named_vector = TRUE)
+  extra_regions <- codes_names$Alue[!(names(codes_names$Alue) %in% names(region_codes_names))]
+  codes_names$Alue <- region_codes_names
 
   if (names == "all") {
     to_name <- names(codes_names)
@@ -50,6 +53,7 @@ ptt_get_statfi <- function(url, query, names = "all", check_classifications = TR
 
   px_df <- as.data.frame(px_data, column.name.type = "code",
                          variable.value.type = "code") %>%
+    filter(!(Alue %in% names(extra_regions))) %>%
     tidyr::pivot_longer(where(is.numeric),
                         names_to = setdiff(names(codes_names), names(.)),
                         values_to = "values") %>%
@@ -173,7 +177,7 @@ ptt_check_region_classifications <- function(data, supress_ok_message = TRUE) {
 
   for(prefix in code_prefixes) {
 
-    classification_in_key <- statficlassifications::get_regionkey(offline = FALSE) %>%
+    classification_in_key <- statficlassifications::get_regionkey(offline = TRUE) %>%
       dplyr::select(paste(prefix_to_name[prefix], c("code", "name"), sep = "_")) %>%
       tidyr::unite(alue, everything(), sep = "_")
     classification_in_data <- dplyr::filter(data, grepl(prefix, alue_code)) %>% select(contains("alue_")) %>%
@@ -188,7 +192,7 @@ ptt_check_region_classifications <- function(data, supress_ok_message = TRUE) {
   status["SSS"] <- all(classification_in_data$alue %in% "SSS_KOKO MAA")
 
 
-  if(!any(status)) {
+  if(any(!status)) {
     warning(paste0("Region classification check: Problem with the classifications, names or codes of region(s) ",
                    paste0(prefix_to_name[names(status)][!status], collapse = ", ")))
   } else if(!supress_ok_message) {
