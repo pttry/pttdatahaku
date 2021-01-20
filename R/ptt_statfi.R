@@ -50,10 +50,10 @@ ptt_get_statfi <- function(url, query, names = "all", check_classifications = TR
 
   px_df <- as.data.frame(px_data, column.name.type = "code",
                          variable.value.type = "code") %>%
-    statfitools::clean_times2() %>%
     tidyr::pivot_longer(where(is.numeric),
-                        names_to = dplyr::last(names(codes_names)),
+                        names_to = setdiff(names(codes_names), names(.)),
                         values_to = "values") %>%
+    statfitools::clean_times2() %>%
     codes2names(codes_names, to_name) %>%
     dplyr::mutate(across(where(is.character), ~forcats::as_factor(.x))) %>%
     statfitools::clean_names() %>%
