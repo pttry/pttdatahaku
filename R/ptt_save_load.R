@@ -22,10 +22,20 @@ ptt_save_data <- function(x, x_name = deparse1(substitute(x))){
 #' @describeIn ptt_save_data Read data
 #' @export
 #'
-ptt_read_data <- function(x_name){
+ptt_read_data <- function(x_name, region_level = NULL){
 
   # path.expand(path)
-  qs::qread(file = file.path(db_path, paste0(x_name, ".qs")))
+  output_data <- qs::qread(file = file.path(db_path, paste0(x_name, ".qs")))
+
+  if(is.null(region_level)) {
+    output_data
+  } else {
+    region_level <- tolower(region_level)
+    prefix_to_name = c("koko maa" = "SSS", "kunta" =  "KU", "seutukunta" = "SK", "maakunta" = "MK", "ely" = "ELY", "suuralue" = "SA")
+    dplyr::filter(output_data, grepl(prefix_to_name[region_level], alue_code)) %>%
+      rename_with(~paste(region_level, "code", sep = "_"), alue_code) %>%
+      rename_with(~paste(region_level, "name", sep = "_"), alue_name)
+  }
 }
 
 
