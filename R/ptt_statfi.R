@@ -50,7 +50,7 @@ ptt_get_statfi <- function(url, query, names = "all",
   }
 
   # Region names from classifiation
-  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = FALSE, as_named_vector = TRUE)
+  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = TRUE, as_named_vector = TRUE)
   extra_regions <- codes_names$Alue[!(names(codes_names$Alue) %in% names(region_codes_names))]
   codes_names$Alue <- region_codes_names
 
