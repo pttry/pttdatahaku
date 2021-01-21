@@ -42,15 +42,15 @@ ptt_get_statfi <- function(url, query, names = "all",
   codes_names <- px_code_name(px_data)
 
   # rename variables
-  #   First to make sure region naming works when renaming
-  names(renames) <- gsub("alue", "Alue", names(renames))
+   #  First to make sure region naming works when renaming
   if (!is.null(renames)){
+    names(renames) <- gsub("alue", "Alue", names(renames))
     names(codes_names) <- recode(names(codes_names),
                                  !!!setNames(names(renames), renames))
   }
 
-  # Region names from classifiation
-  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = FALSE, as_named_vector = TRUE)
+  # Region names from classification
+  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = TRUE, as_named_vector = TRUE)
   extra_regions <- codes_names$Alue[!(names(codes_names$Alue) %in% names(region_codes_names))]
   codes_names$Alue <- region_codes_names
 
