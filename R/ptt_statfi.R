@@ -34,11 +34,20 @@
 #'
 #'   pp2 <- ptt_get_statfi(url, query)
 
-ptt_get_statfi <- function(url, query, names = "all", check_classifications = TRUE){
+ptt_get_statfi <- function(url, query, names = "all",
+                           renames = NULL,
+                           check_classifications = TRUE){
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
   codes_names <- px_code_name(px_data)
 
+  # rename variables
+  if (!is.null(renames)){
+    names(codes_names) <- recode(names(codes_names),
+                                 !!!setNames(names(renames), renames))
+    }
+
+  # columns to name
   if (names == "all") {
     to_name <- names(codes_names)
   } else if (names == "none") {
@@ -50,6 +59,9 @@ ptt_get_statfi <- function(url, query, names = "all", check_classifications = TR
 
   px_df <- as.data.frame(px_data, column.name.type = "code",
                          variable.value.type = "code") %>%
+    # renames variables
+    rename(!!!renames) %>%
+    # All longer
     tidyr::pivot_longer(where(is.numeric),
                         names_to = setdiff(names(codes_names), names(.)),
                         values_to = "values") %>%

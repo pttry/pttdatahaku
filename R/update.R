@@ -5,7 +5,7 @@
 #' @param table_code A name of table to add. If NULL (default) the name is
 #'                   constructed for url.
 #' @param url A url of table in statfin
-#' @param query_list A query list from \code{\link{pxweb_print_full_query}}.
+#' @param query A query list from \code{\link{pxweb_print_full_query}}.
 #' @param tables A character vector of tables to update.
 #'
 #' @export
@@ -18,7 +18,7 @@
 #'    "test_db",
 #'    "test2",
 #'    url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
-#'    query_list =
+#'    query =
 #'           list(
 #'             "Vuosi"=c("1980"),
 #'              "Alue"=c("SSS"),
@@ -49,7 +49,7 @@ ptt_db_update <- function(db_list_name, tables = "all"){
 #' @describeIn ptt_db_update Add to query
 #' @export
 
-ptt_add_query <- function(db_list_name, url, query_list, table_code = NULL,
+ptt_add_query <- function(db_list_name, url, query, table_code = NULL,
                           call = "ptt_get_statfi(url, query)"){
 
   # read or create db
@@ -57,7 +57,7 @@ ptt_add_query <- function(db_list_name, url, query_list, table_code = NULL,
 
   if (is.null(table_code)) table_code <- get_table_code(url)
 
-  db_list[[table_code]] <- list(url = url, query = query_list, call = call)
+  db_list[[table_code]] <- list(url = url, query = query, call = call)
 
   ptt_save_db_list(db_list, db_list_name)
 
