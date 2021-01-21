@@ -64,7 +64,7 @@ ptt_add_query(db_list_name = "aw_db",
                 list("Vuosi"=c("*"),
                      "Maakunta 2011"=c("*"),
                      "Tiedot"=c("Vaesto","Tyovoima","Tyolliset","Tyottomat","Tyollisyysaste_15_64","Tyottomyysaste","tyovoimaosuus")),
-              call = "ptt_get_statfi(url, query, renames = c(alue = \"Maakunta 2011\"), check_classifications = FALSE)")
+              call = "ptt_get_statfi(url, query, renames = c(Alue = \"Maakunta 2011\"), check_classifications = FALSE)")
 
 ptt_db_update("aw_db", tables = "tyti_11pn")
 

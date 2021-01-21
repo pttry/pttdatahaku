@@ -39,6 +39,9 @@ ptt_get_statfi <- function(url, query, names = "all",
                            check_classifications = TRUE){
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
+  # To make sure region naming works when renaming
+  names(renames) <- gsub("alue", "Alue", names(renames))
+
   codes_names <- px_code_name(px_data)
   region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = FALSE, as_named_vector = TRUE)
   extra_regions <- codes_names$Alue[!(names(codes_names$Alue) %in% names(region_codes_names))]
