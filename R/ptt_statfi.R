@@ -72,11 +72,12 @@ ptt_get_statfi <- function(url, query, names = "all",
 
     # renames variables
     rename(!!!renames) %>%
-    filter(!(Alue %in% names(extra_regions))) %>%
+
     # All longer
     tidyr::pivot_longer(where(is.numeric),
                         names_to = setdiff(names(codes_names), names(.)),
                         values_to = "values") %>%
+    filter(!(Alue %in% names(extra_regions))) %>%
     statfitools::clean_times2() %>%
     codes2names(codes_names, to_name) %>%
     dplyr::mutate(across(where(is.character), ~forcats::as_factor(.x))) %>%
