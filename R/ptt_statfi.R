@@ -39,19 +39,23 @@ ptt_get_statfi <- function(url, query, names = "all",
                            check_classifications = TRUE){
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
-  # To make sure region naming works when renaming
-  names(renames) <- gsub("alue", "Alue", names(renames))
-
   codes_names <- px_code_name(px_data)
+
+  # rename variables
+  #   First to make sure region naming works when renaming
+  names(renames) <- gsub("alue", "Alue", names(renames))
+  if (!is.null(renames)){
+    names(codes_names) <- recode(names(codes_names),
+                                 !!!setNames(names(renames), renames))
+  }
+
+  # Region names from classifiation
   region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = FALSE, as_named_vector = TRUE)
   extra_regions <- codes_names$Alue[!(names(codes_names$Alue) %in% names(region_codes_names))]
   codes_names$Alue <- region_codes_names
 
-  # rename variables
-  if (!is.null(renames)){
-    names(codes_names) <- recode(names(codes_names),
-                                 !!!setNames(names(renames), renames))
-    }
+
+
 
   # columns to name
   if (names == "all") {
@@ -78,7 +82,8 @@ ptt_get_statfi <- function(url, query, names = "all",
     dplyr::mutate(across(where(is.character), ~forcats::as_factor(.x))) %>%
     statfitools::clean_names() %>%
     relocate(time) %>%
-    relocate(values, .after = last_col())
+    relocate(values, .after = last_col()) %>%
+    droplevels()
 
     if(check_classifications) {
       if("alue_code" %in% names(px_df) & "alue_name" %in% names(px_df)) {
