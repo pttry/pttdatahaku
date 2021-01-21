@@ -42,14 +42,15 @@ ptt_get_statfi <- function(url, query, names = "all",
   codes_names <- px_code_name(px_data)
 
   # rename variables
-  #   First to make sure region naming works when renaming
-  names(renames) <- gsub("alue", "Alue", names(renames))
+   #  First to make sure region naming works when renaming
   if (!is.null(renames)){
+    names(renames) <- gsub("alue", "Alue", names(renames))
     names(codes_names) <- recode(names(codes_names),
                                  !!!setNames(names(renames), renames))
   }
 
-  # Region names from classifiation
+
+  # Region names from classification
   region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = TRUE, as_named_vector = TRUE)
   extra_regions <- codes_names$Alue[!(names(codes_names$Alue) %in% names(region_codes_names))]
   codes_names$Alue <- region_codes_names
@@ -72,11 +73,12 @@ ptt_get_statfi <- function(url, query, names = "all",
 
     # renames variables
     rename(!!!renames) %>%
-    filter(!(Alue %in% names(extra_regions))) %>%
+
     # All longer
     tidyr::pivot_longer(where(is.numeric),
                         names_to = setdiff(names(codes_names), names(.)),
                         values_to = "values") %>%
+    filter(!(Alue %in% names(extra_regions))) %>%
     statfitools::clean_times2() %>%
     codes2names(codes_names, to_name) %>%
     dplyr::mutate(across(where(is.character), ~forcats::as_factor(.x))) %>%
