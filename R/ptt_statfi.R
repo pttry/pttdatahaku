@@ -36,7 +36,7 @@
 
 ptt_get_statfi <- function(url, query, names = "all",
                            renames = NULL,
-                           check_classifications = TRUE){
+                           check_classifications = FALSE){
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
   codes_names <- px_code_name(px_data)
@@ -49,13 +49,19 @@ ptt_get_statfi <- function(url, query, names = "all",
                                  !!!setNames(names(renames), renames))
   }
 
+  # Standardize region codes, standardizes only kunta, seutukunta, maakunta and koko maa
+  names(codes_names$Alue) <- statficlassifications::standardize_code_prefixes(names(codes_names$Alue))
 
-  # Region names from classification
-  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = TRUE, as_named_vector = TRUE)
-  extra_regions <- codes_names$Alue[!(names(codes_names$Alue) %in% names(region_codes_names))]
-  codes_names$Alue <- region_codes_names
+  # Join abolished municipalities
+  names(codes_names$Alue) <- statficlassifications::join_abolished_municipalities(names(codes_names$Alue))
 
-
+  # Region names from classification,
+  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = TRUE)
+  df <- data.frame(alue_name = codes_names$Alue, alue_code = names(codes_names$Alue))
+  df <- left_join(df, region_codes_names, by = "alue_code")
+  new_codes_names_alue <- df$alue_name.y
+  names(new_codes_names_alue) <- names(codes_names$Alue)
+  codes_names$Alue <- new_codes_names_alue
 
 
   # columns to name
@@ -78,7 +84,6 @@ ptt_get_statfi <- function(url, query, names = "all",
     tidyr::pivot_longer(where(is.numeric),
                         names_to = setdiff(names(codes_names), names(.)),
                         values_to = "values") %>%
-    filter(!(Alue %in% names(extra_regions))) %>%
     statfitools::clean_times2() %>%
     codes2names(codes_names, to_name) %>%
     dplyr::mutate(across(where(is.character), ~forcats::as_factor(.x))) %>%
