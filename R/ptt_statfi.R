@@ -54,9 +54,10 @@ ptt_get_statfi <- function(url, query, names = "all",
         names(codes_names$Alue) <- statficlassifications::set_region_codes(names(codes_names$Alue))
      # Join abolished municipalities
         names(codes_names$Alue) <- statficlassifications::join_abolished_mun(names(codes_names$Alue))
-     # Region names from classification,
+     # Region names from classification
+        names1 <- names(codes_names$Alue)
         codes_names$Alue <- statficlassifications::codes_to_names_vct(names(codes_names$Alue))
-
+        names(codes_names$Alue ) <- names1
 
   # columns to name
   if (names == "all") {
