@@ -49,19 +49,13 @@ ptt_get_statfi <- function(url, query, names = "all",
                                  !!!setNames(names(renames), renames))
   }
 
-  # Standardize region codes, standardizes only kunta, seutukunta, maakunta and koko maa
-  names(codes_names$Alue) <- statficlassifications::standardize_code_prefixes(names(codes_names$Alue))
-
-  # Join abolished municipalities
-  names(codes_names$Alue) <- statficlassifications::join_abolished_municipalities(names(codes_names$Alue))
-
-  # Region names from classification,
-  region_codes_names <- statficlassifications::get_full_region_code_name_key(offline = TRUE)
-  df <- data.frame(alue_name = codes_names$Alue, alue_code = names(codes_names$Alue))
-  df <- left_join(df, region_codes_names, by = "alue_code")
-  new_codes_names_alue <- df$alue_name.y
-  names(new_codes_names_alue) <- names(codes_names$Alue)
-  codes_names$Alue <- new_codes_names_alue
+  # Change region codes and names to correspond the SF classifications in API
+     # Standardize region codes, standardizes only kunta, seutukunta, maakunta and koko maa
+        names(codes_names$Alue) <- statficlassifications::set_region_codes(names(codes_names$Alue))
+     # Join abolished municipalities
+        names(codes_names$Alue) <- statficlassifications::join_abolished_mun(names(codes_names$Alue))
+     # Region names from classification,
+        codes_names$Alue <- statficlassifications::codes_to_names_vct(names(codes_names$Alue))
 
 
   # columns to name
