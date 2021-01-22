@@ -37,6 +37,7 @@
 ptt_get_statfi <- function(url, query, names = "all",
                            renames = NULL,
                            check_classifications = FALSE){
+
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
   codes_names <- px_code_name(px_data)

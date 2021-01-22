@@ -9,7 +9,7 @@ ptt_get_statfi(
   query,
   names = "all",
   renames = NULL,
-  check_classifications = TRUE
+  check_classifications = FALSE
 )
 }
 \arguments{
