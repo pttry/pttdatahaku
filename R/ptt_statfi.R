@@ -35,7 +35,7 @@
 #'   pp2 <- ptt_get_statfi(url, query)
 
 ptt_get_statfi <- function(url, query, names = "all",
-
+                           check_classifications = TRUE,
                            renames = NULL){
 
   px_data <- pxweb::pxweb_get(url = url, query = query)
@@ -60,6 +60,13 @@ ptt_get_statfi <- function(url, query, names = "all",
     to_name <- names
   }
 
+  # Use the region codes of data to bring the region names from classifications
+  names_of_codes_names <- names(codes_names$Alue)
+  codes_names_orig <- codes_names$Alue
+  codes_names$Alue <- statficlassifications::codes_to_names(names(codes_names$Alue))
+  # Currently names of abolished muns cannot be determined, return them from the data
+  codes_names$Alue[is.na(codes_names$Alue)] <- codes_names_orig[is.na(codes_names$Alue)]
+  names(codes_names$Alue) <- names_of_codes_names
 
   px_df <- as.data.frame(px_data, column.name.type = "code",
                          variable.value.type = "code") %>%
@@ -82,6 +89,14 @@ ptt_get_statfi <- function(url, query, names = "all",
   attributes(px_df)$citation <- ptt_capture_citation(px_data)
   codes_names <- statfitools::clean_names(codes_names)
   attributes(px_df)$codes_names <- codes_names
+
+  if(check_classifications) {
+    if("alue_code" %in% names(px_df) & "alue_name" %in% names(px_df)) {
+      ptt_check_region_classifications(px_df, supress_ok_message = FALSE)
+    } else {
+      message("Region classification check: Either no region variables to check or region variables not with names 'alue_code' and 'alue_name'.")
+    }
+  }
 
   px_df
 }
@@ -161,23 +176,52 @@ get_table_code <- function(url){
 }
 
 
-#' Set the region codes and names such that they perfectly correspond with the classifications in the API
+
+#' Check if the regions in data correspond to classification keys
 #'
-#' @param data
+#' The logic of the function is to take each region level, take each region name-code pair and
+#' check if there is a corresponding region name-code pair in the regional classification key
+#' from the package statficlassifications. Currently the input data has to have the region
+#' variable names 'alue_name' and 'alue_code' for region names and codes respectively.
 #'
-#' @return
+#' @param data A data to check.
+#' @param supress_ok_message logical, whether indicates if no problems. Defaults to TRUE.
+#'
+#' @return Possibly a warning.
 #' @export
 #'
-#' @examples
-ptt_set_region_codes_names <- function(data) {
+ptt_check_region_classifications <- function(data, supress_ok_message = TRUE) {
 
-  # Change region codes and names to correspond the SF classifications in API
-  # Standardize region codes, standardizes only kunta, seutukunta, maakunta and koko maa
-  data <- dplyr::mutate(data, alue_code = statficlassifications::set_region_codes(data$alue_code))
-  # Join abolished municipalities
-  data <- dplyr::mutate(data, alue_code = statficlassifications::join_abolished_mun(data$alue_code))
-  # Region names from classification
-  data <- dplyr::mutate(data, alue_name = statficlassifications::codes_to_names(data$alue_code))
+  print("Checking region classifications...")
+  code_prefixes <- unique(sapply(unique(data$alue_code), gsub, pattern = "[^a-zA-Z]", replacement = ""))
+  code_prefixes <- code_prefixes[!code_prefixes == "SSS"] # remove later
+  prefix_to_name = c("SSS" = "koko maa", "KU" = "kunta", "SK" = "seutukunta", "MK" = "maakunta", "ELY" = "ely", "SA" = "suuralue")
+  status <- logical(length(code_prefixes))
+  names(status) <- code_prefixes
 
-  data
+  for(prefix in code_prefixes) {
+
+    classification_in_key <- statficlassifications::get_regionkey(offline = TRUE) %>%
+      dplyr::select(paste(prefix_to_name[prefix], c("code", "name"), sep = "_")) %>%
+      tidyr::unite(alue, everything(), sep = "_")
+    classification_in_data <- dplyr::filter(data, grepl(prefix, alue_code)) %>% select(contains("alue_")) %>%
+      tidyr::unite(alue, alue_code, alue_name, sep = "_") %>%
+      dplyr::distinct()
+    status[prefix] <- all(classification_in_data$alue %in% classification_in_key$alue)
+  }
+
+  classification_in_data <- dplyr::filter(data, grepl("SSS", alue_code)) %>% select(contains("alue_")) %>%
+    tidyr::unite(alue, alue_code, alue_name, sep = "_") %>%
+    dplyr::distinct()
+  status["SSS"] <- all(classification_in_data$alue %in% "SSS_KOKO MAA")
+
+
+  if(any(!status)) {
+    warning(paste0("Region classification check: Problem with the classifications, names or codes of region(s) ",
+                   paste0(prefix_to_name[names(status)][!status], collapse = ", ")))
+  } else if(!supress_ok_message) {
+    message("Region classification check: Classifications ok!")
+  }
+
 }
+
