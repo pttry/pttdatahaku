@@ -76,7 +76,7 @@ ptt_db_update("aw_db", tables = "tyti_11pn")
 
 # 6.01 Yleisesti verovelvollisten merkittävimmät tuloerät alueittain
 url_vero_tulot <- "http://vero2.stat.fi//PXWeb/api/v1/fi/Vero/Henkiloasiakkaiden_tuloverot/lopulliset/alue/tulot_102.px"
-pxweb_print_full_query(url_vero_tulot)
+# pxweb_print_full_query(url_vero_tulot)
 ptt_add_query(db_list_name = "aw_db",
               url = url_vero_tulot,
               query =
@@ -90,3 +90,67 @@ ptt_db_update("aw_db", tables = "tyti_11pn")
 
 k <- pxweb_interactive()
 kk <- ptt_get_statfi(url, query, renames = c(Vuosi = "Verovuosi"), check_classifications = FALSE)
+
+
+
+# Yritykset ja tuotanto
+# ---------------------
+#
+#   -   Yritysdynamiikka ([Aloittaneet ja lopettaneet
+#                          yritykset](http://www.stat.fi/til/aly/index.html))
+#
+# -   Yritystoiminnan rakenne ([Alueellinen
+#                               yritystoimintatilasto](http://www.stat.fi/til/alyr/index.html))
+#
+# -   Tutkimus ja kehitysmenot / -henkilöstö ([Tutkimus- ja
+#                                              kehittämistoiminta](http://www.stat.fi/til/tkke/index.html))
+#
+# -   Tuotannon taso
+# ([Aluetilinpito](http://www.stat.fi/til/altp/index.html))
+
+## BKT
+url_altp <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bc.px/")
+# pxweb_print_full_query(url_altp)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_altp,
+              query =
+                list("Alue"=c("*"),
+                          "Vuosi"=c("*"),
+                          "Tiedot"=c("GDPcap","GDPind","GDPind15","GDPind28","GDPvv2010","EP","GDPvv2015")),
+              call = "ptt_get_statfi(url, query)")
+
+ptt_db_update("aw_db", tables = "altp_12bc")
+
+## Arvonlisäys
+
+url_altp2 <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bd.px/")
+# pxweb_print_full_query(url_altp2)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_altp2,
+              query =
+                list("Alue"=c("*"),
+                     "Vuosi"=c("*"),
+                     "Taloustoimi"=c("B1GPH"),
+                     "Toimiala"=c("SSS"),
+                     "Sektori"=c("S1"),
+                     "Tiedot"=c("CP","FP")),
+              call = "{dat0 <- ptt_get_statfi(url, query)
+
+                        dat <- dat0 %>%
+                          select(!tiedot_name) %>%
+                          pivot_wider(names_from = tiedot_code, values_from = values) %>%
+                          group_by(across(where(is.factor))) %>%
+                          mutate(VV15 = statfitools::fp(CP, FP, lubridate::year(time), 2015)) %>%
+                          ungroup() %>%
+                          pivot_longer(c(CP, FP, VV15), names_to = \"tiedot\", values_to = \"values\") %>%
+                          codes2names(codes_names = attr(dat0, \"codes_names\")) %>%
+                          mutate(tiedot_name = forcats::fct_explicit_na(tiedot_name, \"Vuoden 2015 hinnoin, miljoonaa euroa\")) %>%
+                          relocate(values, .after = last_col())
+
+                        attr(dat, \"citation\") <- attr(dat0, \"citation\")
+                        attr(dat, \"codes_names\") <- attr(dat0, \"codes_names\")
+                        dat}")
+
+ptt_db_update("aw_db", tables = "altp_12bd")
+
+

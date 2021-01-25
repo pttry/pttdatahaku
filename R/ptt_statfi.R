@@ -52,9 +52,9 @@ ptt_get_statfi <- function(url, query, names = "all",
 
   # Change region codes and names to correspond the SF classifications in API
      # Standardize region codes, standardizes only kunta, seutukunta, maakunta and koko maa
-        names(codes_names$Alue) <- statficlassifications::set_region_codes(names(codes_names$Alue))
-     # Join abolished municipalities
-        names(codes_names$Alue) <- statficlassifications::join_abolished_mun(names(codes_names$Alue))
+     #    names(codes_names$Alue) <- statficlassifications::set_region_codes(names(codes_names$Alue))
+     # # Join abolished municipalities
+     #    names(codes_names$Alue) <- statficlassifications::join_abolished_mun(names(codes_names$Alue))
      # Region names from classification
         names1 <- names(codes_names$Alue)
         codes_names$Alue <- statficlassifications::codes_to_names_vct(names(codes_names$Alue))
@@ -98,6 +98,8 @@ ptt_get_statfi <- function(url, query, names = "all",
 
 
   attributes(px_df)$citation <- ptt_capture_citation(px_data)
+  codes_names <- statfitools::clean_names(codes_names)
+  attributes(px_df)$codes_names <- codes_names
 
   px_df
 }

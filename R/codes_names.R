@@ -24,5 +24,6 @@ codes2names <- function(.data, codes_names, to_name = names(codes_names)){
                                labels = codes_names[[cur_column()]]),
                        .names = "{.col}_name"))
 
-  dplyr::rename_with(.data, .cols = any_of(to_name) & where(is.character), ~paste0(.x, "_code"))
+  .data <- dplyr::rename_with(.data, .cols = any_of(to_name) & where(is.character), ~paste0(.x, "_code"))
+  dplyr::mutate(.data, across(contains("_code"), ~forcats::as_factor(.x)))
 }
