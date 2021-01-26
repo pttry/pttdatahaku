@@ -3,6 +3,7 @@
 #' @param x A data.frame like object.
 #' @export
 #'
+#' @examples
 #' x <- tibble(alue_code = c("KU911", "KU541"), alue_name = c("A", "B"), values = c(1,2))
 #'
 agg_abolished_mun <- function(x){
@@ -18,6 +19,41 @@ agg_abolished_mun <- function(x){
   y
 }
 
+
+#' Aggregate to other region level
+#'
+#' @param x A data.frame like object.
+#' @param from A name of reginal classification.
+#' @param to A name of reginal classification.
+#' @export
+#'
+#'
+agg_regions <- function(x, from = "kunta", to = "maakunta"){
+
+  region_key <- statficlassifications::get_regionkey(from, to)
+  names(region_key) <- c("from_name", "to_name", "alue_code", "to_code")
+  region_key["from_name"] <- NULL
+
+  y <- x %>%
+    left_join(region_key, by = "alue_code") %>%
+    select(-all_of(c("alue_name", "alue_code"))) %>%
+    rename(alue_code = to_code, alue_name = to_name) %>%
+    group_by(across(!values)) %>%
+    summarise(values = sum(values), .groups = "drop") %>%
+    relocate(names(x))
+
+  y <- add_ptt_attr(x, y)
+  y
+}
+
+#' Add regional aggragation
+
+add_regional_agg <- function(x, from = "kunta", to = "maakunta"){
+
+  y <- bind_rows(x, agg_regions(x, from = from, to = to)) %>%
+    droplevels()
+  y
+}
 
 #' Re-add ptt attributes back
 #'

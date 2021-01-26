@@ -72,7 +72,10 @@ k <- ptt_get_statfi(url = url_vaenn_128v,
                            "Sukupuoli"=c("SSS"),
                            "Ikä"=c("SSS", "000"),
                            "Tiedot"=c("vaesto_e19")))
-
+k$alue_code %>% unique()
+kk <- add_regional_agg(k, "kunta", "maakunta")
+kk <- agg_regions(k, "kunta", "maakunta")
+kk$alue_code %>% unique()
 kk <- k %>%
   statficlassifications::join_abolished_mun("alue_code") %>%
   select(!alue_name) %>%
