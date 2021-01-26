@@ -40,17 +40,53 @@ ptt_add_query(db_list_name = "aw_db",
                                   "vaesto_keski_ika")))
 
 
-# meta_vaerak_11ra$variables[[2]][c("values", "valueTexts")] %>% as.data.frame()
-# meta_vaerak_11ra$variables[[2]][c("values")] %>% dput()
-
 ptt_db_update("aw_db", tables = "vaerak_11ra")
 
 
 #
 # -   Väestön/työikäisen väestön muutos viimeisen 5-vuoden aikana
 # ([Väestön ennakkotilasto](http://www.stat.fi/til/vamuu/index.html))
+
+## Väestöennuste
+# 128v -- Väestöennuste 2019: Väestö iän ja sukupuolen mukaan alueittain, 2019-2040
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__vaenn/statfin_vaenn_pxt_128v.px/
+url_vaenn_128v <- statfi_url("StatFin/vrm/vaenn/statfin_vaenn_pxt_128v.px")
+# pxweb_print_full_query(url_vaenn_128v)
+
+ptt_add_query(db_list_name = "aw_db",
+              url = url_vaenn_128v,
+              query =
+                list("Vuosi" = c("*"),
+                     "Alue" = c("*"),
+                     "Sukupuoli"=c("SSS","1","2"),
+                     "Ikä"=c("*"),
+                     "Tiedot"=c("vaesto_e19")))
+
+
+ptt_db_update("aw_db", tables = "vaerak_11ra")
+
+k <- ptt_get_statfi(url = url_vaenn_128v,
+                    query =
+                      list("Vuosi" = c("*"),
+                           "Alue" = c("*"),
+                           "Sukupuoli"=c("SSS"),
+                           "Ikä"=c("SSS", "000"),
+                           "Tiedot"=c("vaesto_e19")))
+
+kk <- k %>%
+  statficlassifications::join_abolished_mun("alue_code") %>%
+  select(!alue_name) %>%
+  group_by(across(!values)) %>%
+  summarise(values = sum(values), .groups = "drop") %>%
+  mutate(alue_name = statficlassifications::codes_to_names(alue_code))
+
+
+
+
 #
 # -   Lapsiperheet ([Perheet](http://www.stat.fi/til/perh/index.html))
+
+
 
 
 
