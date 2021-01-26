@@ -60,13 +60,15 @@ ptt_get_statfi <- function(url, query, names = "all",
     to_name <- names
   }
 
-  # Use the region codes of data to bring the region names from classifications
-  names_of_codes_names <- names(codes_names$Alue)
-  codes_names_orig <- codes_names$Alue
-  codes_names$Alue <- statficlassifications::codes_to_names(names(codes_names$Alue))
-  # Currently names of abolished muns cannot be determined, return them from the data
-  codes_names$Alue[is.na(codes_names$Alue)] <- codes_names_orig[is.na(codes_names$Alue)]
-  names(codes_names$Alue) <- names_of_codes_names
+  if(!is.null(codes_names$Alue)) {
+    # Use the region codes of data to bring the region names from classifications
+    names_of_codes_names <- names(codes_names$Alue)
+    codes_names_orig <- codes_names$Alue
+    codes_names$Alue <- statficlassifications::codes_to_names(names(codes_names$Alue))
+    # Currently names of abolished muns cannot be determined, return them from the data
+    codes_names$Alue[is.na(codes_names$Alue)] <- codes_names_orig[is.na(codes_names$Alue)]
+    names(codes_names$Alue) <- names_of_codes_names
+  }
 
   px_df <- as.data.frame(px_data, column.name.type = "code",
                          variable.value.type = "code") %>%
