@@ -8,8 +8,8 @@ ptt_get_statfi(
   url,
   query,
   names = "all",
-  renames = NULL,
-  check_classifications = FALSE
+  check_classifications = TRUE,
+  renames = NULL
 )
 }
 \arguments{

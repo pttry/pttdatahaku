@@ -165,7 +165,7 @@ ptt_capture_citation <- function(x) {
 
 #' Get table code
 #'
-#' @param url
+#' @param url A url
 get_table_code <- function(url){
   stringr::str_remove(
     stringr::str_remove(

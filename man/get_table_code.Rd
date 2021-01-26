@@ -6,6 +6,9 @@
 \usage{
 get_table_code(url)
 }
+\arguments{
+\item{url}{A url}
+}
 \description{
 Get table code
 }
