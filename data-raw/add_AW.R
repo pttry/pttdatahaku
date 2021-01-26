@@ -173,3 +173,56 @@ ptt_add_query(db_list_name = "aw_db",
 ptt_db_update("aw_db", tables = "altp_12bd")
 
 
+# Asuntomarkkinat
+# ---------------
+#
+#   -   Asuntomarkkinat ([Osakeasuntojen
+#                         hinnat](http://www.stat.fi/til/ashi/index.html))
+#
+# -   Hinnat
+#
+# -   Kauppamäärät
+# 112l -- Vanhojen osakeasuntojen hintaindeksi (2015=100) ja kauppojen lukumäärät, vuositasolla, 2015-2019
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__asu__ashi__vv/statfin_ashi_pxt_112l.px/
+url_ashi_112l <- statfi_url("StatFin/asu/ashi/vv/statfin_ashi_pxt_112l.px")
+# pxweb_print_full_query(url_ashi_112l)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_ashi_112l,
+              query =
+                list("Alue"=c("*"),
+                     "Vuosi"=c("*"),
+                     "Talotyyppi"=c("0","1","3"),
+                     "Huoneluku"=c("00","01","02","03"),
+                     "Tiedot"=c("keskihinta","ketjutettu_lv","vmuutos_lv","realind_lv","vmuutos_realind_lv","lkm_julk")),
+              call = "ptt_get_statfi(url, query)")
+
+ptt_db_update("aw_db", tables = "ashi_112l")
+
+#
+# -   Asumisen rakenne ([Asunnot ja
+#                        asuinolot](http://www.stat.fi/til/asas/index.html))
+#
+# -   Kerros/omakoti/rivitalo
+#
+# -   Omistus/vuokra
+# 115y -- Asuntokunnat ja asuntoväestö hallintaperusteen, talotyypin ja huoneluvun mukaan, 2005-2019
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__asu__asas/statfin_asas_pxt_115y.px/
+url_asas_115y <- statfi_url("StatFin/asu/asas/statfin_asas_pxt_115y.px/")
+# pxweb_print_full_query(url_asas_115y)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_asas_115y,
+              query =
+                list("Alue"=c("*"),
+                     "Vuosi"=c("*"),
+                     "Talotyyppi"=c("S","1","2","3","4"),
+                     "Huoneiden lkm keittiö pl."=c("S"),
+                     "Tiedot"=c("Lkm","asuntovaestoa"),
+                     "Hallintaperuste"=c("s","1-2","3-5","3-4","5","6","7-9")),
+              call = "ptt_get_statfi(url, query)")
+
+ptt_db_update("aw_db", tables = "asas_115y")
+
+#
+# -   Asuntojen koko
+
+
