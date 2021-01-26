@@ -91,7 +91,26 @@ ptt_db_update("aw_db", tables = "tyti_11pn")
 k <- pxweb_interactive()
 kk <- ptt_get_statfi(url, query, renames = c(Vuosi = "Verovuosi"), check_classifications = FALSE)
 
+# -   Keskimääräisten tulojen kehitys ([Verohallinnon
+#                                       tilastotietokanta](http://vero2.stat.fi/PXWeb/pxweb/fi/Vero/))
+#
+# -   Kotitalouksien käytettävissä olevat tulot
+# ([Aluetilinpito](http://www.stat.fi/til/altp/index.html))
 
+## 12bf -- Kotitalouksien tulot ja menot alueittain, vuosittain, 2000-2018
+url_altp_12bf <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bf.px/")
+# pxweb_print_full_query(url_altp_12bf)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_altp_12bf,
+              query =
+                list("Alue"=c("*"),
+                     "Vuosi"=c("*"),
+                     "Taloustoimi"=c("B6N"),
+                     "Tiedot"=c("CP"),
+                     "Sektori"=c("S14")),
+              call = "ptt_get_statfi(url, query)")
+
+ptt_db_update("aw_db", tables = "altp_12bf")
 
 # Yritykset ja tuotanto
 # ---------------------
@@ -108,11 +127,11 @@ kk <- ptt_get_statfi(url, query, renames = c(Vuosi = "Verovuosi"), check_classif
 # -   Tuotannon taso
 # ([Aluetilinpito](http://www.stat.fi/til/altp/index.html))
 
-## BKT
-url_altp <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bc.px/")
-# pxweb_print_full_query(url_altp)
+## BKT per asukas
+url_altp_12bc <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bc.px/")
+# pxweb_print_full_query(url_altp_12bc)
 ptt_add_query(db_list_name = "aw_db",
-              url = url_altp,
+              url = url_altp_12bc,
               query =
                 list("Alue"=c("*"),
                           "Vuosi"=c("*"),
