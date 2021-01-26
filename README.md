@@ -51,19 +51,10 @@ Hakufunktio:
         
 ## Apufunktiot
   ### Olemassa
-   - *clean_names*
-   - *make_names*
-   - *clean_times*
    - *statfi_url* 
       - Koko statfi osoite loppuosan perusteella.
       - statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
    - *pxweb_print_full_query* 
       - Kirjoittaa hakulistan taulun kaikille tiedoille.
       - `pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))`
-  ### Suunnitteilla
-   - *filter_region_level* tällä hetkellä paketissa statfiLaborMarkets. pxwebistä taulukot antavat tiedot suoraan eri tasoilla aggregoitua päälekkäin samassa tiedostossa. Mulla on ollut käytössä funktio, joka erottelee tällaisesta aineistosta eri aggregointitasot omiin data.frameihin. 
-   - Jos aineistot säilötään jollain palvelimella, tarvitaanko oma funktio, joka hakee aineistoja tältä palvelimelta?
-   - Funktio joka hakee datalähteen kuvioihin. Pystyisikö datalähde kulkea datan mukana esimerkiksi attribuuttina. 
-        - Datalähteen muoto? StatFin ja taulun numero?
-        - voisi olla myös jotain mitä *ptt_get_statfi* automaattisesti aina tekee
-        - ggptt voisi osata ottaa tämän attribuutin suoraan ggplot-funktioon syötetystä datasta ja luoda siitä captionin. 
+
