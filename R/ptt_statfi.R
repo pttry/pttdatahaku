@@ -199,6 +199,13 @@ ptt_check_region_classifications <- function(data, supress_ok_message = TRUE) {
   status <- logical(length(code_prefixes))
   names(status) <- code_prefixes
 
+  if(any(!(code_prefixes %in% names(prefix_to_name)))) {
+    return(warning(paste("Region classification check: Unknown prefixe(s)",
+                         paste(code_prefixes[!(code_prefixes %in% names(prefix_to_name))], collapse = ", "),
+                         "or no prefixes in region codes in data.")))
+
+  }
+
   for(prefix in code_prefixes) {
 
     classification_in_key <- statficlassifications::get_regionkey(offline = TRUE) %>%
