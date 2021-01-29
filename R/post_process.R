@@ -35,14 +35,14 @@ agg_regions <- function(x, from = "kunta", to = "maakunta"){
   region_key["from_name"] <- NULL
 
   y <- x %>%
-    left_join(region_key, by = "alue_code") %>%
+    right_join(region_key, by = "alue_code") %>%
     select(-all_of(c("alue_name", "alue_code"))) %>%
     rename(alue_code = to_code, alue_name = to_name) %>%
     group_by(across(!values)) %>%
     summarise(values = sum(values), .groups = "drop") %>%
     relocate(names(x))
 
-  y <- add_ptt_attr(x, y)
+  y <- add_ptt_attr(y, x)
   y
 }
 
@@ -65,5 +65,5 @@ add_regional_agg <- function(x, from = "kunta", to = "maakunta"){
 add_ptt_attr <- function(to, from){
   attr(to, "citation") <- attr(from, "citation")
   attr(to, "codes_names") <- attr(from, "codes_names")
-  dat
+  to
 }

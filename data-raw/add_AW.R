@@ -60,28 +60,11 @@ ptt_add_query(db_list_name = "aw_db",
                      "Alue" = c("*"),
                      "Sukupuoli"=c("SSS","1","2"),
                      "Ikä"=c("*"),
-                     "Tiedot"=c("vaesto_e19")))
+                     "Tiedot"=c("vaesto_e19")),
+              call = "ptt_get_statfi(url, query) %>% add_regional_agg()")
 
 
 ptt_db_update("aw_db", tables = "vaerak_11ra")
-
-k <- ptt_get_statfi(url = url_vaenn_128v,
-                    query =
-                      list("Vuosi" = c("*"),
-                           "Alue" = c("*"),
-                           "Sukupuoli"=c("SSS"),
-                           "Ikä"=c("SSS", "000"),
-                           "Tiedot"=c("vaesto_e19")))
-k$alue_code %>% unique()
-kk <- add_regional_agg(k, "kunta", "maakunta")
-kk <- agg_regions(k, "kunta", "maakunta")
-kk$alue_code %>% unique()
-kk <- k %>%
-  statficlassifications::join_abolished_mun("alue_code") %>%
-  select(!alue_name) %>%
-  group_by(across(!values)) %>%
-  summarise(values = sum(values), .groups = "drop") %>%
-  mutate(alue_name = statficlassifications::codes_to_names(alue_code))
 
 
 
