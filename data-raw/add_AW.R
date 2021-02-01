@@ -66,7 +66,8 @@ ptt_add_query(db_list_name = "aw_db",
 
 ptt_db_update("aw_db", tables = "vaenn_128v")
 
-k <- ptt_read_data("vaenn_128v") %>%
+# Ika aggregoitu
+ptt_read_data("vaenn_128v") %>%
   mutate(ika2 = readr::parse_number(as.character(ika_code), na = "SSS"),
          ika_name = case_when(
            is.na(ika2) ~ "Yhteensä",
@@ -74,17 +75,33 @@ k <- ptt_read_data("vaenn_128v") %>%
            ika2 < 65   ~ "15-64",
            TRUE        ~ "65-"
            ),
-         ika_code = statfitools::make_names(recode(ika_name, "Yhteensä" = "SSS"))
+         ika_name = forcats::as_factor(ika_name),
+         ika_code = recode(ika_name, "Yhteensä" = "SSS")
          ) %>%
   select(-ika2) %>%
   group_by(across(!values)) %>%
-  summarise(values = sum(values), .groups = "drop")
+  summarise(values = sum(values), .groups = "drop") %>%
+  ptt_save_data("vaenn_128v_agg")
 
 
 #
 # -   Lapsiperheet ([Perheet](http://www.stat.fi/til/perh/index.html))
+# http://www.stat.fi/til/perh/index.html
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__perh/statfin_perh_pxt_12c1.px/
+url_perh_12c1 <- statfi_url("StatFin/vrm/perh/statfin_perh_pxt_12c1.px")
+# pxweb_print_full_query(url_perh_12c1)
+
+ptt_add_query(db_list_name = "aw_db",
+              url = url_perh_12c1,
+              query =
+                list("Vuosi" = c("*"),
+                     "Alue" = alueet_kumk,
+                     "Perhetyyppi"=c("SSS"),
+                     "Tiedot"=c("perhlkm","hloperh","perhkoko","lapsiperhe","hloperh_a18","perhkoko_a18")),
+              call = "ptt_get_statfi(url, query)")
 
 
+ptt_db_update("aw_db", tables = "perh_12c1")
 
 
 
@@ -102,6 +119,83 @@ ptt_add_query(db_list_name = "aw_db",
 
 ptt_db_update("aw_db", tables = "tyti_11pn")
 
+
+# -   Työllisyyden ja työpaikkojen rakenne
+# ([Työssäkäynti](http://www.tilastokeskus.fi/til/tyokay/index.html))
+#
+# -   Ammattirakenne
+#
+# -   Koulutusrakenne
+#
+# -   Elinkeinorakenne
+#
+# -   Teollisuus / palvelut
+# 115h -- Alueella työssäkäyvät (työpaikat) alueen, toimialan (TOL 2008), sukupuolen ja vuoden mukaan, 2007-2018
+url_tyokay_115h <- statfi_url("StatFin/vrm/tyokay/statfin_tyokay_pxt_115h.px")
+# pxweb_print_full_query(url_tyokay_115h)
+
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tyokay_115h,
+              query =
+                list("Vuosi" = c("*"),
+                     "Työpaikan alue" = c("*"),
+                     "Toimiala"=c("SSS","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","X"),
+                     "Sukupuoli"=c("SSS"),
+                     "Tiedot"=c("tyolliset3")),
+              call = "ptt_get_statfi(url, query, renames = c(Alue = \"Työpaikan alue\")) %>% add_regional_agg()")
+
+
+ptt_db_update("aw_db", tables = "tyokay_115h")
+
+# toimila aggregoitu
+ptt_read_data("tyokay_115h") %>%
+  mutate(toimiala_code =
+           case_when(
+             toimiala_code == "SSS"  ~ "SSS",
+             toimiala_code %in% c("A","B")   ~ "A_B",
+             toimiala_code %in% c("C")   ~ "C",
+             toimiala_code %in% c("F")   ~ "F",
+             toimiala_code %in% c("O", "P", "Q")   ~ "O_Q",
+             TRUE        ~ "S"
+         ),
+         toimiala_code = forcats::as_factor(toimiala_code),
+         toimiala_name = forcats::fct_recode(toimiala_code,
+                                             "Yhteensä" = "SSS",
+                                             "Alkutuotanto" = "A_B",
+                                             "Teollisuus" = "C",
+                                             "Rakentaminen" = "F",
+                                             "Julk. hallinto, koulutus ja sote" = "O_Q",
+                                             "Muut palvelut" = "S"),
+
+  ) %>%
+  group_by(across(!values)) %>%
+  summarise(values = sum(values), .groups = "drop") %>%
+  ptt_save_data("tyokay_115h_agg")
+
+#
+# -   Yksityinen / julkinen
+#  115j -- Alueella työssäkäyvät (työpaikat) alueen, työnantajasektorin, sukupuolen ja vuoden mukaan, 1987-2018
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__tyokay/statfin_tyokay_pxt_115j.px/
+
+url_tyokay_115j <- statfi_url("StatFin/vrm/tyokay/statfin_tyokay_pxt_115j.px")
+# pxweb_print_full_query(url_tyokay_115j)
+
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tyokay_115j,
+              query =
+                list("Vuosi" = c("*"),
+                     "Työpaikan alue" = c("*"),
+                     "Työnantajasektori"=c("S","1","2","3","7","8","9"),
+                     "Sukupuoli"=c("SSS"),
+                     "Tiedot"=c("tyolliset3")),
+              call = "ptt_get_statfi(url, query, renames = c(Alue = \"Työpaikan alue\")) %>% add_regional_agg()")
+
+
+ptt_db_update("aw_db", tables = "tyokay_115j")
+
+#
+# -   Avoimet työpaikat ([Työvälitystilasto,
+#                         TEM](https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__tym__tyonv/))
 
 ## Tulot
 
