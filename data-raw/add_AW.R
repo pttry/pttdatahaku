@@ -58,15 +58,27 @@ ptt_add_query(db_list_name = "aw_db",
               query =
                 list("Vuosi" = c("*"),
                      "Alue" = c("*"),
-                     "Sukupuoli"=c("SSS","1","2"),
+                     "Sukupuoli"=c("SSS"),
                      "Ikä"=c("*"),
                      "Tiedot"=c("vaesto_e19")),
               call = "ptt_get_statfi(url, query) %>% add_regional_agg()")
 
 
-ptt_db_update("aw_db", tables = "vaerak_11ra")
+ptt_db_update("aw_db", tables = "vaenn_128v")
 
-
+k <- ptt_read_data("vaenn_128v") %>%
+  mutate(ika2 = readr::parse_number(as.character(ika_code), na = "SSS"),
+         ika_name = case_when(
+           is.na(ika2) ~ "Yhteensä",
+           ika2 < 15   ~ "0-14",
+           ika2 < 65   ~ "15-64",
+           TRUE        ~ "65-"
+           ),
+         ika_code = statfitools::make_names(recode(ika_name, "Yhteensä" = "SSS"))
+         ) %>%
+  select(-ika2) %>%
+  group_by(across(!values)) %>%
+  summarise(values = sum(values), .groups = "drop")
 
 
 #
