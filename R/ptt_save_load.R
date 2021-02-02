@@ -33,8 +33,10 @@ ptt_read_data <- function(x_name, region_level = NULL){
     region_level <- tolower(region_level)
     prefix_to_name = c("koko maa" = "SSS", "kunta" =  "KU", "seutukunta" = "SK", "maakunta" = "MK", "ely" = "ELY", "suuralue" = "SA")
     dplyr::filter(output_data, grepl(prefix_to_name[region_level], alue_code)) %>%
-      rename_with(~paste(region_level, "code", sep = "_"), alue_code) %>%
-      rename_with(~paste(region_level, "name", sep = "_"), alue_name)
+      dplyr::mutate(alue_code = droplevels(alue_code),
+                    alue_name = droplevels(alue_name)) %>%
+      dplyr::rename_with(~paste(region_level, "code", sep = "_"), alue_code) %>%
+      dplyr::rename_with(~paste(region_level, "name", sep = "_"), alue_name)
   }
 }
 
