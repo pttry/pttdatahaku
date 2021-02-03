@@ -60,6 +60,7 @@ ptt_add_query <- function(db_list_name, url, query, table_code = NULL,
   db_list[[table_code]] <- list(url = url, query = query, call = call)
 
   ptt_save_db_list(db_list, db_list_name)
+  message(table_code, " query added to ", db_list_name)
 
 }
 

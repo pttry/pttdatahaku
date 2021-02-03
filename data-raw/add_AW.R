@@ -203,21 +203,25 @@ ptt_db_update("aw_db", tables = "tyokay_115j")
 # ([Verohallinnon tilastotietokanta](http://vero2.stat.fi/PXWeb/pxweb/fi/Vero/))
 
 # 6.01 Yleisesti verovelvollisten merkittävimmät tuloerät alueittain
-url_vero_tulot <- "http://vero2.stat.fi//PXWeb/api/v1/fi/Vero/Henkiloasiakkaiden_tuloverot/lopulliset/alue/tulot_102.px"
-# pxweb_print_full_query(url_vero_tulot)
+url_vero_tulot_102 <- "http://vero2.stat.fi//PXWeb/api/v1/fi/Vero/Henkiloasiakkaiden_tuloverot/lopulliset/alue/tulot_102.px"
+# meta_vero_tulot_102 <- pxweb::pxweb_get(url_vero_tulot_102)
+# meta_vero_tulot_102$variables[[2]][c("values", "valueTexts")] %>% as.data.frame()
+# pxweb_print_full_query(url_vero_tulot_102)
 ptt_add_query(db_list_name = "aw_db",
-              url = url_vero_tulot,
+              url = url_vero_tulot_102,
               query =
                 list("Verovuosi"=c("*"),
-                     "Erä"=c("HVT_TULOT_10","HVT_TULOT_20","HVT_TULOT_50","HVT_TULOT_60","HVT_TULOT_70"),
+                     "Erä"=c("HVT_TULOT_10","HVT_TULOT_20","HVT_TULOT_50","HVT_TULOT_60","HVT_TULOT_70", "HVT_TULOT_80", "HVT_TULOT_270", "HVT_TULOT_280"),
                      "Alue"=c("*"),
                      "Tunnusluvut"=c("Sum","N")),
-              call = "ptt_get_statfi(url, query, check_classifications = FALSE)")
+              call = "ptt_get_statfi(url, query, check_classifications = FALSE,
+                      renames = c(Vuosi = \"Verovuosi\")) %>%
+                      statficlassifications::set_region_codes(\"alue_code\") %>%
+                      agg_abolished_mun()")
 
-ptt_db_update("aw_db", tables = "tyti_11pn")
+ptt_db_update("aw_db", tables = "tulot_102")
 
-k <- pxweb_interactive()
-kk <- ptt_get_statfi(url, query, renames = c(Vuosi = "Verovuosi"), check_classifications = FALSE)
+
 
 # -   Keskimääräisten tulojen kehitys ([Verohallinnon
 #                                       tilastotietokanta](http://vero2.stat.fi/PXWeb/pxweb/fi/Vero/))
