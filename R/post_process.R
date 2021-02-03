@@ -67,3 +67,24 @@ add_ptt_attr <- function(to, from){
   attr(to, "codes_names") <- attr(from, "codes_names")
   to
 }
+
+
+#' Aggregate to yearly data
+#'
+#' Time variable have to be Date in time column.
+#'
+#' @param x A data.frame like object.
+#' @export
+#'
+#'
+agg_yearly <- function(x){
+
+  y <- x %>%
+    mutate(time = lubridate::ymd(lubridate::year(time), truncated = 2)) %>%
+    group_by(across(!values)) %>%
+    summarise(values = sum(values), .groups = "drop") %>%
+    relocate(names(x))
+
+  y <- add_ptt_attr(y, x)
+  y
+}

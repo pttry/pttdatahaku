@@ -197,6 +197,9 @@ ptt_db_update("aw_db", tables = "tyokay_115j")
 # -   Avoimet työpaikat ([Työvälitystilasto,
 #                         TEM](https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__tym__tyonv/))
 
+
+
+
 ## Tulot
 
 #  Tulorakenne
@@ -223,8 +226,33 @@ ptt_db_update("aw_db", tables = "tulot_102")
 
 
 
-# -   Keskimääräisten tulojen kehitys ([Verohallinnon
-#                                       tilastotietokanta](http://vero2.stat.fi/PXWeb/pxweb/fi/Vero/))
+# -   Keskimääräisten tulojen kehitys
+#  ([Verohallinnon tilastotietokanta](http://vero2.stat.fi/PXWeb/pxweb/fi/Vero/))
+
+# Koulutusasteittain
+# 6.08 (Verovuosi 2019) Yleisesti verovelvollisten tulot, vähennykset ja verot alueittain ja koulutustason mukaan
+# http://vero2.stat.fi/PXWeb/pxweb/fi/Vero/Vero__Henkiloasiakkaiden_tuloverot__lopulliset__alue__Verovuosi%202019/koulutus_103_2019.px/
+url_vero_koulutus_103_2019 <- "http://vero2.stat.fi//PXWeb/api/v1/fi/Vero/Henkiloasiakkaiden_tuloverot/lopulliset/alue/Verovuosi%202019/koulutus_103_2019.px"
+# meta_vero_tulot_102 <- pxweb::pxweb_get(url_vero_koulutus_103_2019)
+
+# pxweb_print_full_query(url_vero_koulutus_103_2019)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_vero_koulutus_103_2019,
+              query =
+                list("Verovuosi"=c("*"),
+                     "Erä"=c("HVT_TULOT_10","HVT_TULOT_20","HVT_TULOT_50","HVT_TULOT_60","HVT_TULOT_70", "HVT_TULOT_80"),
+                     "Alue"=c("*"),
+                     "Koulutusaste"=c("SSS","X","9","3-8","3","4","5","6","7","8"),
+                     "Tunnusluvut"=c("Sum","N", "Mean","Median")),
+              call = "ptt_get_statfi(url, query, check_classifications = FALSE,
+                      renames = c(Vuosi = \"Verovuosi\")) %>%
+                      statficlassifications::set_region_codes(\"alue_code\") %>%
+                      agg_abolished_mun()")
+
+ptt_db_update("aw_db", tables = "koulutus_103_2019")
+
+
+
 #
 # -   Kotitalouksien käytettävissä olevat tulot
 # ([Aluetilinpito](http://www.stat.fi/til/altp/index.html))
@@ -249,12 +277,57 @@ ptt_db_update("aw_db", tables = "altp_12bf")
 #
 #   -   Yritysdynamiikka ([Aloittaneet ja lopettaneet
 #                          yritykset](http://www.stat.fi/til/aly/index.html))
+# 11yq -- Aloittaneet ja lopettaneet yritykset kunnittain ja toimialaluokituksen TOL 2008 mukaisesti, 2013Q1-2020Q4
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__yri__aly/statfin_aly_pxt_11yq.px/
+url_aly_11yq <- statfi_url("StatFin/yri/aly/statfin_aly_pxt_11yq.px/")
+# pxweb_print_full_query(url_aly_11yq)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_aly_11yq,
+              query =
+                list("Kunta"=c("*"),
+                     "Vuosineljännes"=c("*"),
+                     "Toimiala" =c ("SSS"),
+                     "Tiedot"=c("aloittaneita","lopettaneita","yrityskanta")),
+              call = "ptt_get_statfi(url, query, renames = c(Alue = \"Kunta\")) %>%
+                        agg_yearly() %>%
+                        add_regional_agg()")
+
+ptt_db_update("aw_db", tables = "aly_11yq")
+
+
+
 #
 # -   Yritystoiminnan rakenne ([Alueellinen
 #                               yritystoimintatilasto](http://www.stat.fi/til/alyr/index.html))
 #
 # -   Tutkimus ja kehitysmenot / -henkilöstö ([Tutkimus- ja
 #                                              kehittämistoiminta](http://www.stat.fi/til/tkke/index.html))
+# 125t -- Tutkimus- ja kehittämistoiminnan menot, henkilöstö ja työvuodet alueittain, 1995-2019
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ttt__tkke__yht/statfin_tkke_pxt_125t.px/
+# Vain Maakunnat epätavallisten aluekoodien takia
+
+url_tkke_125t <- statfi_url("StatFin/ttt/tkke/yht/statfin_tkke_pxt_125t.px/")
+# pxweb_print_full_query(url_tkke_125t)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tkke_125t,
+              query =
+                list("Alue"=c("*"),
+                     "Vuosi"=c("*"),
+                     "Sektori"=c("SSS","yri","julk_yvt","korkeak"),
+                     "Tiedot"=c("tk_menot","tk_hlomaara","tk_htv")),
+              call = "ptt_get_statfi(url, query, check_classifications = FALSE) %>%
+                        select(-alue_code) %>%
+                        mutate(alue_name = tolower(alue_name)) %>%
+                        left_join(statficlassifications::nonstandard_region_names_key, by = \"alue_name\") %>%
+                        mutate(alue_name = statficlassifications::codes_to_names(alue_code)) %>%
+                        filter(!is.na(alue_code)) %>%
+                        relocate(alue_code, .after = time)")
+
+ptt_db_update("aw_db", tables = "tkke_125t")
+
+
+
+
 #
 # -   Tuotannon taso
 # ([Aluetilinpito](http://www.stat.fi/til/altp/index.html))
