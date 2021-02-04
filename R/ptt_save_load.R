@@ -6,6 +6,8 @@
 #'
 #' @param x A data to save
 #' @param x_name A name of data. In saving defaults to a x object name.
+#' @param path A path to data folder. NULL saves to default PTT-database.
+#' @param region_level A region level to read.
 #'
 #' @export
 #'
@@ -14,18 +16,21 @@
 #' ptt_save_data(test_dat)
 #' test_dat2 <- ptt_read_data("test_dat")
 
-ptt_save_data <- function(x, x_name = deparse1(substitute(x))){
-  qs::qsave(x, file = file.path(db_path, paste0(x_name, ".qs")))
+ptt_save_data <- function(x, x_name = deparse1(substitute(x)), path = NULL){
+  if (is.null(path)) path <- db_path
+  qs::qsave(x, file = file.path(path, paste0(x_name, ".qs")))
 }
 
 #'
 #' @describeIn ptt_save_data Read data
 #' @export
 #'
-ptt_read_data <- function(x_name, region_level = NULL){
+ptt_read_data <- function(x_name, region_level = NULL, path = NULL){
+
+  if (is.null(path)) path <- db_path
 
   # path.expand(path)
-  output_data <- qs::qread(file = file.path(db_path, paste0(x_name, ".qs")))
+  output_data <- qs::qread(file = file.path(path, paste0(x_name, ".qs")))
 
   if(is.null(region_level)) {
     output_data

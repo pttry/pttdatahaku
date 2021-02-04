@@ -5,14 +5,18 @@
 \alias{ptt_read_data}
 \title{Saves and loads data tables}
 \usage{
-ptt_save_data(x, x_name = deparse1(substitute(x)))
+ptt_save_data(x, x_name = deparse1(substitute(x)), path = NULL)
 
-ptt_read_data(x_name, region_level = NULL)
+ptt_read_data(x_name, region_level = NULL, path = NULL)
 }
 \arguments{
 \item{x}{A data to save}
 
 \item{x_name}{A name of data. In saving defaults to a x object name.}
+
+\item{path}{A path to data folder. NULL saves to default PTT-database.}
+
+\item{region_level}{A region level to read.}
 }
 \description{
 For now saves to shared teams
