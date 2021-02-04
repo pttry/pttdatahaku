@@ -7,7 +7,7 @@
 #' @param x A data to save
 #' @param x_name A name of data. In saving defaults to a x object name.
 #' @param path A path to data folder. NULL saves to default PTT-database.
-#' @param region_level A region level to read.
+#' @param region_level A region level(s) to read.
 #'
 #' @export
 #'
@@ -33,17 +33,22 @@ ptt_read_data <- function(x_name, region_level = NULL, path = NULL){
   output_data <- qs::qread(file = file.path(path, paste0(x_name, ".qs")))
 
   if(is.null(region_level)) {
-    output_data
+    output <- output_data
   } else {
-    region_level <- tolower(region_level)
-    prefix_to_name = c("koko maa" = "SSS", "kunta" =  "KU", "seutukunta" = "SK", "maakunta" = "MK", "ely" = "ELY", "suuralue" = "SA")
-    dplyr::filter(output_data, grepl(prefix_to_name[region_level], alue_code)) %>%
+    # region_level <- tolower(region_level)
+    grepl_regexp <- paste(statficlassifications::name_to_prefix(region_level), collapse = "|")
+    output <- dplyr::filter(output_data, grepl(grepl_regexp, alue_code)) %>%
       dplyr::mutate(alue_code = droplevels(alue_code),
-                    alue_name = droplevels(alue_name)) %>%
-      dplyr::rename_with(~paste(region_level, "code", sep = "_"), alue_code) %>%
-      dplyr::rename_with(~paste(region_level, "name", sep = "_"), alue_name)
+                    alue_name = droplevels(alue_name))
+    if(length(region_level) == 1) {
+      output <- output %>%
+        dplyr::rename_with(~paste(region_level, "code", sep = "_"), alue_code) %>%
+        dplyr::rename_with(~paste(region_level, "name", sep = "_"), alue_name)
+    }
   }
+  output
 }
+
 
 
 db_path <- "~/../Pellervon Taloustutkimus PTT ry/Pellervon taloustutkimus - Datapankki/Tietokanta"
