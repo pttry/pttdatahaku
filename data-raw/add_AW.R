@@ -197,7 +197,48 @@ ptt_db_update("aw_db", tables = "tyokay_115j")
 # -   Avoimet työpaikat ([Työvälitystilasto,
 #                         TEM](https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__tym__tyonv/))
 
+url_tyonv_1001 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_1001.px"
 
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tyonv_1001,
+              query =
+                list("Alue" = c("*"),
+                     "Kuukausi" = c("*"),
+                     "Tiedot" = c("*")),
+              call = "ptt_get_statfi(url, query)")
+
+url_tyonv_1310 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_1310.px"
+
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tyonv_1310,
+              query =
+                list("Alue" = c("*"),
+                     "Sukupuoli" = c("SSS"),
+                     "Ikäryhmät" = c("SSS"),
+                     "Ammattiryhmä" = c("*"),
+                     "Koulutusaste" = c("*"),
+                     "Kuukausi" = c("*"),
+                     "Tiedot" = c("*")),
+              call = "ptt_get_statfi(url, query) %>%
+                         dplyr::select(-sukupuoli_code, -sukupuoli_name,
+                                       -ikaryhmat_code, -ikaryhmat_name)")
+
+
+
+url_tyonv_2205 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_2205.px"
+
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tyonv_2205,
+              query =
+                list("Alue" = c("*"),
+                     "Ammattiryhmä" = c("*"),
+                     "Työnantajan sektori" = c("SSS"),
+                     "Työpaikan työn kesto" = c("SSS"),
+                     "Kuukausi" = c("*"),
+                     "Tiedot" = c("AVPAIKATLOPUSSA")),
+              call = "ptt_get_statfi(url, query) %>%
+                         dplyr::select(-tyonantajan_sektori_code, -tyonantajan_sektori_name,
+                                       -tyopaikan_tyon_kesto_code, -tyopaikan_tyon_kesto_name)")
 
 
 ## Tulot
