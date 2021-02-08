@@ -16,7 +16,7 @@ ptt_read_data(x_name, region_level = NULL, path = NULL)
 
 \item{path}{A path to data folder. NULL saves to default PTT-database.}
 
-\item{region_level}{A region level to read.}
+\item{region_level}{A region level(s) to read.}
 }
 \description{
 For now saves to shared teams

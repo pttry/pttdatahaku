@@ -261,7 +261,8 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query, check_classifications = FALSE,
                       renames = c(Vuosi = \"Verovuosi\")) %>%
                       statficlassifications::set_region_codes(\"alue_code\") %>%
-                      agg_abolished_mun()")
+                      agg_abolished_mun()%>%
+                      mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
 ptt_db_update("aw_db", tables = "tulot_102")
 
@@ -464,11 +465,67 @@ ptt_add_query(db_list_name = "aw_db",
                      "Huoneiden lkm keittiö pl."=c("S"),
                      "Tiedot"=c("Lkm","asuntovaestoa"),
                      "Hallintaperuste"=c("s","1-2","3-5","3-4","5","6","7-9")),
-              call = "ptt_get_statfi(url, query)")
+              call = "ptt_get_statfi(url, query) %>%
+                        add_regional_agg()")
 
 ptt_db_update("aw_db", tables = "asas_115y")
+
+# query =
+#   list("Alue"=c("*"),
+#        "Vuosi"=c("*"),
+#        "Talotyyppi"=c("S"),
+#        "Huoneiden lkm keittiö pl."=c("S"),
+#        "Tiedot"=c("Lkm","asuntovaestoa"),
+#        "Hallintaperuste"=c("s","1-2"))
+#
+# url <- statfi_url("StatFin/asu/asas/statfin_asas_pxt_115y.px/")
+#
+# k <- ptt_get_statfi(url, query)
+#
+# kk <- k %>%
+#   add_regional_agg()
 
 #
 # -   Asuntojen koko
 
+#
+# Julkinen talous
+# ---------------
+#
+#   -   Kunnallisveroprosentti
+#
+# -   Efektiivinen veroprosentti ([Verohallinnon
+#                                  tilastotietokanta](http://vero2.stat.fi/PXWeb/pxweb/fi/Vero/))
 
+# 6.03 Yleisesti verovelvollisten verot ja maksut alueittain
+url_vero_verot_maksut_102 <- "http://vero2.stat.fi//PXWeb/api/v1/fi/Vero/Henkiloasiakkaiden_tuloverot/lopulliset/alue/verot_maksut_102.px"
+# meta_vero_verot_maksut_102 <- pxweb::pxweb_get(url_vero_verot_maksut_102)
+# meta_vero_verot_maksut_102$variables[[2]][c("values", "valueTexts")] %>% as.data.frame()
+# pxweb_print_full_query(url_vero_verot_maksut_102)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_vero_verot_maksut_102,
+              query =
+                list("Verovuosi"=c("*"),
+                     "Erä"=c("HVT_VEROT_10", "HVT_VEROT_20", "HVT_VEROT_60"),
+                     "Alue"=c("*"),
+                     "Tunnusluvut"=c("Sum","N")),
+              call = "ptt_get_statfi(url, query, check_classifications = FALSE,
+                      renames = c(Vuosi = \"Verovuosi\")) %>%
+                      statficlassifications::set_region_codes(\"alue_code\") %>%
+                      agg_abolished_mun() %>%
+                      mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
+
+ptt_db_update("aw_db", tables = "verot_maksut_102")
+
+
+#
+# -   Kuntien talous
+# ([Kuntatalous](http://tilastokeskus.fi/til/kta/index.html))
+#
+# -   Tasapaino ja velka
+#
+# -   Investoinnit / menot hyvinvointipalveluihin \[määritellään
+#                                                   myöhemmin tarkemmin\]
+#
+# -   Mahdollisesti myös hyvinvointia ja terveyttä kuvaavia tietoja
+# Sotkanet-tietokannasta.
