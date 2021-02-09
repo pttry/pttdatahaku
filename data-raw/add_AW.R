@@ -523,6 +523,28 @@ ptt_db_update("aw_db", tables = "verot_maksut_102")
 # ([Kuntatalous](http://tilastokeskus.fi/til/kta/index.html))
 #
 # -   Tasapaino ja velka
+# 12ml -- Kuntien tunnuslukuja, 2015-2019
+# http://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__jul__kta/statfin_kta_pxt_12ml.px/
+url_kta_12ml <- statfi_url("StatFin/jul/kta/statfin_kta_pxt_12ml.px")
+# pxweb_print_full_query(url_kta_12ml)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_kta_12ml,
+              query =
+                list("Alue"=c("*"),
+                     "Vuosi"=c("*"),
+                     "Tiedot"=c("toimintakate_asuk","vuosikate_asuk","verotulot_asuk","valtionosuus_asuk","vuosikate_poisto",
+                                "omavaraisuus_aste", "suhteel_velkaant","lainakanta_eur","lainakanta_asuk","k_vuosikate_poisto","k_vuosikate_asuk",
+                                "k_lainakanta_eur","k_lainakanta_asuk",
+                                "sote_netto_kayttokust_asuk","opek_netto_kayttokust_asuk")),
+              call = "ptt_get_statfi(url, query) %>%
+                        mutate(alue_code = statficlassifications::set_region_codes(alue_code),
+                        alue_name = statficlassifications::codes_to_names(alue_code))")
+
+ptt_db_update("aw_db", tables = "kta_12ml")
+
+
+
+
 #
 # -   Investoinnit / menot hyvinvointipalveluihin \[määritellään
 #                                                   myöhemmin tarkemmin\]
