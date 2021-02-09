@@ -21,5 +21,6 @@ Imports:
     qs,
     here,
     statficlassifications,
-    magrittr
+    magrittr,
+    readxl
 RoxygenNote: 7.1.1
