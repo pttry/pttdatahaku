@@ -240,6 +240,16 @@ ptt_add_query(db_list_name = "aw_db",
                          dplyr::select(-tyonantajan_sektori_code, -tyonantajan_sektori_name,
                                        -tyopaikan_tyon_kesto_code, -tyopaikan_tyon_kesto_name)")
 
+url_tyonv_1370 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_1370.px"
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tyonv_1370,
+              query =
+                list("Alue" = c("SSS", statficlassifications::get_region_code_name_key("maakunta")$maakunta_code),
+                     "Ammattiryhmä" = c("*"),
+                     "Kuukausi" = c("*"),
+                     "Tiedot"=c("HAKIJAYHT","AVPAIKATYHT")),
+              call = "ptt_get_statfi(url, query)")
+
 
 ## Tulot
 
