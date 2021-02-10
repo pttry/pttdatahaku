@@ -368,8 +368,16 @@ ptt_add_query(db_list_name = "aw_db",
 ptt_db_update("aw_db", tables = "tkke_125t")
 
 
-
-
+url_tyokay_115s <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/vrm/tyokay/statfin_tyokay_pxt_115s.px"
+ptt_add_query(db_list_name = "aw_db",
+              url = url_tyokay_115s,
+              query =
+                list("Ammattiryhmä" = c("*"),
+                     "Alue" = c("*"),
+                     "Sukupuoli" = "SSS",
+                     "Vuosi" = c("*"),
+                     "Tiedot" = c("tyolliset2")),
+              call = "ptt_get_statfi(url, query)")
 #
 # -   Tuotannon taso
 # ([Aluetilinpito](http://www.stat.fi/til/altp/index.html))
