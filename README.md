@@ -30,10 +30,6 @@
 
 - Aika ja aluemuuttujista kaikki anonyymisti (*)
 - Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
-
-- Täällä koodit aineistojen hakuun ja päivittämiseen?
-      - kullekin pxwebin taululle oma valmis hakukoodi?
-      - Nämä koodit nimettäisiin pxwebin aineistonumerojen mukaan.
         
 Hakufunktio:
   *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
