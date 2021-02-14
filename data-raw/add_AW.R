@@ -247,7 +247,8 @@ ptt_add_query(db_list_name = "aw_db",
                 list("Alue" = c("SSS", statficlassifications::get_region_code_name_key("maakunta")$maakunta_code),
                      "Ammattiryhmä" = c("*"),
                      "Kuukausi" = c("*"),
-                     "Tiedot"=c("HAKIJAYHT","AVPAIKATYHT")),
+                     "Tiedot"=c("HAKIJAYHT","AVPAIKATYHT"),
+                     "Työllisyys" = c("SSS","1","2")),
               call = "ptt_get_statfi(url, query)")
 
 
