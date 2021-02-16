@@ -13,15 +13,23 @@
      - ei tyhjää välimerkkiä, sen sijaan alaviiva
      - Aluemuuttujat
             - sekä koodi että nimi sarakkeet ("*_code", "*_name_"), e.g. _(seutu)kunta_code_, _(maa)kunta_name_. 
-            - ei "Alue"-nimistä muuttujaa, aluemuuttujalla alueen nimi
-            - numerosarake nimellä "values"
+            - muuttujat, jossa vain yhtä aluetasoa, nimetään aluetason mukaan, esim. _seutukunta_name_. Muuttujat
+              joissa useampaa aluetasoa nimetään _alue_name_ ja _alue_code_. Näin koska, jos muuttujassa on useita
+              aluetasoja, sitä ei ole mieltä nimetä yhden aluetason mukaan. Tällöin _alue_ muuttujan nimessä myös
+              kertoo käyttäjälle, että muuttujassa useita aluetasoja. Tiettyjen aluetasojen nimiä käytetään, koska
+              jos muuttujassa vain yhtä aluetasoa, käyttäjä voi haluta lisätä muita aluetasoja omiin muuttujiin.
+              Tällöin muuttujat on pystyttävä erottamaan toisistaan.
+            - Aluekoodit etuliitteineen. Aluekoodit, jotta 1) koodista välittömästi näkee aluetason, 2) koodit ovat 
+              yksiselitteisiä ja 3) koodit eivät koskaan eksy dataan muodossa double.
+           
+     - numerosarake nimellä "values"
   - muuttujatyypit
       - aikamuuttujat
             - "time"
             - Date -muodossa
       - kategoriset muuttujat
             - factor -muodossa
-            - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
+            - values sarakkeen selityssarake myös factor-muodossa.
       - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
   - missing values merkataan NA
 
