@@ -244,12 +244,14 @@ url_tyonv_1370 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/st
 ptt_add_query(db_list_name = "aw_db",
               url = url_tyonv_1370,
               query =
-                list("Alue" = c("SSS", statficlassifications::get_region_code_name_key("maakunta")$maakunta_code),
+                list("Alue" = c("SSS", statficlassifications::get_regionclassification("maakunta", only_names = TRUE)),
                      "Ammattiryhmä" = c("*"),
                      "Kuukausi" = c("*"),
                      "Tiedot"=c("HAKIJAYHT","AVPAIKATYHT"),
                      "Työllisyys" = c("SSS","1","2")),
               call = "ptt_get_statfi(url, query)")
+
+
 
 
 ## Tulot
@@ -271,9 +273,9 @@ ptt_add_query(db_list_name = "aw_db",
                      "Tunnusluvut"=c("Sum","N")),
               call = "ptt_get_statfi(url, query, check_classifications = FALSE,
                       renames = c(Vuosi = \"Verovuosi\")) %>%
-                      statficlassifications::set_region_codes(\"alue_code\") %>%
+                      dplyr::mutate(alue_code = statficlassifications::set_region_codes(alue_code, use_char_length_info = TRUE)) %>%
                       agg_abolished_mun()%>%
-                      mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
+                      dplyr::mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
 ptt_db_update("aw_db", tables = "tulot_102")
 
@@ -299,7 +301,7 @@ ptt_add_query(db_list_name = "aw_db",
                      "Tunnusluvut"=c("Sum","N", "Mean","Median")),
               call = "ptt_get_statfi(url, query, check_classifications = FALSE,
                       renames = c(Vuosi = \"Verovuosi\")) %>%
-                      statficlassifications::set_region_codes(\"alue_code\") %>%
+                      dplyr::mutate(alue_code = statficlassifications::set_region_codes(alue_code, use_char_length_info = TRUE)) %>%
                       agg_abolished_mun()")
 
 ptt_db_update("aw_db", tables = "koulutus_103_2019")
@@ -530,7 +532,7 @@ ptt_add_query(db_list_name = "aw_db",
                      "Tunnusluvut"=c("Sum","N")),
               call = "ptt_get_statfi(url, query, check_classifications = FALSE,
                       renames = c(Vuosi = \"Verovuosi\")) %>%
-                      statficlassifications::set_region_codes(\"alue_code\") %>%
+                      dplyr::mutate(alue_code = statficlassifications::set_region_codes(alue_code, use_char_length_info = TRUE)) %>%
                       agg_abolished_mun() %>%
                       mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
@@ -556,7 +558,7 @@ ptt_add_query(db_list_name = "aw_db",
                                 "k_lainakanta_eur","k_lainakanta_asuk",
                                 "sote_netto_kayttokust_asuk","opek_netto_kayttokust_asuk")),
               call = "ptt_get_statfi(url, query) %>%
-                        mutate(alue_code = statficlassifications::set_region_codes(alue_code),
+                       dplyr::mutate(alue_code = statficlassifications::set_region_codes(alue_code, use_char_length_info = TRUE)) %>%
                         alue_name = statficlassifications::codes_to_names(alue_code))")
 
 ptt_db_update("aw_db", tables = "kta_12ml")
