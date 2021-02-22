@@ -197,20 +197,21 @@ ptt_db_update("aw_db", tables = "tyokay_115j")
 # -   Avoimet työpaikat ([Työvälitystilasto,
 #                         TEM](https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__tym__tyonv/))
 
-url_tyonv_1001 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_1001.px"
 
+## TYONVALITYSTILASTO / KUUKAUSITIEDOT
+
+# 12r5
 ptt_add_query(db_list_name = "aw_db",
-              url = url_tyonv_1001,
+              url = statfi_url("StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12r5.px"),
               query =
                 list("Alue" = c("*"),
                      "Kuukausi" = c("*"),
                      "Tiedot" = c("*")),
               call = "ptt_get_statfi(url, query)")
 
-url_tyonv_1310 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_1310.px"
-
+# 12tk
 ptt_add_query(db_list_name = "aw_db",
-              url = url_tyonv_1310,
+              url = statfi_url("StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12tk.px"),
               query =
                 list("Alue" = c("*"),
                      "Sukupuoli" = c("SSS"),
@@ -224,11 +225,9 @@ ptt_add_query(db_list_name = "aw_db",
                                        -ikaryhmat_code, -ikaryhmat_name)")
 
 
-
-url_tyonv_2205 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_2205.px"
-
+# 12tv
 ptt_add_query(db_list_name = "aw_db",
-              url = url_tyonv_2205,
+              url = statfi_url("StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12tv.px"),
               query =
                 list("Alue" = c("*"),
                      "Ammattiryhmä" = c("*"),
@@ -240,9 +239,9 @@ ptt_add_query(db_list_name = "aw_db",
                          dplyr::select(-tyonantajan_sektori_code, -tyonantajan_sektori_name,
                                        -tyopaikan_tyon_kesto_code, -tyopaikan_tyon_kesto_name)")
 
-url_tyonv_1370 <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/kk/statfin_tyonv_pxt_1370.px"
+# 12tt
 ptt_add_query(db_list_name = "aw_db",
-              url = url_tyonv_1370,
+              url = statfi_url("StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12tt.px"),
               query =
                 list("Alue" = c("SSS", statficlassifications::get_regionclassification("maakunta", only_names = TRUE)),
                      "Ammattiryhmä" = c("*"),
@@ -251,7 +250,36 @@ ptt_add_query(db_list_name = "aw_db",
                      "Työllisyys" = c("SSS","1","2")),
               call = "ptt_get_statfi(url, query)")
 
+# 12ti
+ptt_add_query(db_list_name = "aw_db",
+              url = statfi_url("StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12ti.px"),
+              query =
+                list("Alue" = statficlassifications::get_regionclassification("maakunta", only_codes = TRUE),
+                     "Ammattiryhmä" = c("*"),
+                     "Kuukausi" = c("*"),
+                     "Tiedot" = c("*")),
+              call = "ptt_get_statfi(url, query)")
 
+## TYÖVOIMATUTKIMUS
+
+# 11n1, avoimet tyopaikat suuralueittain
+ptt_add_query(db_list_name = "aw_db",
+              url = statfi_url("StatFin/tym/atp/nj/statfin_atp_pxt_11n1.px"),
+              query =
+                list("Vuosineljännes"=c("*"),
+                     "Suuralue" = c("*"),
+                     "Tiedot"=c("atp_lkm")),
+              call = "ptt_get_statfi(url, query)")
+
+# 11n1, avoimet tyopaikat suuralueittain
+ptt_add_query(db_list_name = "aw_db",
+              url = statfi_url("StatFin/tym/tyti/nj/statfin_tyti_pxt_11c9.px"),
+              query =
+                list("Vuosineljännes" = c("*"),
+                     "Sukupuoli" = c("SSS"),
+                     "Suuralue 2012" = c("*"),
+                     "Tiedot" = c("Tyottomat")),
+              call = "ptt_get_statfi(url, query)")
 
 
 ## Tulot
@@ -381,7 +409,7 @@ ptt_add_query(db_list_name = "aw_db",
 ptt_db_update("aw_db", tables = "tkke_125t")
 
 
-url_tyokay_115s <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/vrm/tyokay/statfin_tyokay_pxt_115s.px"
+url_tyokay_115s <- statfi_url("StatFin/vrm/tyokay/statfin_tyokay_pxt_115s.px")
 ptt_add_query(db_list_name = "aw_db",
               url = url_tyokay_115s,
               query =
@@ -394,6 +422,17 @@ ptt_add_query(db_list_name = "aw_db",
 #
 # -   Tuotannon taso
 # ([Aluetilinpito](http://www.stat.fi/til/altp/index.html))
+
+url_alyr_11ft <- statfi_url("StatFin/yri/alyr/statfin_alyr_pxt_11ft.px")
+ptt_add_query(db_list_name = "aw_db",
+              url = url_alyr_11ft,
+              query =
+                list("Vuosi" = c("*"),
+                     "Toimiala (TOL 2008)" = c("*"),
+                     "Maakunta" = c("*"),
+                     "Henkilöstön suuruusluokka" = c("*"),
+                     "Tiedot" = c("Tplukumaara2")),
+              call = "ptt_get_statfi(url, query)")
 
 ## BKT per asukas
 url_altp_12bc <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bc.px/")
