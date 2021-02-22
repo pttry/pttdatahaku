@@ -269,7 +269,10 @@ ptt_add_query(db_list_name = "aw_db",
                 list("Vuosineljännes"=c("*"),
                      "Suuralue" = c("*"),
                      "Tiedot"=c("atp_lkm")),
-              call = "ptt_get_statfi(url, query)")
+              call = "ptt_get_statfi(url, query) %>%
+                      rename(alue_code = suuralue_code) %>%
+                      select(-suuralue_name) %>%
+                      mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
 # 11n1, avoimet tyopaikat suuralueittain
 ptt_add_query(db_list_name = "aw_db",
@@ -279,7 +282,10 @@ ptt_add_query(db_list_name = "aw_db",
                      "Sukupuoli" = c("SSS"),
                      "Suuralue 2012" = c("*"),
                      "Tiedot" = c("Tyottomat")),
-              call = "ptt_get_statfi(url, query)")
+              call = "ptt_get_statfi(url, query) %>%
+                      rename(alue_code = suuralue_2012_code) %>%
+                      select(-suuralue_2012_name) %>%
+                      mutate(alue_name = statficlassifications::codes_to_names(alue_code, year = 2012))")
 
 
 ## Tulot
