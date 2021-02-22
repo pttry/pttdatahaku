@@ -285,7 +285,8 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query) %>%
                       rename(alue_code = suuralue_2012_code) %>%
                       select(-suuralue_2012_name) %>%
-                      mutate(alue_name = statficlassifications::codes_to_names(alue_code, year = 2012))")
+                      mutate(alue_name = statficlassifications::codes_to_names(alue_code, year = 2012),
+                             values = 1000*values)")
 
 
 ## Tulot
