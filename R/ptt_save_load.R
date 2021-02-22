@@ -25,7 +25,8 @@ ptt_save_data <- function(x, x_name = deparse1(substitute(x)), path = NULL){
 #' @describeIn ptt_save_data Read data
 #' @export
 #'
-ptt_read_data <- function(x_name, region_level = NULL, path = NULL){
+ptt_read_data <- function(x_name, region_level = NULL, path = NULL,
+                          only_names = FALSE, only_codes = FALSE){
 
   if (is.null(path)) path <- db_path
 
@@ -46,6 +47,10 @@ ptt_read_data <- function(x_name, region_level = NULL, path = NULL){
         dplyr::rename_with(~paste(region_level, "name", sep = "_"), alue_name)
     }
   }
+
+  if(only_codes) {output <- dplyr::select(output, -contains("name"))}
+  if(only_names) {output <- dplyr::select(output, -contains("code"))}
+
   output
 }
 
