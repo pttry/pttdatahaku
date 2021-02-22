@@ -133,7 +133,7 @@ px_code_name <- function(px_data){
 #' @examples
 #'   statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
 #'
-statfi_url <- function(..., .base_url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi"){
+statfi_url <- function(..., .base_url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi"){
   file.path(.base_url, ..., fsep = "/")
 }
 
