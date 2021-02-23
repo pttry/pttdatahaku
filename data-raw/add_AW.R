@@ -502,7 +502,7 @@ ptt_db_update("aw_db", tables = "altp_12bd")
 url_ashi_112l <- statfi_url("StatFin/asu/ashi/vv/statfin_ashi_pxt_112l.px")
 # pxweb_print_full_query(url_ashi_112l)
 ptt_add_query(db_list_name = "aw_db",
-              url = url_ashi_112l,
+              url = url_ashi_112l,s
               query =
                 list("Alue"=c("*"),
                      "Vuosi"=c("*"),
@@ -512,6 +512,8 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query) %>%
                       droplevels() %>%
                       mutate(alue_code = statficlassifications::set_region_codes(alue_code, region_level = \"maakunta\"),
+                             alue_code = as.character(alue_code),
+                             alue_code = ifelse(alue_code == \"ksu\", \"SSS\", alue_code),
                              alue_name = statficlassifications::codes_to_names(alue_code))")
 
 ptt_db_update("aw_db", tables = "ashi_112l")
