@@ -510,7 +510,6 @@ ptt_add_query(db_list_name = "aw_db",
                      "Huoneluku"=c("00","01","02","03"),
                      "Tiedot"=c("keskihinta","ketjutettu_lv","vmuutos_lv","realind_lv","vmuutos_realind_lv","lkm_julk")),
               call = "ptt_get_statfi(url, query) %>%
-                      filter(grepl(\"A\", alue_code)) %>%
                       droplevels() %>%
                       mutate(alue_code = statficlassifications::set_region_codes(alue_code, region_level = \"maakunta\"),
                              alue_name = statficlassifications::codes_to_names(alue_code))")
