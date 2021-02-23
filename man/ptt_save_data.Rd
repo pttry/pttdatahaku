@@ -7,7 +7,13 @@
 \usage{
 ptt_save_data(x, x_name = deparse1(substitute(x)), path = NULL)
 
-ptt_read_data(x_name, region_level = NULL, path = NULL)
+ptt_read_data(
+  x_name,
+  region_level = NULL,
+  path = NULL,
+  only_names = FALSE,
+  only_codes = FALSE
+)
 }
 \arguments{
 \item{x}{A data to save}

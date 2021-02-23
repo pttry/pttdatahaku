@@ -4,7 +4,7 @@
 \alias{statfi_url}
 \title{Statfi url}
 \usage{
-statfi_url(..., .base_url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi")
+statfi_url(..., .base_url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi")
 }
 \arguments{
 \item{...}{Character vectors.}
