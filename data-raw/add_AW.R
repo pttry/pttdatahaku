@@ -337,7 +337,8 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query, check_classifications = FALSE,
                       renames = c(Vuosi = \"Verovuosi\")) %>%
                       dplyr::mutate(alue_code = statficlassifications::set_region_codes(alue_code, use_char_length_info = TRUE)) %>%
-                      agg_abolished_mun()")
+                      agg_abolished_mun() %>%
+                      mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
 ptt_db_update("aw_db", tables = "koulutus_103_2019")
 
