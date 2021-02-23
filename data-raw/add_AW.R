@@ -502,7 +502,7 @@ ptt_db_update("aw_db", tables = "altp_12bd")
 url_ashi_112l <- statfi_url("StatFin/asu/ashi/vv/statfin_ashi_pxt_112l.px")
 # pxweb_print_full_query(url_ashi_112l)
 ptt_add_query(db_list_name = "aw_db",
-              url = url_ashi_112l,s
+              url = url_ashi_112l,
               query =
                 list("Alue"=c("*"),
                      "Vuosi"=c("*"),
