@@ -239,11 +239,11 @@ ptt_add_query(db_list_name = "aw_db",
                          dplyr::select(-tyonantajan_sektori_code, -tyonantajan_sektori_name,
                                        -tyopaikan_tyon_kesto_code, -tyopaikan_tyon_kesto_name)")
 
-# 12tt
+# 12tt Työnhakijat ja avoimet työpaikat ammattiryhmän mukaan kk:n aikana
 ptt_add_query(db_list_name = "aw_db",
               url = statfi_url("StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12tt.px"),
               query =
-                list("Alue" = c("SSS", statficlassifications::get_regionclassification("maakunta", only_names = TRUE)),
+                list("Alue" = c("SSS", statficlassifications::get_regionclassification("maakunta", only_codes = TRUE)),
                      "Ammattiryhmä" = c("*"),
                      "Kuukausi" = c("*"),
                      "Tiedot"=c("HAKIJAYHT","AVPAIKATYHT"),
@@ -440,7 +440,8 @@ ptt_add_query(db_list_name = "aw_db",
                      "Maakunta" = c("*"),
                      "Henkilöstön suuruusluokka" = c("*"),
                      "Tiedot" = c("Tplukumaara2")),
-              call = "ptt_get_statfi(url, query)")
+              call = "ptt_get_statfi(url, query) %>%
+                      rename(alue_code = maakunta_code, alue_name = maakunta_name)")
 
 ## BKT per asukas
 url_altp_12bc <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bc.px/")
