@@ -508,7 +508,11 @@ ptt_add_query(db_list_name = "aw_db",
                      "Talotyyppi"=c("0","1","3"),
                      "Huoneluku"=c("00","01","02","03"),
                      "Tiedot"=c("keskihinta","ketjutettu_lv","vmuutos_lv","realind_lv","vmuutos_realind_lv","lkm_julk")),
-              call = "ptt_get_statfi(url, query)")
+              call = "ptt_get_statfi(url, query) %>%
+                      filter(grepl(\"A\", alue_code)) %>%
+                      droplevels() %>%
+                      mutate(alue_code = statficlassifications::set_region_codes(alue_code, region_level = \"maakunta\"),
+                             alue_name = statficlassifications::codes_to_names(alue_code))")
 
 ptt_db_update("aw_db", tables = "ashi_112l")
 
