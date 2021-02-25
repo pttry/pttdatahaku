@@ -108,8 +108,11 @@ filter_region_level <- function(data, region_level) {
 
   grepl_regexp <- paste(statficlassifications::name_to_prefix(region_level), collapse = "|")
   output <- dplyr::filter(data, grepl(grepl_regexp, alue_code)) %>%
-            dplyr::mutate(alue_code = droplevels(alue_code),
-                          alue_name = droplevels(alue_name))
+            dplyr::mutate(alue_code = droplevels(alue_code))
+
+  if("alue_name" %in% names(data)) {
+    output <- dplyr::mutate(alue_name = droplevels(alue_name))
+  }
 
   if(length(region_level) == 1) {
     output <- output %>%
