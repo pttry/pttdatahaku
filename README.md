@@ -19,8 +19,9 @@
               kertoo käyttäjälle, että muuttujassa useita aluetasoja. Tiettyjen aluetasojen nimiä käytetään, koska
               jos muuttujassa vain yhtä aluetasoa, käyttäjä voi haluta lisätä muita aluetasoja omiin muuttujiin.
               Tällöin muuttujat on pystyttävä erottamaan toisistaan.
-            - Aluekoodit etuliitteineen. Aluekoodit, jotta 1) koodista välittömästi näkee aluetason, 2) koodit ovat 
-              yksiselitteisiä ja 3) koodit eivät koskaan eksy dataan muodossa double.
+            - Aluekoodit etuliitteineen. Etuliitteet, jotta 1) koodista välittömästi näkee aluetason, 2) koodit ovat 
+              yksiselitteisiä 3) koodit eivät koskaan eksy dataan muodossa double ja 4) eri aluetasojen erottelu
+              aineistosta on kätevää filtteröimällä etuliitteiden avulla.
            
      - numerosarake nimellä "values"
   - muuttujatyypit
