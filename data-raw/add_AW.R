@@ -1,5 +1,8 @@
 # Add Akava Works data
 
+#update all data
+# ptt_db_update("aw_db")
+
 # Väestö
 # ------
 #
@@ -40,7 +43,7 @@ ptt_add_query(db_list_name = "aw_db",
                                   "vaesto_keski_ika")))
 
 
-ptt_db_update("aw_db", tables = "vaerak_11ra")
+# ptt_db_update("aw_db", tables = "vaerak_11ra")
 
 
 #
@@ -64,7 +67,7 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query) %>% add_regional_agg()")
 
 
-ptt_db_update("aw_db", tables = "vaenn_128v")
+# ptt_db_update("aw_db", tables = "vaenn_128v")
 
 # Ika aggregoitu
 ptt_read_data("vaenn_128v") %>%
@@ -101,7 +104,7 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query)")
 
 
-ptt_db_update("aw_db", tables = "perh_12c1")
+# ptt_db_update("aw_db", tables = "perh_12c1")
 
 
 
@@ -117,7 +120,7 @@ ptt_add_query(db_list_name = "aw_db",
                      "Tiedot"=c("Vaesto","Tyovoima","Tyolliset","Tyottomat","Tyollisyysaste_15_64","Tyottomyysaste","tyovoimaosuus")),
               call = "ptt_get_statfi(url, query, renames = c(Alue = \"Maakunta 2011\"), check_classifications = FALSE)")
 
-ptt_db_update("aw_db", tables = "tyti_11pn")
+# ptt_db_update("aw_db", tables = "tyti_11pn")
 
 
 # -   Työllisyyden ja työpaikkojen rakenne
@@ -145,7 +148,7 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query, renames = c(Alue = \"Työpaikan alue\")) %>% add_regional_agg()")
 
 
-ptt_db_update("aw_db", tables = "tyokay_115h")
+# ptt_db_update("aw_db", tables = "tyokay_115h")
 
 # toimila aggregoitu
 ptt_read_data("tyokay_115h") %>%
@@ -191,7 +194,7 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query, renames = c(Alue = \"Työpaikan alue\")) %>% add_regional_agg()")
 
 
-ptt_db_update("aw_db", tables = "tyokay_115j")
+# ptt_db_update("aw_db", tables = "tyokay_115j")
 
 #
 # -   Avoimet työpaikat ([Työvälitystilasto,
@@ -312,7 +315,7 @@ ptt_add_query(db_list_name = "aw_db",
                       agg_abolished_mun()%>%
                       dplyr::mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
-ptt_db_update("aw_db", tables = "tulot_102")
+# ptt_db_update("aw_db", tables = "tulot_102")
 
 
 
@@ -340,7 +343,7 @@ ptt_add_query(db_list_name = "aw_db",
                       agg_abolished_mun() %>%
                       mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
-ptt_db_update("aw_db", tables = "koulutus_103_2019")
+# ptt_db_update("aw_db", tables = "koulutus_103_2019")
 
 
 
@@ -361,7 +364,7 @@ ptt_add_query(db_list_name = "aw_db",
                      "Sektori"=c("S14")),
               call = "ptt_get_statfi(url, query)")
 
-ptt_db_update("aw_db", tables = "altp_12bf")
+# ptt_db_update("aw_db", tables = "altp_12bf")
 
 # Yritykset ja tuotanto
 # ---------------------
@@ -383,7 +386,7 @@ ptt_add_query(db_list_name = "aw_db",
                         agg_yearly() %>%
                         add_regional_agg()")
 
-ptt_db_update("aw_db", tables = "aly_11yq")
+# ptt_db_update("aw_db", tables = "aly_11yq")
 
 
 
@@ -414,7 +417,7 @@ ptt_add_query(db_list_name = "aw_db",
                         filter(!is.na(alue_code)) %>%
                         relocate(alue_code, .after = time)")
 
-ptt_db_update("aw_db", tables = "tkke_125t")
+# ptt_db_update("aw_db", tables = "tkke_125t")
 
 
 url_tyokay_115s <- statfi_url("StatFin/vrm/tyokay/statfin_tyokay_pxt_115s.px")
@@ -454,7 +457,7 @@ ptt_add_query(db_list_name = "aw_db",
                           "Tiedot"=c("GDPcap","GDPind","GDPind15","GDPind28","GDPvv2010","EP","GDPvv2015")),
               call = "ptt_get_statfi(url, query)")
 
-ptt_db_update("aw_db", tables = "altp_12bc")
+# ptt_db_update("aw_db", tables = "altp_12bc")
 
 ## Arvonlisäys
 
@@ -486,8 +489,24 @@ ptt_add_query(db_list_name = "aw_db",
                         attr(dat, \"codes_names\") <- attr(dat0, \"codes_names\")
                         dat}")
 
-ptt_db_update("aw_db", tables = "altp_12bd")
+# ptt_db_update("aw_db", tables = "altp_12bd")
 
+
+## BKT per asukas
+url_altp_12bg <- statfi_url("StatFin/kan/altp/statfin_altp_pxt_12bg.px/")
+# pxweb_print_full_query(url_altp_12bg)
+ptt_add_query(db_list_name = "aw_db",
+              url = url_altp_12bg,
+              query =
+                list("Alue"=c("*"),
+                     "Vuosi"=c("*"),
+                     "Taloustoimi" = c("E1", "E2"),
+                     "Toimiala" = c("SSS"),
+                     "Sektori" = c("S1"),
+                     "Tiedot"=c("cp_alkup")),
+              call = "ptt_get_statfi(url, query)")
+
+# ptt_db_update("aw_db", tables = "altp_12bg")
 
 # Asuntomarkkinat
 # ---------------
@@ -517,7 +536,7 @@ ptt_add_query(db_list_name = "aw_db",
                              alue_code = ifelse(alue_code == \"ksu\", \"SSS\", alue_code),
                              alue_name = statficlassifications::codes_to_names(alue_code))")
 
-ptt_db_update("aw_db", tables = "ashi_112l")
+# ptt_db_update("aw_db", tables = "ashi_112l")
 
 #
 # -   Asumisen rakenne ([Asunnot ja
@@ -542,7 +561,7 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query) %>%
                         add_regional_agg()")
 
-ptt_db_update("aw_db", tables = "asas_115y")
+# ptt_db_update("aw_db", tables = "asas_115y")
 
 # query =
 #   list("Alue"=c("*"),
@@ -589,7 +608,7 @@ ptt_add_query(db_list_name = "aw_db",
                       agg_abolished_mun() %>%
                       mutate(alue_name = statficlassifications::codes_to_names(alue_code))")
 
-ptt_db_update("aw_db", tables = "verot_maksut_102")
+# ptt_db_update("aw_db", tables = "verot_maksut_102")
 
 
 #
@@ -611,10 +630,10 @@ ptt_add_query(db_list_name = "aw_db",
                                 "k_lainakanta_eur","k_lainakanta_asuk",
                                 "sote_netto_kayttokust_asuk","opek_netto_kayttokust_asuk")),
               call = "ptt_get_statfi(url, query) %>%
-                       dplyr::mutate(alue_code = statficlassifications::set_region_codes(alue_code, use_char_length_info = TRUE)) %>%
-                        alue_name = statficlassifications::codes_to_names(alue_code))")
+                       mutate(alue_code = statficlassifications::set_region_codes(alue_code, use_char_length_info = TRUE),
+                       alue_name = statficlassifications::codes_to_names(alue_code))")
 
-ptt_db_update("aw_db", tables = "kta_12ml")
+# ptt_db_update("aw_db", tables = "kta_12ml")
 
 
 
