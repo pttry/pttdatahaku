@@ -3,14 +3,18 @@
 #' @param db_list A PTT database list.
 #' @param dp_list_name A database list name.
 #' @param table_code A name of table to add. If NULL (default) the name is
-#'                   constructed for url.
+#'                   constructed from url.
 #' @param url A url of table in statfin
 #' @param query A query list from \code{\link{pxweb_print_full_query}}.
 #' @param tables A character vector of tables to update.
 #'
+#' @return A named list with update: names of updated tables and
+#'         error: names of tables with an error.
+#'
 #' @export
 #'
 #' @import dplyr
+#' @import tidyr
 #'
 #' @examples
 #'
@@ -40,9 +44,24 @@ ptt_db_update <- function(db_list_name, tables = "all"){
 
   if (tables != "all") db_list <- db_list[tables]
 
-  dat_list <- purrr::map(db_list, ~eval(parse(text = .x$call), envir = .x))
-  purrr::imap(dat_list, ~ptt_save_data(.x, .y))
-  invisible(NULL)
+  dat_list <- purrr::map(db_list,
+                         purrr::safely(
+                           function(x) eval(parse(text = x$call), envir = x),
+                           otherwise = data.frame()))
+
+  results <- purrr::map_lgl(dat_list, ~is.null(.x$error))
+  res_list <- dat_list[results]
+  err_list <- dat_list[!results]
+
+  purrr::imap(res_list, ~ptt_save_data(.x$result, .y))
+
+  message("Updated: ", paste0(names(res_list), collapse = ", "))
+  if (length(err_list) > 0) {
+    message("Error: \n", purrr::imap_chr(err_list, ~paste0(.y, ": ", .x$error, "\n")))
+  }
+
+  invisible(list(updated = names(res_list),
+                 error = names(err_list)))
 }
 
 

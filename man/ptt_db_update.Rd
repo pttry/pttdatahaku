@@ -23,11 +23,15 @@ ptt_add_query(
 \item{query}{A query list from \code{\link{pxweb_print_full_query}}.}
 
 \item{table_code}{A name of table to add. If NULL (default) the name is
-constructed for url.}
+constructed from url.}
 
 \item{db_list}{A PTT database list.}
 
 \item{dp_list_name}{A database list name.}
+}
+\value{
+A named list with update: names of updated tables and
+        error: names of tables with an error.
 }
 \description{
 Add and update PTT database
