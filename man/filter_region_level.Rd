@@ -19,3 +19,8 @@ The desired region level}
 Filters, from a data.frame with a reigon code variable (with standardized region code prefixes)
 desired region level and renames the the region variables in case of unique region level.
 }
+\examples{
+test_dat2 <- ptt_read_data("test_dat")
+filter_region_level(data = test_dat2, region_level = "KOKO MAA")
+
+}

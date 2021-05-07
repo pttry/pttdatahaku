@@ -12,7 +12,9 @@
 #' @export
 #'
 #' @examples
-#' test_dat <- data.frame(a = c(1,2))
+#' test_dat <- data.frame(alue_name = factor(c("KOKO MAA", "Uusimaa")),
+#'                        alue_code = factor(c("SSS", "MK01")),
+#'                        a = c(1,2))
 #' ptt_save_data(test_dat)
 #' test_dat2 <- ptt_read_data("test_dat")
 
@@ -104,6 +106,9 @@ ptt_read_db_list <- function(db_list_name, create = FALSE){
 #' @export
 #'
 #' @examples
+#' test_dat2 <- ptt_read_data("test_dat")
+#' filter_region_level(data = test_dat2, region_level = "KOKO MAA")
+#'
 filter_region_level <- function(data, region_level) {
 
   grepl_regexp <- paste(statficlassifications::name_to_prefix(region_level), collapse = "|")
@@ -111,7 +116,7 @@ filter_region_level <- function(data, region_level) {
             dplyr::mutate(alue_code = droplevels(alue_code))
 
   if("alue_name" %in% names(data)) {
-    output <- dplyr::mutate(alue_name = droplevels(alue_name))
+    output <- dplyr::mutate(output, alue_name = droplevels(alue_name))
   }
 
   if(length(region_level) == 1) {

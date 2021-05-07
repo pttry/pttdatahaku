@@ -35,7 +35,9 @@ The foldet must be synced.
 }}
 
 \examples{
-test_dat <- data.frame(a = c(1,2))
+test_dat <- data.frame(alue_name = factor(c("KOKO MAA", "Uusimaa")),
+                       alue_code = factor(c("SSS", "MK01")),
+                       a = c(1,2))
 ptt_save_data(test_dat)
 test_dat2 <- ptt_read_data("test_dat")
 }
