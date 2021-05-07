@@ -111,7 +111,7 @@ filter_region_level <- function(data, region_level) {
             dplyr::mutate(alue_code = droplevels(alue_code))
 
   if("alue_name" %in% names(data)) {
-    output <- dplyr::mutate(alue_name = droplevels(alue_name))
+    output <- dplyr::mutate(output, alue_name = droplevels(alue_name))
   }
 
   if(length(region_level) == 1) {
