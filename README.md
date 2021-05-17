@@ -13,24 +13,15 @@
      - ei tyhjää välimerkkiä, sen sijaan alaviiva
      - Aluemuuttujat
             - sekä koodi että nimi sarakkeet ("*_code", "*_name_"), e.g. _(seutu)kunta_code_, _(maa)kunta_name_. 
-            - muuttujat, jossa vain yhtä aluetasoa, nimetään aluetason mukaan, esim. _seutukunta_name_. Muuttujat
-              joissa useampaa aluetasoa nimetään _alue_name_ ja _alue_code_. Näin koska, jos muuttujassa on useita
-              aluetasoja, sitä ei ole mieltä nimetä yhden aluetason mukaan. Tällöin _alue_ muuttujan nimessä myös
-              kertoo käyttäjälle, että muuttujassa useita aluetasoja. Tiettyjen aluetasojen nimiä käytetään, koska
-              jos muuttujassa vain yhtä aluetasoa, käyttäjä voi haluta lisätä muita aluetasoja omiin muuttujiin.
-              Tällöin muuttujat on pystyttävä erottamaan toisistaan.
-            - Aluekoodit etuliitteineen. Etuliitteet, jotta 1) koodista välittömästi näkee aluetason, 2) koodit ovat 
-              yksiselitteisiä 3) koodit eivät koskaan eksy dataan muodossa double ja 4) eri aluetasojen erottelu
-              aineistosta on kätevää filtteröimällä etuliitteiden avulla.
-           
-     - numerosarake nimellä "values"
+            - ei "Alue"-nimistä muuttujaa, aluemuuttujalla alueen nimi
+            - numerosarake nimellä "values"
   - muuttujatyypit
       - aikamuuttujat
             - "time"
             - Date -muodossa
       - kategoriset muuttujat
             - factor -muodossa
-            - values sarakkeen selityssarake myös factor-muodossa.
+            - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
       - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
   - missing values merkataan NA
 
@@ -39,6 +30,10 @@
 
 - Aika ja aluemuuttujista kaikki anonyymisti (*)
 - Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
+
+- Täällä koodit aineistojen hakuun ja päivittämiseen?
+      - kullekin pxwebin taululle oma valmis hakukoodi?
+      - Nämä koodit nimettäisiin pxwebin aineistonumerojen mukaan.
         
 Hakufunktio:
   *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
@@ -59,7 +54,15 @@ Hakufunktio:
    - *statfi_url* 
       - Koko statfi osoite loppuosan perusteella.
       - statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
+   - *statfi_parse_url*
+      - Statfi api:n osoite taulun web sivun osoitteen perusteella.
+      - statfi_parse_url("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
    - *pxweb_print_full_query* 
       - Kirjoittaa hakulistan taulun kaikille tiedoille.
-      - `pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))`
+      - pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))`
+   - *pxweb_print_code_full_query*
+      - Kirjoittaa hakukoodin taulun kaikille tiedoille.
+      - Toimii sekä api että web osoitteella
+      - pxweb_print_code_full_query("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+      
 

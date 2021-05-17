@@ -4,7 +4,10 @@
 #' @export
 #'
 #' @examples
-#' x <- tibble(alue_code = c("KU911", "KU541"), alue_name = c("A", "B"), values = c(1,2))
+#' x <- data.frame(
+#'   alue_code = c("KU911", "KU541"),
+#'    alue_name = c("A", "B"), values = c(1,2))
+#' agg_abolished_mun(x)
 #'
 agg_abolished_mun <- function(x){
   y <- x %>%
@@ -15,7 +18,7 @@ agg_abolished_mun <- function(x){
     mutate(alue_name = statficlassifications::codes_to_names(alue_code)) %>%
     relocate(names(x))
 
-  y <- add_ptt_attr(x, y)
+  y <- add_ptt_attr(y, x)
   y
 }
 
@@ -47,6 +50,10 @@ agg_regions <- function(x, from = "kunta", to = "maakunta"){
 }
 
 #' Add regional aggragation
+#'
+#' @describeIn agg_regions
+#'
+#' @export
 
 add_regional_agg <- function(x, from = "kunta", to = "maakunta"){
 

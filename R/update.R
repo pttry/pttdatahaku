@@ -1,12 +1,12 @@
 #' Add and update PTT database
 #'
-#' @param db_list A PTT database list.
-#' @param dp_list_name A database list name.
+#' @param db_list_name A database list name.
 #' @param table_code A name of table to add. If NULL (default) the name is
 #'                   constructed from url.
 #' @param url A url of table in statfin
 #' @param query A query list from \code{\link{pxweb_print_full_query}}.
 #' @param tables A character vector of tables to update.
+#' @param call A call to run query.
 #'
 #' @return A named list with update: names of updated tables and
 #'         error: names of tables with an error.
@@ -21,7 +21,7 @@
 #'  ptt_add_query(
 #'    "test_db",
 #'    "test2",
-#'    url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
+#'    url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
 #'    query =
 #'           list(
 #'             "Vuosi"=c("1980"),
@@ -35,7 +35,7 @@
 #'
 #'  ptt_db_update(db_list_name = "test_db")
 #'
-#'  test1_dat <- ptt_read_data("test1")
+#'  test1_dat <- ptt_read_data("test2")
 #'
 
 

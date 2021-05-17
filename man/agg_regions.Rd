@@ -2,9 +2,12 @@
 % Please edit documentation in R/post_process.R
 \name{agg_regions}
 \alias{agg_regions}
+\alias{add_regional_agg}
 \title{Aggregate to other region level}
 \usage{
 agg_regions(x, from = "kunta", to = "maakunta")
+
+add_regional_agg(x, from = "kunta", to = "maakunta")
 }
 \arguments{
 \item{x}{A data.frame like object.}
@@ -15,4 +18,11 @@ agg_regions(x, from = "kunta", to = "maakunta")
 }
 \description{
 Aggregate to other region level
+
+Add regional aggragation
 }
+\section{Functions}{
+\itemize{
+\item \code{add_regional_agg}: 
+}}
+

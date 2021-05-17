@@ -16,6 +16,8 @@ ptt_add_query(
 )
 }
 \arguments{
+\item{db_list_name}{A database list name.}
+
 \item{tables}{A character vector of tables to update.}
 
 \item{url}{A url of table in statfin}
@@ -25,9 +27,7 @@ ptt_add_query(
 \item{table_code}{A name of table to add. If NULL (default) the name is
 constructed from url.}
 
-\item{db_list}{A PTT database list.}
-
-\item{dp_list_name}{A database list name.}
+\item{call}{A call to run query.}
 }
 \value{
 A named list with update: names of updated tables and
@@ -46,7 +46,7 @@ Add and update PTT database
  ptt_add_query(
    "test_db",
    "test2",
-   url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
+   url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
    query =
           list(
             "Vuosi"=c("1980"),
@@ -60,6 +60,6 @@ Add and update PTT database
 
  ptt_db_update(db_list_name = "test_db")
 
- test1_dat <- ptt_read_data("test1")
+ test1_dat <- ptt_read_data("test2")
 
 }

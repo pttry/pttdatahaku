@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#'   url = "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px"
+#'   url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px"
 #'   query <-
 #'     list("Vuosi"=c("1970","1975"),
 #'          "Alue"=c("SSS","KU020","KU005"),
@@ -24,7 +24,7 @@
 #'   pp <- ptt_get_statfi(url, query, names = "none")
 #'   pp <- ptt_get_statfi(url, query, names = c("Alue"))
 #'
-#'   url <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/Kokeelliset_tilastot/nopsu/koeti_nopsu_pxt_11mx.px"
+#'   url <- "https://pxnet2.stat.fi/PXWeb/api/v1/fi/Kokeelliset_tilastot/nopsu/koeti_nopsu_pxt_11mx.px"
 #'   query <-
 #'    list("Vuosinelj\U00E4nnes"=c("2019Q1", "2019Q2", "2019Q3", "2019Q4"),
 #'         "Tiedot"=c("alkuperainen_euro",
@@ -123,21 +123,6 @@ px_code_name <- function(px_data){
 }
 
 
-#' Statfi url
-#'
-#' Gives full statfi url
-#'
-#' @param ... Character vectors.
-#' @param .base_url A base url for statfi.
-#'
-#' @export
-#'
-#' @examples
-#'   statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
-#'
-statfi_url <- function(..., .base_url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi"){
-  file.path(.base_url, ..., fsep = "/")
-}
 
 
 #' Extract citation information from pxweb_data object.

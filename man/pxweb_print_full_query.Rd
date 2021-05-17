@@ -2,16 +2,28 @@
 % Please edit documentation in R/pxweb_utils.R
 \name{pxweb_print_full_query}
 \alias{pxweb_print_full_query}
+\alias{pxweb_prepare_full_query}
 \title{Print full query from table url}
 \usage{
-pxweb_print_full_query(url)
+pxweb_print_full_query(url, time_all = TRUE)
+
+pxweb_prepare_full_query(url, time_all = TRUE)
 }
 \arguments{
 \item{url}{A url to the table}
+
+\item{time_all}{if TRUE (default) will print time variable as \code{c("*")}.}
 }
 \description{
 Print full query from table url
+
+prepare query to print
 }
+\section{Functions}{
+\itemize{
+\item \code{pxweb_prepare_full_query}: 
+}}
+
 \examples{
   pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))
 

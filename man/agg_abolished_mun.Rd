@@ -13,6 +13,9 @@ agg_abolished_mun(x)
 Aggregate abolished municipalicities
 }
 \examples{
-x <- tibble(alue_code = c("KU911", "KU541"), alue_name = c("A", "B"), values = c(1,2))
+x <- data.frame(
+  alue_code = c("KU911", "KU541"),
+   alue_name = c("A", "B"), values = c(1,2))
+agg_abolished_mun(x)
 
 }
