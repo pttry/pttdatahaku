@@ -30,19 +30,22 @@ pxweb_print_code_full_query <- function(url, time_all = TRUE, target = ""){
 
   if (!grepl("api", url)) url <- statfi_parse_url(url)
 
-  full_query <- pxweb_prepare_full_query(url, time_all)
+  full_query <- pxweb_prepare_full_query(url = url, time_all = time_all)
 
   table_code <- get_table_code(url)
 
   cat("dat_", table_code, " <- ptt_get_statfi(\n",
-      "  url = ", url, ",\n",
+      "  url = \"", url, "\",\n",
       "  query = \n  ",
       paste0(pxweb:::pxweb_query_as_rcode(full_query)[-1], collapse = "\n"),
+      ")",
       sep = "",
-      file = "")
+      file = target)
 }
 
 #' @describeIn pxweb_print_code_full_query Prints to clipboard
+#'
+#' @export
 
 pxweb_print_code_full_query_c <- function(url, time_all = TRUE, target = "clipboard-128"){
 
@@ -69,7 +72,7 @@ pxweb_prepare_full_query <- function(url, time_all = TRUE) {
     time_position <- na.omit(match(c("vuosi", "vuosineljannes", "kuukausi"),
                                    statfitools::make_names(
                                      purrr::map_chr(full_query$query, ~.x$code))))
-    full_query$query[[5]]$selection$values <- "*"
+    full_query$query[[time_position]]$selection$values <- "*"
   }
   full_query
 }

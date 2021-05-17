@@ -2,18 +2,28 @@
 % Please edit documentation in R/pxweb_utils.R
 \name{pxweb_print_code_full_query}
 \alias{pxweb_print_code_full_query}
+\alias{pxweb_print_code_full_query_c}
 \title{Print a code to get a full query from table url}
 \usage{
-pxweb_print_code_full_query(url, time_all = TRUE)
+pxweb_print_code_full_query(url, time_all = TRUE, target = "")
+
+pxweb_print_code_full_query_c(url, time_all = TRUE, target = "clipboard-128")
 }
 \arguments{
 \item{url}{An api url to the table or an url to web page.}
 
 \item{time_all}{if TRUE (default) will print time variable as \code{c("*")}.}
+
+\item{target}{A connection, "" to standard output, "clipboard-128" to clipboard.}
 }
 \description{
 Print a code to get a full query from table url
 }
+\section{Functions}{
+\itemize{
+\item \code{pxweb_print_code_full_query_c}: Prints to clipboard
+}}
+
 \examples{
   pxweb_print_code_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))
 
