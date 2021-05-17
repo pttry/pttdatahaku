@@ -19,13 +19,14 @@ pxweb_print_full_query <- function(url, time_all = TRUE){
 #'
 #' @param url An api url to the table or an url to web page.
 #' @param time_all if TRUE (default) will print time variable as \code{c("*")}.
+#' @param target A connection, "" to standard output, "clipboard-128" to clipboard.
 #'
 #' @export
 #'
 #' @examples
 #'   pxweb_print_code_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))
 #'
-pxweb_print_code_full_query <- function(url, time_all = TRUE){
+pxweb_print_code_full_query <- function(url, time_all = TRUE, target = ""){
 
   if (!grepl("api", url)) url <- statfi_parse_url(url)
 
@@ -35,7 +36,17 @@ pxweb_print_code_full_query <- function(url, time_all = TRUE){
 
   cat("dat_", table_code, " <- ptt_get_statfi(\n",
       "  url = ", url, ",\n",
-      "  query = \n  ", paste0(pxweb:::pxweb_query_as_rcode(full_query)[-1], collapse = "\n"), sep = "")
+      "  query = \n  ",
+      paste0(pxweb:::pxweb_query_as_rcode(full_query)[-1], collapse = "\n"),
+      sep = "",
+      file = "")
+}
+
+#' @describeIn pxweb_print_code_full_query Prints to clipboard
+
+pxweb_print_code_full_query_c <- function(url, time_all = TRUE, target = "clipboard-128"){
+
+  pxweb_print_code_full_query(url = url, time_all = time_all, target = target)
 }
 
 #' prepare query to print
