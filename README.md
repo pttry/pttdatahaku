@@ -60,9 +60,10 @@ Hakufunktio:
    - *pxweb_print_full_query* 
       - Kirjoittaa hakulistan taulun kaikille tiedoille.
       - pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))`
-   - *pxweb_print_code_full_query*
+   - *pxweb_print_code_full_query*, *pxweb_print_code_full_query_c*
       - Kirjoittaa hakukoodin taulun kaikille tiedoille.
       - Toimii sekä api että web osoitteella
       - pxweb_print_code_full_query("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+      - _c-versio kirjottaa leikepöydälle
       
 
