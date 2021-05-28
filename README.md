@@ -5,6 +5,10 @@
 <!-- badges: end -->
 
 
+## Asennus
+
+devtools::install_github("https://github.com/pttry/pttdatahaku")
+
 ## Haettavat tiedot muokataan seuraavaan muotoon:
 
  - Pitkä tibble

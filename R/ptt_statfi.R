@@ -5,6 +5,8 @@
 #' @param url A pxweb object or url that can be coherced to a pxweb object
 #' @param query A json string, json file or list object that can be coherced to a pxweb_query object.
 #' @param names Whether to add columns for names. "all", "none" or vector of variable names.
+#' @param check_classifications A locigal whether to check region classification.
+#' @param renames to rename variables.
 #'
 #' @import pxweb
 #' @import dplyr

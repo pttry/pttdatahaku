@@ -18,6 +18,10 @@ ptt_get_statfi(
 \item{query}{A json string, json file or list object that can be coherced to a pxweb_query object.}
 
 \item{names}{Whether to add columns for names. "all", "none" or vector of variable names.}
+
+\item{check_classifications}{A locigal whether to check region classification.}
+
+\item{renames}{to rename variables.}
 }
 \description{
 Downloads data from statfi and modifies data to ptt-form.
