@@ -18,14 +18,27 @@ knitr::opts_chunk$set(
 library(pttdatahaku)
 ```
 
+
+## Browsing data bases
+
+?? The functions work under the assumption that .qs files are data and .rds files are database lists.
+
+## Reading data from a database
+
+Use `ptt_read_data` to read data from a data base. 
+
+## Saving data into a database
+
+Use `ptt_save_data` to save data into a data base.
+
 ## Creating database lists
 
-Database lists contain the code that accesses the SF API and imports the data to the database. Database lists can be used to create and update databases.
+Database lists contain the code that accesses the SF API and imports the data to the database. For each data set there is a database list. Database lists can be used to create and update databases. Currently saves to shared teams folder "Pellervon taloustutkimus - Datapankki/Tietokanta folder". This folder must be synced.
 
 Use function `ptt_save_db_list` to create a database list with a name `my_database` 
 
 ```{r}
-ptt_save_db_list(my_database)
+# ptt_save_db_list("my_database")
 
 ```
 db_lists live in the same folder as the data sets.
@@ -41,7 +54,7 @@ To add a query to a database list, use function `ptt_db_add_query`
 
 ```{r}
 
-ptt_db_add_query("my_database", url = my_url, query = my_query)
+# ptt_db_add_query("my_database", url = my_url, query = my_query)
 
 ```
 
@@ -53,7 +66,7 @@ As a default, databases are created into a teams folder.
 Use function `ptt_db_update` to import and update data. 
 
 
-## Saving data into a database
 
-## Reading data from a database
+
+
 

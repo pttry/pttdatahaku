@@ -27,7 +27,7 @@ ptt_read_data(
 \description{
 For now saves to shared teams
 Pellervon taloustutkimus - Datapankki/Tietokanta folder.
-The foldet must be synced.
+The folder must be synced.
 }
 \section{Functions}{
 \itemize{

@@ -39,6 +39,8 @@ library(pttdatahaku)
   - missing values merkataan NA
 
 
+## Naming
+
 ## pxweb haut
 
 - Aika ja aluemuuttujista kaikki anonyymisti (*)

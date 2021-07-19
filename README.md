@@ -27,6 +27,52 @@ devtools::install_github("https://github.com/pttry/pttdatahaku")
 library(pttdatahaku)
 ```
 
+## Data standardization
+
+``` r
+library(pttdatahaku)
+```
+
+## Haettavat tiedot muokataan seuraavaan muotoon:
+
+-   Pitkä tibble
+-   muuttujanimet
+    -   vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
+    -   ei tyhjää välimerkkiä, sen sijaan alaviiva
+    -   Aluemuuttujat - sekä koodi että nimi sarakkeet
+        ("\*\_code“,”\**name*“), e.g. *(seutu)kunta\_code*,
+        *(maa)kunta\_name*. - ei”Alue“-nimistä muuttujaa,
+        aluemuuttujalla alueen nimi - numerosarake nimellä”values"
+-   muuttujatyypit
+    -   aikamuuttujat - “time” - Date -muodossa
+    -   kategoriset muuttujat - factor -muodossa - values sarakkeen
+        selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen
+        muuttuja, joten sanoisin ei.
+    -   ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj.
+-   missing values merkataan NA
+
+## Naming
+
+## pxweb haut
+
+-   Aika ja aluemuuttujista kaikki anonyymisti (\*)
+
+-   Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
+
+-   Täällä koodit aineistojen hakuun ja päivittämiseen? - kullekin
+    pxwebin taululle oma valmis hakukoodi? - Nämä koodit nimettäisiin
+    pxwebin aineistonumerojen mukaan.
+
+Hakufunktio: *ptt\_get\_statfi* muuntaat tiedostot oikeaan muotoon
+
+## Tietojen tallentaminen ja lukeminen
+
+-   Tulevaisuudessa tietokanta? Nyt projektin data-kansioon
+-   Funktiot:
+    -   ptt\_save\_data()
+    -   ptt\_read\_data()
+-   Datatiedostojen nimet table\_code: e.g. tyonv\_1001
+
 ## Apufunktiot
 
 \#\#\# Olemassa - *statfi\_url* - Koko statfi osoite loppuosan
