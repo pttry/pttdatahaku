@@ -1,0 +1,61 @@
+---
+title: "data_standardization"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{data_standardization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(pttdatahaku)
+```
+
+## Haettavat tiedot muokataan seuraavaan muotoon:
+
+ - Pitkä tibble
+ - muuttujanimet
+     - vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
+     - ei tyhjää välimerkkiä, sen sijaan alaviiva
+     - Aluemuuttujat
+            - sekä koodi että nimi sarakkeet ("*_code", "*_name_"), e.g. _(seutu)kunta_code_, _(maa)kunta_name_. 
+            - ei "Alue"-nimistä muuttujaa, aluemuuttujalla alueen nimi
+            - numerosarake nimellä "values"
+  - muuttujatyypit
+      - aikamuuttujat
+            - "time"
+            - Date -muodossa
+      - kategoriset muuttujat
+            - factor -muodossa
+            - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
+      - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
+  - missing values merkataan NA
+
+
+## pxweb haut
+
+- Aika ja aluemuuttujista kaikki anonyymisti (*)
+- Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
+
+- Täällä koodit aineistojen hakuun ja päivittämiseen?
+      - kullekin pxwebin taululle oma valmis hakukoodi?
+      - Nämä koodit nimettäisiin pxwebin aineistonumerojen mukaan.
+        
+Hakufunktio:
+  *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
+  
+## Tietojen tallentaminen ja lukeminen
+
+- Tulevaisuudessa tietokanta? Nyt projektin data-kansioon
+- Funktiot:
+   - ptt_save_data()
+   - ptt_read_data()
+- Datatiedostojen nimet table_code: e.g. tyonv_1001
+

@@ -1,0 +1,56 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# pttdatahaku
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+`pttdatahaku` contains tools to import data from various sources, to modify data to a standardized form and to construct data bases that can be updated automatically. 
+
+To use standardized analysis tools, the data has to be in standardized form. Unfortunately the data available from Statistics Finland and other sources vary in its form. This package gives the tools to create a data base with specified data sets and provides the tools and default ways of tidying the data in a standard form. Special emphasis is on region classifications. 
+
+## Installation
+
+To install and start using the package:
+
+```{r, eval = FALSE}
+
+install.packages("devtools")
+devtools::install_github("https://github.com/pttry/pttdatahaku")
+library(pttdatahaku)
+
+```
+
+
+        
+## Apufunktiot
+  ### Olemassa
+   - *statfi_url* 
+      - Koko statfi osoite loppuosan perusteella.
+      - statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
+   - *statfi_parse_url*
+      - Statfi api:n osoite taulun web sivun osoitteen perusteella.
+      - statfi_parse_url("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+   - *pxweb_print_full_query* 
+      - Kirjoittaa hakulistan taulun kaikille tiedoille.
+      - pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))`
+   - *pxweb_print_code_full_query*, *pxweb_print_code_full_query_c*
+      - Kirjoittaa hakukoodin taulun kaikille tiedoille.
+      - Toimii sekä api että web osoitteella
+      - pxweb_print_code_full_query("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+      - _c-versio kirjottaa leikepöydälle
+      
+

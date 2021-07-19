@@ -1,0 +1,59 @@
+---
+title: "how_to_use"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{how_to_use}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(pttdatahaku)
+```
+
+## Creating database lists
+
+Database lists contain the code that accesses the SF API and imports the data to the database. Database lists can be used to create and update databases.
+
+Use function `ptt_save_db_list` to create a database list with a name `my_database` 
+
+```{r}
+ptt_save_db_list(my_database)
+
+```
+db_lists live in the same folder as the data sets.
+To retrieve a database list, use function `ptt_read_db_list`.
+
+Database lists consist of queries. A query is a set of information that is required to import a dataset. To add a query, you need the url of the data set and the query itself. 
+
+How to find the url?
+
+How to construct the query? 
+
+To add a query to a database list, use function `ptt_db_add_query`
+
+```{r}
+
+ptt_db_add_query("my_database", url = my_url, query = my_query)
+
+```
+
+
+## Creating new database
+
+As a default, databases are created into a teams folder. 
+
+Use function `ptt_db_update` to import and update data. 
+
+
+## Saving data into a database
+
+## Reading data from a database
+
