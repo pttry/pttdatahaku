@@ -20,3 +20,6 @@ library(pttdatahaku)
 
 # Package structure
 
+A database list consisting of queries contains all information required to create or update a database. Database lists are files with .rds suffices.
+db_lists live in the same folder as the data sets.
+

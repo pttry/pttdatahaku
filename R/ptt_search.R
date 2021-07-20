@@ -1,5 +1,7 @@
 # Functions for browsing and searching PTT databases.
 
+# These functions assume, .qs-files are data and .rds-files are database lists.
+
 #' Search PTT data bases
 #'
 #' @param ... a search term
@@ -8,10 +10,10 @@
 #' @return
 #' @export
 #'
-ptt_search <- function(..., filetype = NULL) {
+ptt_search <- function(..., filetype = NULL, path = db_path) {
 
   searchterms <- unlist(list(...))
-  results <- list.files(db_path)
+  results <- list.files(path)
   if(length(searchterms) > 0) {results <- results[grep(searchterms, results)]}
 
   if(is.null(filetype)) {
@@ -26,15 +28,15 @@ ptt_search <- function(..., filetype = NULL) {
 #' @describeIn ptt_search Search data sets in PTT database
 #' @export
 #'
-ptt_search_data <- function(...) {
-  ptt_search(..., filetype = "qs")
+ptt_search_data <- function(..., path = db_path) {
+  ptt_search(..., filetype = "qs", path = path)
 }
 
 #'
 #' @describeIn ptt_search Search database lists in PTT database
 #' @export
 #'
-ptt_search_database <- function(...) {
-  ptt_search(..., filetype = "rds")
+ptt_search_database <- function(..., path = db_path) {
+  ptt_search(..., filetype = "rds", path = path)
 }
 

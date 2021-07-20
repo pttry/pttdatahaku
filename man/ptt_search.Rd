@@ -6,11 +6,11 @@
 \alias{ptt_search_database}
 \title{Search PTT data bases}
 \usage{
-ptt_search(..., filetype = NULL)
+ptt_search(..., filetype = NULL, path = db_path)
 
-ptt_search_data(...)
+ptt_search_data(..., path = db_path)
 
-ptt_search_database(...)
+ptt_search_database(..., path = db_path)
 }
 \arguments{
 \item{...}{a search term}

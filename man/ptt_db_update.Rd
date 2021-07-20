@@ -34,7 +34,7 @@ A named list with update: names of updated tables and
         error: names of tables with an error.
 }
 \description{
-Add and update PTT database
+`ptt_update_db` updates the database according to the contents of a database list.
 }
 \section{Functions}{
 \itemize{

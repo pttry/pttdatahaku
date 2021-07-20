@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 To use standardized analysis tools, the data has to be in standardized form. Unfortunately the data available from Statistics Finland and other sources vary in its form. This package gives the tools to create a data base with specified data sets and provides the tools and default ways of tidying the data in a standard form. Special emphasis is on region classifications. 
 
-## Installation
+## Installation and set up
 
 To install and start using the package:
 
@@ -34,13 +34,51 @@ library(pttdatahaku)
 
 ```
 
+Currently the databases are in teams folder "Pellervon taloustutkimus - Datapankki/Tietokanta folder". This folder must be synced.
+
+## How to Use
+
+```{r child = "vignettes/how_to_use.Rmd"}
+
+```
 
 
 ## Data standardization
 
-```{r child = "vignettes/data_standardization.Rmd"}
+## Haettavat tiedot muokataan seuraavaan muotoon:
 
-```
+ - Pitkä tibble
+ - muuttujanimet
+     - vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
+     - ei tyhjää välimerkkiä, sen sijaan alaviiva
+     - Aluemuuttujat
+            - sekä koodi että nimi sarakkeet ("*_code", "*_name_"), e.g. _(seutu)kunta_code_, _(maa)kunta_name_. 
+            - ei "Alue"-nimistä muuttujaa, aluemuuttujalla alueen nimi
+            - numerosarake nimellä "values"
+  - muuttujatyypit
+      - aikamuuttujat
+            - "time"
+            - Date -muodossa
+      - kategoriset muuttujat
+            - factor -muodossa
+            - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
+      - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
+  - missing values merkataan NA
+
+
+## Naming
+
+- Datatiedostojen nimet table_code: e.g. tyonv_1001
+
+## pxweb haut
+
+- Aika ja aluemuuttujista kaikki anonyymisti (*)
+- Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
+
+Hakufunktio:
+  *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
+  
+
 
         
 ## Apufunktiot

@@ -1,5 +1,7 @@
 #' Add and update PTT database
 #'
+#' `ptt_update_db` updates the database according to the contents of a database list.
+#'
 #' @param db_list_name A database list name.
 #' @param table_code A name of table to add. If NULL (default) the name is
 #'                   constructed from url.
