@@ -18,34 +18,29 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-`pttdatahaku` contains tools to import data from various sources, to modify data to a standardized form and to construct data bases that can be updated automatically. 
+`pttdatahaku` provides tools for creating, managing and maintaining PTT's data bases. This package is for PTT's internal use. 
 
-To use standardized analysis tools, the data has to be in standardized form. Unfortunately the data available from Statistics Finland and other sources vary in its form. This package gives the tools to create a data base with specified data sets and provides the tools and default ways of tidying the data in a standard form. Special emphasis is on region classifications. 
+To use standardized analysis tools, the data has to be in standardized form. Unfortunately the data available from Statistics Finland and other sources vary in its form. This package gives the tools to create a data bases and provides the tools and default ways of tidying the data into a standard form.
 
 ## Installation and set up
 
 To install and start using the package:
 
 ```{r, eval = FALSE}
-
 install.packages("devtools")
 devtools::install_github("https://github.com/pttry/pttdatahaku")
 library(pttdatahaku)
-
 ```
 
 Currently the databases are in teams folder "Pellervon taloustutkimus - Datapankki/Tietokanta folder". This folder must be synced.
-
-## How to Use
 
 ```{r child = "vignettes/how_to_use.Rmd"}
 
 ```
 
-
 ## Data standardization
 
-## Haettavat tiedot muokataan seuraavaan muotoon:
+Haettavat tiedot muokataan seuraavaan muotoon:
 
  - Pitkä tibble
  - muuttujanimet
@@ -60,17 +55,15 @@ Currently the databases are in teams folder "Pellervon taloustutkimus - Datapank
             - "time"
             - Date -muodossa
       - kategoriset muuttujat
-            - factor -muodossa
-            - values sarakkeen selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen muuttuja, joten sanoisin ei.
       - ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj. 
   - missing values merkataan NA
 
 
-## Naming
+### Naming
 
 - Datatiedostojen nimet table_code: e.g. tyonv_1001
 
-## pxweb haut
+### pxweb haut
 
 - Aika ja aluemuuttujista kaikki anonyymisti (*)
 - Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)

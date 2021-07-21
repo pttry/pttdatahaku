@@ -27,22 +27,33 @@ ptt_search_data()
 ptt_search_data("tyonv")
 ```
 
-## Reading data from a database
-
-Use `ptt_read_data` to read data from a data base. 
+To list all data bases, use `ptt_search_database` without arguments
 
 ```{r}
-data <- ptt_read_data("tyonv_1001")
-head(data)
+ptt_search_database()
 ```
 
 ## Saving Data
 
-Do not save data to database manually/interactively but use the database lists. See Section Creating Databases.
+Preferably do not save data to database manually/interactively but use the database lists for reproducibility and updating. See Section Creating Databases. Sometimes you need to save manually however, for this, use `ptt_save_data`:
+
+```{r}
+test_df <- data.frame(x = letters[1:5], y = rnorm(5))
+ptt_save_data(test_df)
+```
+
+## Reading data
+
+Use `ptt_read_data` with the name of data set to read data from a data base. 
+
+```{r}
+data <- ptt_read_data("test_df")
+data
+```
 
 ## Importing Data from Statistics Finland
 
-To import data, you need an url. Function `statfi_parse_url` transforms the addresses in the gui of pxweb to the addresses of api of the pxweb:
+To import data, you need an url that tells you where the data is. Function `statfi_parse_url` transforms the addresses in the GUI of pxweb to the addresses of API of pxweb:
 
 ```{r}
 gui_url <- "https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__kou__vkour/statfin_vkour_pxt_12bq.px/"
@@ -64,9 +75,7 @@ pxweb_print_code_full_query(my_url)
 pxweb_print_code_full_query_c(my_url)
 ```
 
-where the latter copies the code to clipboard for you to add where ever you wish simply by ctrl+V. 
-
-With a query and an url, you can import data. Let's simplify the query a bit:
+where the latter copies the code to clipboard for you to add where ever you wish simply by ctrl+V. With a query and an url, you can import data. Let's simplify the query a bit:
 
 ```{r}
 my_query <-
@@ -78,19 +87,19 @@ my_query <-
          "Tiedot"=c("vaesto"))
 ```
 
-The function `ptt_get_statfi` accesses the API of Statistics Finland and tidies the data. 
+Use function `ptt_get_statfi` to import data:
 
 ```{r}
 ptt_get_statfi(my_url, my_query)
 ```
 
-
-
 ## Creating Databases
 
-Database lists contain the code that accesses the Statistics Finland data API and imports the data to the database. For each data set there is a database list. Database lists can be used to create and update databases. Database lists contains queries. Database lists are list-objects.
+### Database lists
 
-Use function `ptt_save_db_list` to create a database list with a name `test_db`. Note that we are adding an object to the data base. Thus, first create the object and then use this object as an argument of `ptt_save_db_list` without quotation marks.
+Database lists contain the code that accesses the Statistics Finland data API and imports the data to the database. For each data set there is an entry in a database list. Database lists are used to create and update databases. 
+
+Use function `ptt_save_db_list` to create a database list. Note that we are adding an object to the data base. Thus, first create the object and then use this object as an argument of `ptt_save_db_list` without quotation marks. Database lists are list-objects.
 
 ```{r}
 test_db <- list()
@@ -103,9 +112,9 @@ To retrieve a database list, use function `ptt_read_db_list`. Note that we are f
 ptt_read_db_list("test_db")
 ```
 
-This database is still empty. Database lists store queries. A query is a set of information that is required to import a dataset. To add a query, you need the url of the data set,the query itself and a call. Query and url are the objects that are also the arguments for the `ptt_get_statfi`-function. The third element, the call, is the expression to use `ptt_get_statfi`-function itself. The call may also contain further operations as `ptt_get_statfi` cannot possibly handle all data in the wild.
+This database is still empty. Database lists store queries. A query is a set of information that is required to import a data set. To add a query, you need the url of the data set, the query itself and a call. Query and url are the objects that are also the arguments to the `ptt_get_statfi`-function. The third element, the call, is the expression to use `ptt_get_statfi`-function itself. The call may also contain further operations as `ptt_get_statfi` cannot possibly handle all data in the wild.
 
-To add a query to a database list, use function `ptt_db_add_query` with arguments that indicate the name of the database to which you wish to add the query, the url, thr query and the call.
+To add a query to a database list, use function `ptt_db_add_query` with arguments that indicate the name of the database to which you wish to add the query, the url, and the call.
 
 ```{r}
 ptt_add_query("test_db", url = my_url, query = my_query, call = c("ptt_get_statfi(url, query)"))
@@ -117,7 +126,7 @@ Now our test database is not empty anymore:
 ptt_read_db_list("test_db")
 ```
 
-Now the the database list has all information it needs to import the data. To add the data to the database, use `ptt_db_update`- function. It takes as argument the database list and imports and updates all data sets on which the database list has information. E.g. update the database according to the contents of a database list.
+Now the the database list has all information it needs to import the data. To add the data to the database, use `ptt_db_update`-function. It takes as argument the name of the database list and imports and updates all data sets on which the database list has information.
 
 ```{r}
 ptt_db_update("test_db")

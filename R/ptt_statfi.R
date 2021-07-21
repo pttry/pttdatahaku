@@ -40,7 +40,7 @@ ptt_get_statfi <- function(url, query, names = "all",
                            check_classifications = TRUE,
                            renames = NULL){
 
-  message("Updating:", url)
+  message("Updating: ", url)
 
   px_data <- pxweb::pxweb_get(url = url, query = query)
 
@@ -53,7 +53,6 @@ ptt_get_statfi <- function(url, query, names = "all",
     names(codes_names) <- recode(names(codes_names),
                                  !!!setNames(names(renames), renames))
   }
-
 
   # columns to name
   if (names == "all") {
@@ -69,7 +68,7 @@ ptt_get_statfi <- function(url, query, names = "all",
     names_of_codes_names <- names(codes_names$Alue)
     codes_names_orig <- codes_names$Alue
     codes_names$Alue <- statficlassifications::codes_to_names(names(codes_names$Alue))
-    # Currently names of abolished muns cannot be determined, return them from the data
+    # Return any original names if names could not be found
     codes_names$Alue[is.na(codes_names$Alue)] <- codes_names_orig[is.na(codes_names$Alue)]
     names(codes_names$Alue) <- names_of_codes_names
   }
