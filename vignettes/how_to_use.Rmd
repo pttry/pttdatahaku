@@ -95,9 +95,7 @@ ptt_get_statfi(my_url, my_query)
 
 ## Creating Databases
 
-### Database lists
-
-Database lists contain the code that accesses the Statistics Finland data API and imports the data to the database. For each data set there is an entry in a database list. Database lists are used to create and update databases. 
+Each database has a database list. Database lists contain the code that accesses the Statistics Finland data API and imports the data to the database. For each data set there is an entry in a database list. Database lists are used to create and update databases. 
 
 Use function `ptt_save_db_list` to create a database list. Note that we are adding an object to the data base. Thus, first create the object and then use this object as an argument of `ptt_save_db_list` without quotation marks. Database lists are list-objects.
 

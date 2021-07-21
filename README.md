@@ -6,16 +6,14 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`pttdatahaku` contains tools to import data from various sources, to
-modify data to a standardized form and to construct data bases that can
-be updated automatically.
+`pttdatahaku` provides tools for creating, managing and maintaining
+PTT’s data bases. This package is for PTT’s internal use.
 
 To use standardized analysis tools, the data has to be in standardized
 form. Unfortunately the data available from Statistics Finland and other
 sources vary in its form. This package gives the tools to create a data
-base with specified data sets and provides the tools and default ways of
-tidying the data in a standard form. Special emphasis is on region
-classifications.
+bases and provides the tools and default ways of tidying the data into a
+standard form.
 
 ## Installation and set up
 
@@ -29,8 +27,6 @@ library(pttdatahaku)
 
 Currently the databases are in teams folder “Pellervon taloustutkimus -
 Datapankki/Tietokanta folder”. This folder must be synced.
-
-## How to Use
 
 ## Browsing data bases
 
@@ -59,33 +55,46 @@ ptt_search_data("tyonv")
 #>  [6] "tyonv_12tt" "tyonv_12tv" "tyonv_1310" "tyonv_1370" "tyonv_2205"
 ```
 
-## Reading data from a database
-
-Use `ptt_read_data` to read data from a data base.
+To list all data bases, use `ptt_search_database` without arguments
 
 ``` r
-data <- ptt_read_data("tyonv_1001")
-head(data)
-#> # A tibble: 6 x 6
-#>   time       alue_code tiedot_code alue_name tiedot_name                  values
-#>   <date>     <fct>     <fct>       <fct>     <fct>                         <dbl>
-#> 1 2006-01-01 SSS       HAKIJAT     KOKO MAA  Työnhakijoita laskentapäi~   5.01e5
-#> 2 2006-01-01 SSS       TYOTTOMAT   KOKO MAA  Työttömät                    2.78e5
-#> 3 2006-01-01 SSS       TYOVOIMA    KOKO MAA  Työvoima                     2.56e6
-#> 4 2006-01-01 SSS       TYOTOSUUS   KOKO MAA  Työttömien osuus             1.09e1
-#> 5 2006-01-01 SSS       TH2         KOKO MAA  Työttömät miehet             1.51e5
-#> 6 2006-01-01 SSS       TH3         KOKO MAA  Työttömät naiset             1.28e5
+ptt_search_database()
+#> [1] "aw_db"   "aw_tyo"  "db_list" "test_db" "tp_db"   "tyo_db"
 ```
 
 ## Saving Data
 
-Do not save data to database manually/interactively but use the database
-lists. See Section Creating Databases.
+Preferably do not save data to database manually/interactively but use
+the database lists for reproducibility and updating. See Section
+Creating Databases. Sometimes you need to save manually however, for
+this, use `ptt_save_data`:
+
+``` r
+test_df <- data.frame(x = letters[1:5], y = rnorm(5))
+ptt_save_data(test_df)
+```
+
+## Reading data
+
+Use `ptt_read_data` with the name of data set to read data from a data
+base.
+
+``` r
+data <- ptt_read_data("test_df")
+data
+#>   x          y
+#> 1 a  0.6837427
+#> 2 b  0.6638252
+#> 3 c -0.5882926
+#> 4 d -1.4207966
+#> 5 e -0.2199676
+```
 
 ## Importing Data from Statistics Finland
 
-To import data, you need an url. Function `statfi_parse_url` transforms
-the addresses in the gui of pxweb to the addresses of api of the pxweb:
+To import data, you need an url that tells you where the data is.
+Function `statfi_parse_url` transforms the addresses in the GUI of pxweb
+to the addresses of API of pxweb:
 
 ``` r
 gui_url <- "https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__kou__vkour/statfin_vkour_pxt_12bq.px/"
@@ -125,10 +134,8 @@ pxweb_print_code_full_query_c(my_url)
 ```
 
 where the latter copies the code to clipboard for you to add where ever
-you wish simply by ctrl+V.
-
-With a query and an url, you can import data. Let’s simplify the query a
-bit:
+you wish simply by ctrl+V. With a query and an url, you can import data.
+Let’s simplify the query a bit:
 
 ``` r
 my_query <-
@@ -140,8 +147,7 @@ my_query <-
          "Tiedot"=c("vaesto"))
 ```
 
-The function `ptt_get_statfi` accesses the API of Statistics Finland and
-tidies the data.
+Use function `ptt_get_statfi` to import data:
 
 ``` r
 ptt_get_statfi(my_url, my_query)
@@ -169,16 +175,17 @@ ptt_get_statfi(my_url, my_query)
 
 ## Creating Databases
 
+### Database lists
+
 Database lists contain the code that accesses the Statistics Finland
 data API and imports the data to the database. For each data set there
-is a database list. Database lists can be used to create and update
-databases. Database lists contains queries. Database lists are
-list-objects.
+is an entry in a database list. Database lists are used to create and
+update databases.
 
-Use function `ptt_save_db_list` to create a database list with a name
-`test_db`. Note that we are adding an object to the data base. Thus,
-first create the object and then use this object as an argument of
-`ptt_save_db_list` without quotation marks.
+Use function `ptt_save_db_list` to create a database list. Note that we
+are adding an object to the data base. Thus, first create the object and
+then use this object as an argument of `ptt_save_db_list` without
+quotation marks. Database lists are list-objects.
 
 ``` r
 test_db <- list()
@@ -195,9 +202,9 @@ ptt_read_db_list("test_db")
 ```
 
 This database is still empty. Database lists store queries. A query is a
-set of information that is required to import a dataset. To add a query,
-you need the url of the data set,the query itself and a call. Query and
-url are the objects that are also the arguments for the
+set of information that is required to import a data set. To add a
+query, you need the url of the data set, the query itself and a call.
+Query and url are the objects that are also the arguments to the
 `ptt_get_statfi`-function. The third element, the call, is the
 expression to use `ptt_get_statfi`-function itself. The call may also
 contain further operations as `ptt_get_statfi` cannot possibly handle
@@ -205,7 +212,7 @@ all data in the wild.
 
 To add a query to a database list, use function `ptt_db_add_query` with
 arguments that indicate the name of the database to which you wish to
-add the query, the url, thr query and the call.
+add the query, the url, and the call.
 
 ``` r
 ptt_add_query("test_db", url = my_url, query = my_query, call = c("ptt_get_statfi(url, query)"))
@@ -245,10 +252,9 @@ ptt_read_db_list("test_db")
 ```
 
 Now the the database list has all information it needs to import the
-data. To add the data to the database, use `ptt_db_update`- function. It
-takes as argument the database list and imports and updates all data
-sets on which the database list has information. E.g. update the
-database according to the contents of a database list.
+data. To add the data to the database, use `ptt_db_update`-function. It
+takes as argument the name of the database list and imports and updates
+all data sets on which the database list has information.
 
 ``` r
 ptt_db_update("test_db")
@@ -261,7 +267,7 @@ ptt_db_update("test_db")
 
 ## Data standardization
 
-## Haettavat tiedot muokataan seuraavaan muotoon:
+Haettavat tiedot muokataan seuraavaan muotoon:
 
 -   Pitkä tibble
 -   muuttujanimet
@@ -273,17 +279,15 @@ ptt_db_update("test_db")
         aluemuuttujalla alueen nimi - numerosarake nimellä”values"
 -   muuttujatyypit
     -   aikamuuttujat - “time” - Date -muodossa
-    -   kategoriset muuttujat - factor -muodossa - values sarakkeen
-        selityssarake kanssa? Se sarake ei ole periaatteessa kategorinen
-        muuttuja, joten sanoisin ei.
+    -   kategoriset muuttujat
     -   ei lyhennetä numeerisia muuttujia esim. tuhansiksi, milj.
 -   missing values merkataan NA
 
-## Naming
+### Naming
 
 -   Datatiedostojen nimet table\_code: e.g. tyonv\_1001
 
-## pxweb haut
+### pxweb haut
 
 -   Aika ja aluemuuttujista kaikki anonyymisti (\*)
 -   Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
