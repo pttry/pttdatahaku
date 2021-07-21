@@ -39,4 +39,3 @@ ptt_search_data <- function(..., path = db_path) {
 ptt_search_database <- function(..., path = db_path) {
   ptt_search(..., filetype = "rds", path = path)
 }
-

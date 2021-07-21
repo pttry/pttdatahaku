@@ -40,16 +40,16 @@ ptt_search_data()
 #>  [7] "asas_115y"         "ashi_112l"         "atp_11n1"         
 #> [10] "kl_tverop"         "koulutus_103_2019" "kta_12ml"         
 #> [13] "ntp_132h"          "perh_12c1"         "test_dat"         
-#> [16] "test2"             "tkke_125t"         "tulot_102"        
-#> [19] "tyokay_115h"       "tyokay_115h_agg"   "tyokay_115j"      
-#> [22] "tyokay_115s"       "tyonv_1001"        "tyonv_1270"       
-#> [25] "tyonv_12r5"        "tyonv_12ti"        "tyonv_12tk"       
-#> [28] "tyonv_12tt"        "tyonv_12tv"        "tyonv_1310"       
-#> [31] "tyonv_1370"        "tyonv_2205"        "tyti_11af"        
-#> [34] "tyti_11ag"         "tyti_11c9"         "tyti_11pn"        
-#> [37] "tyti_135y"         "tyti_135z"         "vaenn_128v"       
-#> [40] "vaenn_128v_agg"    "vaerak_11ra"       "verot_maksut_102" 
-#> [43] "vkour_12bq"        "vkour_12bs"
+#> [16] "test_df"           "test2"             "tkke_125t"        
+#> [19] "tulot_102"         "tyokay_115h"       "tyokay_115h_agg"  
+#> [22] "tyokay_115j"       "tyokay_115s"       "tyonv_1001"       
+#> [25] "tyonv_1270"        "tyonv_12r5"        "tyonv_12ti"       
+#> [28] "tyonv_12tk"        "tyonv_12tt"        "tyonv_12tv"       
+#> [31] "tyonv_1310"        "tyonv_1370"        "tyonv_2205"       
+#> [34] "tyti_11af"         "tyti_11ag"         "tyti_11c9"        
+#> [37] "tyti_11pn"         "tyti_135y"         "tyti_135z"        
+#> [40] "vaenn_128v"        "vaenn_128v_agg"    "vaerak_11ra"      
+#> [43] "verot_maksut_102"  "vkour_12bq"        "vkour_12bs"
 ptt_search_data("tyonv")
 #>  [1] "tyonv_1001" "tyonv_1270" "tyonv_12r5" "tyonv_12ti" "tyonv_12tk"
 #>  [6] "tyonv_12tt" "tyonv_12tv" "tyonv_1310" "tyonv_1370" "tyonv_2205"
@@ -82,12 +82,12 @@ base.
 ``` r
 data <- ptt_read_data("test_df")
 data
-#>   x          y
-#> 1 a  0.6837427
-#> 2 b  0.6638252
-#> 3 c -0.5882926
-#> 4 d -1.4207966
-#> 5 e -0.2199676
+#>   x           y
+#> 1 a  0.79909191
+#> 2 b  0.43809118
+#> 3 c  1.19018285
+#> 4 d  1.49800155
+#> 5 e -0.08317063
 ```
 
 ## Importing Data from Statistics Finland
@@ -175,12 +175,10 @@ ptt_get_statfi(my_url, my_query)
 
 ## Creating Databases
 
-### Database lists
-
-Database lists contain the code that accesses the Statistics Finland
-data API and imports the data to the database. For each data set there
-is an entry in a database list. Database lists are used to create and
-update databases.
+Each database has a database list. Database lists contain the code that
+accesses the Statistics Finland data API and imports the data to the
+database. For each data set there is an entry in a database list.
+Database lists are used to create and update databases.
 
 Use function `ptt_save_db_list` to create a database list. Note that we
 are adding an object to the data base. Thus, first create the object and
@@ -222,7 +220,8 @@ ptt_add_query("test_db", url = my_url, query = my_query, call = c("ptt_get_statf
 Now our test database is not empty anymore:
 
 ``` r
-ptt_read_db_list("test_db")
+db_list <- ptt_read_db_list("test_db")
+db_list
 #> $vkour_12bq
 #> $vkour_12bq$url
 #> [1] "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px"
@@ -249,6 +248,14 @@ ptt_read_db_list("test_db")
 #> 
 #> $vkour_12bq$call
 #> [1] "ptt_get_statfi(url, query)"
+```
+
+Use R base `names`-function to see all the data sets that the database
+list manages:
+
+``` r
+names(db_list)
+#> [1] "vkour_12bq"
 ```
 
 Now the the database list has all information it needs to import the

@@ -70,7 +70,7 @@ pxweb_print_full_query(my_url)
 
 Given url, you can print a code that imports the data in the url:
 
-```{r}
+```{r, warning = FALSE}
 pxweb_print_code_full_query(my_url)
 pxweb_print_code_full_query_c(my_url)
 ```
@@ -121,8 +121,16 @@ ptt_add_query("test_db", url = my_url, query = my_query, call = c("ptt_get_statf
 Now our test database is not empty anymore:
 
 ```{r}
-ptt_read_db_list("test_db")
+db_list <- ptt_read_db_list("test_db")
+db_list
 ```
+
+Use R base `names`-function to see all the data sets that the database list manages:
+
+```{r}
+names(db_list)
+```
+
 
 Now the the database list has all information it needs to import the data. To add the data to the database, use `ptt_db_update`-function. It takes as argument the name of the database list and imports and updates all data sets on which the database list has information.
 
