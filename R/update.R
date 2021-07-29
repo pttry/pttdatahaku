@@ -67,7 +67,7 @@ ptt_db_update <- function(db_list_name, tables = "all"){
 }
 
 
-#' @describeIn ptt_db_update Add to query
+#' @describeIn ptt_db_update Add a query to the database.
 #' @export
 
 ptt_add_query <- function(db_list_name, url, query, table_code = NULL,
@@ -82,6 +82,25 @@ ptt_add_query <- function(db_list_name, url, query, table_code = NULL,
 
   ptt_save_db_list(db_list, db_list_name)
   message(table_code, " query added to ", db_list_name)
+
+}
+
+#' @describeIn ptt_db_update Remove a query from the database.
+#' @export
+
+ptt_remove_query <- function(db_list_name, table_code){
+
+  # read or create db
+  db_list <- ptt_read_db_list(db_list_name, create = FALSE)
+
+  if (table_code %in% names(db_list)){
+    db_list[[table_code]] <- NULL
+
+    ptt_save_db_list(db_list, db_list_name)
+    message(table_code, " removed from the ", db_list_name)
+  } else {
+    stop("The query ", table_code, " not found in the database ", db_list_name, ".")
+  }
 
 }
 
