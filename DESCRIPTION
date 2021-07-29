@@ -1,7 +1,7 @@
 Package: pttdatahaku
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.2.5
+Version: 0.2.5.9001
 Authors@R: c(person("Janne", "Huovari", email = "janne.huovari@ptt.fi",
                   role = c("aut", "cre")),
              person("Juho", "Alasalmi", email = "juho.alasalmi@ptt.fi",
@@ -23,6 +23,9 @@ Imports:
     statficlassifications,
     magrittr,
     readxl
+Remotes:
+    github::pttry/statficlassifications,
+    github::pttry/statfitools
 RoxygenNote: 7.1.1
 Suggests: 
     rmarkdown,
