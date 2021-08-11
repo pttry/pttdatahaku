@@ -6,10 +6,10 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`pttdatahaku` provides tools for creating, managing and maintaining
-PTT’s data bases. This package is for PTT’s internal use.
+`pttdatahaku` provides tools for creating, managing and using
+data bases. For PTT’s internal use.
 
-To use standardized analysis tools, the data has to be in standardized
+To use standardized analysis tools, we need data to be in a standardized
 form. Unfortunately the data available from Statistics Finland and other
 sources vary in its form. This package gives the tools to create a data
 bases and provides the tools and default ways of tidying the data into a
