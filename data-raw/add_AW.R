@@ -412,7 +412,7 @@ ptt_add_query(db_list_name = "aw_db",
               call = "ptt_get_statfi(url, query, check_classifications = FALSE) %>%
                         select(-alue_code) %>%
                         mutate(alue_name = tolower(alue_name)) %>%
-                        left_join(statficlassifications::nonstandard_region_names_key, by = \"alue_name\") %>%
+                        left_join(statficlassifications::region_name_to_code_key, by = \"alue_name\") %>%
                         mutate(alue_name = statficlassifications::codes_to_names(alue_code)) %>%
                         filter(!is.na(alue_code)) %>%
                         relocate(alue_code, .after = time)")
@@ -528,7 +528,7 @@ ptt_add_query(db_list_name = "aw_db",
                      "Vuosi"=c("*"),
                      "Talotyyppi"=c("0","1","3"),
                      "Huoneluku"=c("00","01","02","03"),
-                     "Tiedot"=c("keskihinta","ketjutettu_lv","vmuutos_lv","realind_lv","vmuutos_realind_lv","lkm_julk")),
+                     "Tiedot"=c("keskihinta","ketjutettu_lv","vmuutos_lv","realind_lv","vmuutos_realind_lv","lkm_julk19", "lkm_julk20")),
               call = "ptt_get_statfi(url, query) %>%
                       droplevels() %>%
                       mutate(alue_code = statficlassifications::set_region_codes(alue_code, region_level = \"maakunta\"),
