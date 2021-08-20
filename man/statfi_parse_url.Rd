@@ -2,9 +2,12 @@
 % Please edit documentation in R/statfi_utils.R
 \name{statfi_parse_url}
 \alias{statfi_parse_url}
+\alias{statfi_parse_url_arch}
 \title{Parse Statfi pxweb url from web url}
 \usage{
 statfi_parse_url(url)
+
+statfi_parse_url_arch(url)
 }
 \arguments{
 \item{url}{An url from web to parse}
@@ -12,7 +15,13 @@ statfi_parse_url(url)
 \description{
 Parse Statfi pxweb url from web url
 }
+\section{Functions}{
+\itemize{
+\item \code{statfi_parse_url_arch}: Parsing function for archived databases.
+}}
+
 \examples{
   statfi_parse_url("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
 
+  statfi_parse_url_arch("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin_Passiivi/StatFin_Passiivi__tym__atp/statfinpas_atp_pxt_901_2012q4_fi.px/")
 }

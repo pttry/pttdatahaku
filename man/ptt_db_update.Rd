@@ -3,6 +3,7 @@
 \name{ptt_db_update}
 \alias{ptt_db_update}
 \alias{ptt_add_query}
+\alias{ptt_remove_query}
 \title{Add and update PTT database}
 \usage{
 ptt_db_update(db_list_name, tables = "all")
@@ -14,6 +15,8 @@ ptt_add_query(
   table_code = NULL,
   call = "ptt_get_statfi(url, query)"
 )
+
+ptt_remove_query(db_list_name, table_code)
 }
 \arguments{
 \item{db_list_name}{A database list name.}
@@ -38,7 +41,9 @@ A named list with update: names of updated tables and
 }
 \section{Functions}{
 \itemize{
-\item \code{ptt_add_query}: Add to query
+\item \code{ptt_add_query}: Add a query to the database.
+
+\item \code{ptt_remove_query}: Remove a query from the database.
 }}
 
 \examples{
