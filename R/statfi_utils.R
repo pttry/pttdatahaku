@@ -31,3 +31,14 @@ statfi_parse_url <- function(url){
   url
 }
 
+#' @describeIn statfi_parse_url Parsing function for archived databases.
+#'
+#' @export
+#' @examples
+#'   statfi_parse_url_arch("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin_Passiivi/StatFin_Passiivi__tym__atp/statfinpas_atp_pxt_901_2012q4_fi.px/")
+statfi_parse_url_arch <- function(url){
+  url <- stringr::str_remove(url, "https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin_Passiivi/")
+  url <- stringr::str_replace_all(url, "__", "/")
+  url <- statfi_url(url)
+  url
+}

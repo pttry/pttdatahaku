@@ -313,6 +313,6 @@ tiedoille. - pxweb\_print\_full\_query(url = statfi\_url(“StatFin”,
 “vrm/tyokay/statfin\_tyokay\_pxt\_115u.px”))\` -
 *pxweb\_print\_code\_full\_query*, *pxweb\_print\_code\_full\_query\_c*
 - Kirjoittaa hakukoodin taulun kaikille tiedoille. - Toimii sekä api
-että web osoitteella -
+että web osoitteella, myös arkistokannan osoitteeille -
 pxweb\_print\_code\_full\_query(“<https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/>”)
 - \_c-versio kirjottaa leikepöydälle
