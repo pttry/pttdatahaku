@@ -164,3 +164,24 @@ get_table_code <- function(url){
       pattern = "pxt_"),
     pattern = ".px")
 }
+
+
+#' Remove columns with unique value.
+#'
+#'
+#' @param data a data.frame with columns with unique values
+#'
+#' @return data.frame
+#' @export
+#'
+#' @examples
+#'  data <- data.frame(var1 = letters[1:10],
+#'                     var2 = rnorm(10),
+#'                     var3 = "a")
+#'
+#'  data <- rm_empty_cols(data)
+rm_empty_cols <- function(data) {
+
+  data[,sapply(names(data), function(x) {length(unique(data[[x]])) > 1})]
+
+}
