@@ -62,7 +62,7 @@ agg_regions <- function(x, from = "kunta", to = "maakunta",
     select(-any_of(c("alue_name", "alue_code"))) %>%
     rename(alue_code = to_code, alue_name = to_name) %>%
     group_by(across(!all_of(value_cols))) %>%
-    summarise(across(all_of(value_cols), sum, na.rm = na.rm), .groups = "drop") %>%
+    summarise_at(value_cols, sum, na.rm = na.rm) %>%
     relocate(names(x))
 
   if (!is.null(pass_region_codes)){
