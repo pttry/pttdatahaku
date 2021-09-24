@@ -5,7 +5,15 @@
 \alias{add_regional_agg}
 \title{Aggregate to other region level}
 \usage{
-agg_regions(x, from = "kunta", to = "maakunta")
+agg_regions(
+  x,
+  from = "kunta",
+  to = "maakunta",
+  value_cols = c("values"),
+  pass_region_codes = NULL,
+  na.rm = FALSE,
+  all_to_regions = TRUE
+)
 
 add_regional_agg(x, from = "kunta", to = "maakunta")
 }
@@ -15,6 +23,14 @@ add_regional_agg(x, from = "kunta", to = "maakunta")
 \item{from}{A name of reginal classification.}
 
 \item{to}{A name of reginal classification.}
+
+\item{pass_region_codes}{Region codes to be passed true. For example whole
+country "SSS". Does not affect aggregation. Default NULL.}
+
+\item{na.rm}{logical. Should missing values (including NaN) be removed?}
+
+\item{all_to_regions}{logical. Should all to regions included
+even if not in data.}
 }
 \description{
 Aggregate to other region level
@@ -26,3 +42,11 @@ Add regional aggragation
 \item \code{add_regional_agg}: 
 }}
 
+\examples{
+x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"), values = c(1,1,1,2))
+agg_regions(x, na.rm = TRUE)
+agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS")
+agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
+z <- dplyr::mutate(x, values2 = c(3,4,5,6))
+agg_regions(z, na.rm = TRUE, value_cols = c("values", "values2"))
+}

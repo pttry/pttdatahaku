@@ -28,22 +28,50 @@ agg_abolished_mun <- function(x){
 #' @param x A data.frame like object.
 #' @param from A name of reginal classification.
 #' @param to A name of reginal classification.
+#' @param pass_region_codes Region codes to be passed true. For example whole
+#'        country "SSS". Does not affect aggregation. Default NULL.
+#' @param na.rm	logical. Should missing values (including NaN) be removed?
+#' @param all_to_regions logical. Should all to regions included
+#'        even if not in data.
+
+
 #' @export
 #'
-#'
-agg_regions <- function(x, from = "kunta", to = "maakunta"){
+#' @import dplyr
+#' @examples
+#' x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"), values = c(1,1,1,2))
+#' agg_regions(x, na.rm = TRUE)
+#' agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS")
+#' agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
+#' z <- dplyr::mutate(x, values2 = c(3,4,5,6))
+#' agg_regions(z, na.rm = TRUE, value_cols = c("values", "values2"))
+agg_regions <- function(x, from = "kunta", to = "maakunta",
+                        value_cols = c("values"),
+                        pass_region_codes = NULL, na.rm = FALSE,
+                        all_to_regions = TRUE){
 
   region_key <- statficlassifications::get_regionkey(from, to)
   names(region_key) <- c("from_name", "to_name", "alue_code", "to_code")
   region_key["from_name"] <- NULL
 
   y <- x %>%
+    mutate(check = 1) |>
     right_join(region_key, by = "alue_code") %>%
-    select(-all_of(c("alue_name", "alue_code"))) %>%
+    {if (!all_to_regions) filter(., !is.na(check)) else .} %>%
+    select(-check) |>
+    select(-any_of(c("alue_name", "alue_code"))) %>%
     rename(alue_code = to_code, alue_name = to_name) %>%
-    group_by(across(!values)) %>%
-    summarise(values = sum(values), .groups = "drop") %>%
+    group_by(across(!all_of(value_cols))) %>%
+    summarise(across(all_of(value_cols), sum, na.rm = na.rm), .groups = "drop") %>%
     relocate(names(x))
+
+  if (!is.null(pass_region_codes)){
+    y <- bind_rows(
+      filter(x, alue_code %in% pass_region_codes),
+      y
+    ) |>
+      droplevels()
+  }
 
   y <- add_ptt_attr(y, x)
   y
