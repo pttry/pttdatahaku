@@ -33,6 +33,8 @@ agg_abolished_mun <- function(x){
 #' @param na.rm	logical. Should missing values (including NaN) be removed?
 #' @param all_to_regions logical. Should all to regions included
 #'        even if not in data.
+#' @param custom_key A data.frame. Custom classification key in same form as
+#'        as key from \code{\link[statficlassifications]{get_regionkey}}.
 
 
 #' @export
@@ -45,14 +47,31 @@ agg_abolished_mun <- function(x){
 #' agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
 #' z <- dplyr::mutate(x, values2 = c(3,4,5,6))
 #' agg_regions(z, na.rm = TRUE, value_cols = c("values", "values2"))
+#' agg_regions(x, na.rm = TRUE,
+#'             custom_key = data.frame(
+#'                kunta_code = c("SSS", "KU049", "KU091", "KU109"),
+#'                kunta_name = c("SSS", "KU049", "KU091", "KU109"),
+#'                maakunta_code = c("SSS", "MK1", "MK1", "MK2"),
+#'                maakunta_name = c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))
+#'                )
 agg_regions <- function(x, from = "kunta", to = "maakunta",
                         value_cols = c("values"),
                         pass_region_codes = NULL, na.rm = FALSE,
-                        all_to_regions = TRUE){
+                        all_to_regions = TRUE,
+                        custom_key = NULL){
 
-  region_key <- statficlassifications::get_regionkey(from, to)
-  names(region_key) <- c("from_name", "to_name", "alue_code", "to_code")
-  region_key["from_name"] <- NULL
+  if (is.null(custom_key)){
+    region_key <- statficlassifications::get_regionkey(from, to)
+  } else {
+    region_key <- custom_key
+  }
+
+  region_key[paste0(from, "_name")] <- NULL
+  region_key <-
+    region_key |>
+    rename_with(~gsub(paste0("^", from, "_"), "alue_", .x)) |>
+    rename_with(~gsub(paste0("^", to, "_"), "to_", .x))
+
 
   y <- x %>%
     mutate(check = 1) |>

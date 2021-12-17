@@ -12,7 +12,8 @@ agg_regions(
   value_cols = c("values"),
   pass_region_codes = NULL,
   na.rm = FALSE,
-  all_to_regions = TRUE
+  all_to_regions = TRUE,
+  custom_key = NULL
 )
 
 add_regional_agg(x, from = "kunta", to = "maakunta")
@@ -31,6 +32,9 @@ country "SSS". Does not affect aggregation. Default NULL.}
 
 \item{all_to_regions}{logical. Should all to regions included
 even if not in data.}
+
+\item{custom_key}{A data.frame. Custom classification key in same form as
+as key from \code{\link[statficlassifications]{get_regionkey}}.}
 }
 \description{
 Aggregate to other region level
@@ -49,4 +53,11 @@ agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS")
 agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
 z <- dplyr::mutate(x, values2 = c(3,4,5,6))
 agg_regions(z, na.rm = TRUE, value_cols = c("values", "values2"))
+agg_regions(x, na.rm = TRUE,
+            custom_key = data.frame(
+               kunta_code = c("SSS", "KU049", "KU091", "KU109"),
+               kunta_name = c("SSS", "KU049", "KU091", "KU109"),
+               maakunta_code = c("SSS", "MK1", "MK1", "MK2"),
+               maakunta_name = c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))
+               )
 }

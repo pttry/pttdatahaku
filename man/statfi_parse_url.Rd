@@ -5,7 +5,7 @@
 \alias{statfi_parse_url_arch}
 \title{Parse Statfi pxweb url from web url}
 \usage{
-statfi_parse_url(url)
+statfi_parse_url(url, with_base_url = TRUE)
 
 statfi_parse_url_arch(url)
 }
@@ -22,6 +22,8 @@ Parse Statfi pxweb url from web url
 
 \examples{
   statfi_parse_url("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+  statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+  statfi_parse_url("https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/vrm/muutl/statfin_muutl_pxt_119z.px")
 
   statfi_parse_url_arch("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin_Passiivi/StatFin_Passiivi__tym__atp/statfinpas_atp_pxt_901_2012q4_fi.px/")
 }
