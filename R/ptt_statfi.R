@@ -157,12 +157,11 @@ ptt_capture_citation <- function(x) {
 #'
 #' @param url A url
 get_table_code <- function(url){
-  stringr::str_remove(
-    stringr::str_remove(
-      stringr::str_remove(tail(unlist(stringr::str_split(url, pattern = "/")), n= 1),
-                          pattern = "statfin_"),
-      pattern = "pxt_"),
-    pattern = ".px")
+
+  sapply(url,
+         function(x) {paste(stringr::str_match(x, "statfin_\\s*(.*?)\\s*pxt_\\s*(.*?)\\s*.px")[,2:3], collapse = "")},
+         USE.NAMES = FALSE)
+
 }
 
 
