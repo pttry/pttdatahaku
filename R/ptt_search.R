@@ -36,6 +36,55 @@ ptt_search_data <- function(..., path = db_path) {
 #' @describeIn ptt_search Search database lists in PTT database
 #' @export
 #'
-ptt_search_database <- function(..., path = db_path) {
+ptt_search_db <- function(..., path = db_path) {
   ptt_search(..., filetype = "rds", path = path)
+}
+
+
+get_pxweb_metadata <- function(table_code, db_list_name) {
+
+  ptt_read_db_list(db_list_name)[[table_code]]$pxweb_metadata
+
+}
+
+get_variables <- function(table_code, db_list_name, as_string = FALSE) {
+
+  metadata <- get_pxweb_metadata(table_code, db_list_name)
+  if(is.null(metadata)) return(NULL)
+  output <- sapply(metadata$variables, `[[`, "text")
+  if(as_string) {output <- paste(output, collapse = ", ")}
+  output
+}
+
+get_time_var <- function(table_code, db_list_name) {
+
+  vars <- get_variables(table_code, db_list_name)
+  if(is.null(vars)) return(NULL)
+  x <- c("vuosi", "vuosineljannes", "kuukausi")
+  x[na.omit(match(statfitools::make_names(vars), x))]
+
+}
+
+get_manual_metadata <- function(table_code, db_list_name) {
+  ptt_read_db_list(db_list_name)[[table_code]]$manual_metadata
+}
+
+get_title <- function(table_code, db_list_name) {
+
+  ptt_read_db_list(db_list_name)[[table_code]]$pxweb_metadata$title
+
+}
+
+
+ptt_glimpse_db <- function(db_list_name) {
+
+  db <- ptt_read_db_list(db_list_name)
+
+  output <-dplyr::bind_cols(table = names(db),
+                            do.call(rbind, lapply(names(db), get_manual_metadata, db_list_name = db_list_name)),
+                            variables = sapply(names(db), get_variables, db_list_name = db_list_name, as_string = TRUE),
+                            time_var = sapply(names(db), get_time_var, db_list_name = db_list_name))
+
+  rownames(output) <- NULL
+  tibble(output)
 }
