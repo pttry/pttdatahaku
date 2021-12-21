@@ -90,7 +90,7 @@ ptt_add_query <- function(db_list_name, url, query = NULL, table_code = NULL,
 
 }
 
-#' Add pxweb metadata to database
+#' Add metadata to databases
 #'
 #' @param db_list_name
 #' @param table_code
@@ -114,6 +114,32 @@ ptt_add_pxweb_metadata <- function(db_list_name, table_code = NULL) {
     ptt_save_db_list(db_list, db_list_name)
     message("pxweb metadata added to table ", table_code, " in database ", db_list_name)
 
+  }
+}
+
+#' @describeIn Add metadata to databases
+#' @export
+ptt_add_manual_metadata <- function(db_list_name, x, table_code = NULL) {
+
+  db_list <- ptt_read_db_list(db_list_name)
+
+  if(is.null(table_code)) {
+    table_vector <- unlist(x[,1])
+    table_info_list <- split(x[,-1], 1:nrow(x))
+    invisible(
+      mapply(function(y,z) {ptt_add_manual_metadata(db_list_name = db_list_name,
+                                                    x = z,
+                                                    table_code = y)},
+             table_vector, table_info_list)
+    )
+
+  } else {
+
+    db_list[[table_code]]["manual_metadata"] <- NULL
+    db_list[[table_code]] <- append(db_list[[table_code]], setNames(list(x), "manual_metadata"))
+
+    ptt_save_db_list(db_list, db_list_name)
+    message("manual_metadata added to table ", table_code, " in database ", db_list_name)
   }
 }
 
