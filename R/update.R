@@ -70,19 +70,51 @@ ptt_db_update <- function(db_list_name, tables = "all"){
 #' @describeIn ptt_db_update Add a query to the database.
 #' @export
 
-ptt_add_query <- function(db_list_name, url, query, table_code = NULL,
+ptt_add_query <- function(db_list_name, url, query = NULL, table_code = NULL,
                           call = "ptt_get_statfi(url, query)"){
+
+  url <- statfi_parse_url(url)
 
   # read or create db
   db_list <- ptt_read_db_list(db_list_name, create = TRUE)
 
+  if(is.null(query)) {query <- pxweb_full_query_as_list(url)}
   if (is.null(table_code)) table_code <- get_table_code(url)
 
-  db_list[[table_code]] <- list(url = url, query = query, call = call)
+  db_list[[table_code]][c("url", "query", "call")] <- NULL
+  db_list[[table_code]] <- append(db_list[[table_code]], list(url = url, query = query, call = call))
 
+  # save
   ptt_save_db_list(db_list, db_list_name)
   message(table_code, " query added to ", db_list_name)
 
+}
+
+#' Add pxweb metadata to database
+#'
+#' @param db_list_name
+#' @param table_code
+#'
+#' @return
+#' @export
+#'
+#' @examples
+ptt_add_pxweb_metadata <- function(db_list_name, table_code = NULL) {
+
+  db_list <- ptt_read_db_list(db_list_name)
+
+  # If no table code given add metadata for all tables in db.
+  if(is.null(table_code)) {
+     invisible(lapply(names(db_list), ptt_add_pxweb_metadata, db_list_name = db_list_name))
+
+  } else {
+    db_list[[table_code]][c("pxweb_metadata")] <- NULL
+    db_list[[table_code]] <- append(db_list[[table_code]], list(pxweb_metadata = pxweb::pxweb_get(db_list[[table_code]][["url"]])))
+
+    ptt_save_db_list(db_list, db_list_name)
+    message("pxweb metadata added to table ", table_code, " in database ", db_list_name)
+
+  }
 }
 
 #' @describeIn ptt_db_update Remove a query from the database.
