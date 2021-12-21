@@ -41,12 +41,41 @@ ptt_search_db <- function(..., path = db_path) {
 }
 
 
+#' Browse metadata attached to a database list
+#'
+#' @param db_list_name chr, name of db list
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+ptt_glimpse_db <- function(db_list_name, ...) {
+
+  db <- ptt_read_db_list(db_list_name)
+
+  output <-dplyr::bind_cols(table = names(db),
+                            title = sapply(names(db), get_title, db_list_name = db_list_name),
+                            do.call(rbind, lapply(names(db), get_manual_metadata, db_list_name = db_list_name)),
+                            variables = sapply(names(db), get_variables, db_list_name = db_list_name, as_string = TRUE),
+                            time_var = sapply(names(db), get_time_var, db_list_name = db_list_name))
+
+  rownames(output) <- NULL
+  select(tibble(output), ...)
+}
+
+
+#' @describeIn Browse metadata attached to a database list
+#' @export
+#'
 get_pxweb_metadata <- function(table_code, db_list_name) {
 
   ptt_read_db_list(db_list_name)[[table_code]]$pxweb_metadata
 
 }
 
+#' @describeIn Browse metadata attached to a database list
+#' @export
+#'
 get_variables <- function(table_code, db_list_name, as_string = FALSE) {
 
   metadata <- get_pxweb_metadata(table_code, db_list_name)
@@ -56,6 +85,9 @@ get_variables <- function(table_code, db_list_name, as_string = FALSE) {
   output
 }
 
+#' @describeIn Browse metadata attached to a database list
+#' @export
+#'
 get_time_var <- function(table_code, db_list_name) {
 
   vars <- get_variables(table_code, db_list_name)
@@ -65,26 +97,21 @@ get_time_var <- function(table_code, db_list_name) {
 
 }
 
+#' @describeIn Browse metadata attached to a database list
+#' @export
+#'
 get_manual_metadata <- function(table_code, db_list_name) {
   ptt_read_db_list(db_list_name)[[table_code]]$manual_metadata
 }
 
+#' @describeIn Browse metadata attached to a database list
+#' @export
+#'
 get_title <- function(table_code, db_list_name) {
 
-  ptt_read_db_list(db_list_name)[[table_code]]$pxweb_metadata$title
+  x <- ptt_read_db_list(db_list_name)[[table_code]]$pxweb_metadata$title
+  stringr::str_match(x, "-- \\s*(.*?)\\s*\\(")[,2]
 
 }
 
 
-ptt_glimpse_db <- function(db_list_name) {
-
-  db <- ptt_read_db_list(db_list_name)
-
-  output <-dplyr::bind_cols(table = names(db),
-                            do.call(rbind, lapply(names(db), get_manual_metadata, db_list_name = db_list_name)),
-                            variables = sapply(names(db), get_variables, db_list_name = db_list_name, as_string = TRUE),
-                            time_var = sapply(names(db), get_time_var, db_list_name = db_list_name))
-
-  rownames(output) <- NULL
-  tibble(output)
-}

@@ -11,7 +11,7 @@ ptt_db_update(db_list_name, tables = "all")
 ptt_add_query(
   db_list_name,
   url,
-  query,
+  query = NULL,
   table_code = NULL,
   call = "ptt_get_statfi(url, query)"
 )

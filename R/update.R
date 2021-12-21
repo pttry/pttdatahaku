@@ -81,8 +81,7 @@ ptt_add_query <- function(db_list_name, url, query = NULL, table_code = NULL,
   if(is.null(query)) {query <- pxweb_full_query_as_list(url)}
   if (is.null(table_code)) table_code <- get_table_code(url)
 
-  db_list[[table_code]][c("url", "query", "call")] <- NULL
-  db_list[[table_code]] <- append(db_list[[table_code]], list(url = url, query = query, call = call))
+  db_list[[table_code]][c("url", "query", "call")] <- list(url = url, query = query, call = call)
 
   # save
   ptt_save_db_list(db_list, db_list_name)
@@ -92,13 +91,12 @@ ptt_add_query <- function(db_list_name, url, query = NULL, table_code = NULL,
 
 #' Add metadata to databases
 #'
-#' @param db_list_name
-#' @param table_code
+#' @param db_list_name chr, name of database
+#' @param table_code chr, code of table
 #'
 #' @return
 #' @export
 #'
-#' @examples
 ptt_add_pxweb_metadata <- function(db_list_name, table_code = NULL) {
 
   db_list <- ptt_read_db_list(db_list_name)

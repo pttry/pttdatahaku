@@ -30,7 +30,7 @@ ptt_search_data("tyonv")
 To list all data bases, use `ptt_search_database` without arguments
 
 ```{r}
-ptt_search_database()
+ptt_search_db()
 ```
 
 ## Saving Data
@@ -138,9 +138,20 @@ Now the the database list has all information it needs to import the data. To ad
 ptt_db_update("test_db")
 ```
 
+To keep better track of your data you might want to add information about your data to your database. To add metadata information from SF:
 
+```{r}
+ptt_add_pxweb_metadata("test_db")
+ptt_read_db_list("test_db")$vkour_12bq$pxweb_metadata
 
+```
 
+You can also create complete databases using simple the url locations of required data: 
 
+```{r}
 
+my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11l1.px/", "StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/")
+ptt_create_db_list(my_new_db_list, overwrite = TRUE)
+names(ptt_read_db_list("my_new_db_list"))
 
+```

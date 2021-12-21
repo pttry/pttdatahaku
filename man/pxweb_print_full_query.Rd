@@ -3,11 +3,14 @@
 \name{pxweb_print_full_query}
 \alias{pxweb_print_full_query}
 \alias{pxweb_prepare_full_query}
+\alias{pxweb_full_query_as_list}
 \title{Print full query from table url}
 \usage{
 pxweb_print_full_query(url, time_all = TRUE)
 
 pxweb_prepare_full_query(url, time_all = TRUE)
+
+pxweb_full_query_as_list(url, time_all = TRUE)
 }
 \arguments{
 \item{url}{A url to the table}
@@ -18,10 +21,14 @@ pxweb_prepare_full_query(url, time_all = TRUE)
 Print full query from table url
 
 prepare query to print
+
+Return full query as a list
 }
 \section{Functions}{
 \itemize{
 \item \code{pxweb_prepare_full_query}: 
+
+\item \code{pxweb_full_query_as_list}: 
 }}
 
 \examples{

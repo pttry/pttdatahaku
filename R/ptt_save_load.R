@@ -66,11 +66,13 @@ db_path <- "~/../Pellervon Taloustutkimus PTT ry/Pellervon taloustutkimus - Data
 #'
 ptt_save_db_list <- function(db_list, db_list_name = deparse1(substitute(db_list))){
 
-  # read or create db
+  # save db
   db_file = file.path(db_path, paste0(db_list_name, ".rds"))
   saveRDS(db_list, db_file)
 
 }
+
+
 
 #' @describeIn ptt_save_db_list Read database list.
 #' @export
@@ -91,7 +93,63 @@ ptt_read_db_list <- function(db_list_name, create = FALSE){
   db_list
 }
 
+#' Create full databases
+#'
+#' @param x a vector of urls or a data.frame with urls as first column and information
+#'     on the data corresponding to urls in other columns
+#' @param db_list_name chr, name of the database
+#' @param pxweb_metadata logical whether to add pxweb metadata to the database
+#' @param overwrite logical whether to overwrite possibly existing database
+#'
+#' @return
+#' @export
+#'
+ptt_create_db_list <- function(x,
+                               db_list_name = deparse1(substitute(x)),
+                               pxweb_metadata = TRUE,
+                               overwrite = FALSE){
+  force(db_list_name)
 
+  if(!overwrite) {
+     if(paste0(db_list_name, ".rds") %in% list.files(db_path)) {
+        stop(paste("A database list with name", db_list_name, "already exists."))
+  } }
+
+  if(is.data.frame(x)) {
+    ptt_create_db_list_df(x, db_list_name)
+  } else {
+    ptt_create_db_list_vector(x, db_list_name)
+  }
+
+  if(pxweb_metadata) {ptt_add_pxweb_metadata(db_list_name)}
+
+}
+
+
+#' @describeIn Create full databases
+#' @export
+#'
+ptt_create_db_list_vector <- function(x,
+                                      db_list_name = deparse1(substitute(x)),
+                                      pxweb_metadata = TRUE){
+
+  invisible(lapply(x, ptt_add_query, db_list_name = db_list_name))
+
+}
+
+#' @describeIn Create full databases
+#' @export
+#'
+ptt_create_db_list_df <- function(x,
+                                  db_list_name = deparse1(substitute(x)),
+                                  pxweb_metadata = TRUE){
+
+  urls <- unlist(x[,sapply(x, function(x) {all(grepl(".px", x))})])
+  x[,1] <- get_table_code(unlist(x[,1]))
+  invisible(lapply(urls, ptt_add_query, db_list_name = db_list_name))
+  ptt_add_manual_metadata(db_list_name, x)
+
+}
 
 #' Filter region level
 #'
@@ -113,7 +171,7 @@ filter_region_level <- function(data, region_level) {
 
   grepl_regexp <- paste(statficlassifications::name_to_prefix(region_level), collapse = "|")
   output <- dplyr::filter(data, grepl(grepl_regexp, alue_code)) %>%
-            dplyr::mutate(alue_code = droplevels(alue_code))
+    dplyr::mutate(alue_code = droplevels(alue_code))
 
   if("alue_name" %in% names(data)) {
     output <- dplyr::mutate(output, alue_name = droplevels(alue_name))
@@ -125,5 +183,5 @@ filter_region_level <- function(data, region_level) {
       dplyr::rename_with(~paste(region_level, "name", sep = "_"), alue_name)
   }
   # Return
-     output
+  output
 }

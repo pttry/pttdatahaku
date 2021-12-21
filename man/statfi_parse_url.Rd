@@ -11,9 +11,12 @@ statfi_parse_url_arch(url)
 }
 \arguments{
 \item{url}{An url from web to parse}
+
+\item{with_base_url}{logical, whether the concatenate base_url. Defaults to true.}
 }
 \description{
-Parse Statfi pxweb url from web url
+Safe in these sense that if the argument is already an api url, returns the
+argument as such.
 }
 \section{Functions}{
 \itemize{
@@ -22,8 +25,10 @@ Parse Statfi pxweb url from web url
 
 \examples{
   statfi_parse_url("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
-  statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+  statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/", with_base_url = FALSE)
+  statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/", )
   statfi_parse_url("https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/vrm/muutl/statfin_muutl_pxt_119z.px")
+  statfi_parse_url("https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/vrm/muutl/statfin_muutl_pxt_119z.px", with_base_url = FALSE)
 
   statfi_parse_url_arch("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin_Passiivi/StatFin_Passiivi__tym__atp/statfinpas_atp_pxt_901_2012q4_fi.px/")
 }

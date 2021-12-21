@@ -3,14 +3,14 @@
 \name{ptt_search}
 \alias{ptt_search}
 \alias{ptt_search_data}
-\alias{ptt_search_database}
+\alias{ptt_search_db}
 \title{Search PTT data bases}
 \usage{
 ptt_search(..., filetype = NULL, path = db_path)
 
 ptt_search_data(..., path = db_path)
 
-ptt_search_database(..., path = db_path)
+ptt_search_db(..., path = db_path)
 }
 \arguments{
 \item{...}{a search term}
@@ -27,6 +27,6 @@ Search PTT data bases
 \itemize{
 \item \code{ptt_search_data}: Search data sets in PTT database
 
-\item \code{ptt_search_database}: Search database lists in PTT database
+\item \code{ptt_search_db}: Search database lists in PTT database
 }}
 
