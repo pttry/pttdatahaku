@@ -142,3 +142,66 @@ agg_yearly <- function(x){
   y <- add_ptt_attr(y, x)
   y
 }
+
+
+#' Remove columns with unique value.
+#'
+#'
+#' @param data a data.frame with columns with unique values
+#'
+#' @return data.frame
+#' @export
+#'
+#' @examples
+#'  data <- data.frame(var1 = letters[1:10],
+#'                     var2 = rnorm(10),
+#'                     var3 = "a")
+#'
+#'  data <- rm_empty_cols(data)
+rm_empty_cols <- function(data) {
+
+  data[,sapply(names(data), function(x) {length(unique(data[[x]])) > 1})]
+
+}
+
+#' Select columns and filter SSS from columns not selected
+#'
+#' Only removes columns that contain variable SSS.
+#'
+#' @param data data.frame to modify
+#' @param ... chr, column names to select
+#' @param SSS logical, whether to leave SSS to selected columns
+#'
+#' @return data.frame
+#' @export
+#'
+#' @examples
+#' data <- cbind(crossing(var1 = c("SSS", 1, 2),
+#'                        var2 = c("SSS", "a", "b"),
+#'                        var3 = c("SSS", "c", "d")),
+#'               value = rnorm(27))
+#' data |> statfi_select(var3, value)
+#' data |> statfi_select(var2, var3, value)
+#'
+statfi_select <- function(data, ..., SSS = FALSE) {
+
+  sel_cols <- sapply(substitute(list(...)), deparse)[-1]
+
+  if(any(!sel_cols %in% names(data))) {
+    stop(paste(sel_cols[!sel_cols %in% names(data)], "not in the data."))
+  }
+
+  not_sel_cols <- names(data)[!names(data) %in% sel_cols]
+
+  for(col in not_sel_cols[!not_sel_cols %in% c("time", "value")]) {
+    data <- data[data[[col]] == "SSS",]
+  }
+
+  if(!SSS) {
+    for(col in sel_cols[!sel_cols %in% c("time", "value")]) {
+      data <- data[data[[col]] != "SSS",]
+    }
+  }
+
+  rm_empty_cols(data)
+}
