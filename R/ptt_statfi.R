@@ -109,6 +109,8 @@ ptt_get_statfi <- function(url, query, names = "all",
 utils::globalVariables(c("time", "values", "where"))
 
 
+
+
 #' Get code name mapping from pxweb_data
 #'
 #' @param px_data A pxweb_data object.
@@ -133,7 +135,6 @@ px_code_name <- function(px_data){
 #' @return list, a list containing citation information
 #' @export
 #'
-
 ptt_capture_citation <- function(x) {
 
   citation <- capture.output(pxweb::pxweb_cite(x))
@@ -153,7 +154,7 @@ ptt_capture_citation <- function(x) {
                      " using pxweb R package ", utils::packageVersion("pxweb"), "]"))
 }
 
-#' Get table code
+#' Get table code from url
 #'
 #' @param url A url
 get_table_code <- function(url){
@@ -164,23 +165,19 @@ get_table_code <- function(url){
 
 }
 
+#' Get url from table code
+#'
+#' Inverse of get_table_code. However, a table code is not sufficient information
+#' for url so this has to use a db_list to map table codes to urls.
+#'
+#' TODO: if db_list_name not given, url should be retrievable from statfi.
+#'
+#' @param url A url
+table_code_to_url <- function(x, db_list_name, with_base_url = FALSE) {
 
-#' Remove columns with unique value.
-#'
-#'
-#' @param data a data.frame with columns with unique values
-#'
-#' @return data.frame
-#' @export
-#'
-#' @examples
-#'  data <- data.frame(var1 = letters[1:10],
-#'                     var2 = rnorm(10),
-#'                     var3 = "a")
-#'
-#'  data <- rm_empty_cols(data)
-rm_empty_cols <- function(data) {
-
-  data[,sapply(names(data), function(x) {length(unique(data[[x]])) > 1})]
+  statfi_parse_url(ptt_read_db_list(db_list_name)[[x]]$url, with_base_url = with_base_url)
 
 }
+
+
+
