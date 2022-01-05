@@ -3,7 +3,7 @@
 \name{statfi_parse_url}
 \alias{statfi_parse_url}
 \alias{statfi_parse_url_arch}
-\title{Parse Statfi pxweb url from web url}
+\title{Parse Statfi pxweb api url from web url}
 \usage{
 statfi_parse_url(url, with_base_url = TRUE)
 

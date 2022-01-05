@@ -150,8 +150,36 @@ You can also create complete databases using simple the url locations of require
 
 ```{r}
 
-my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11l1.px/", "StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/")
+my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11l1.px/", "StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/",
+                    "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px")
 ptt_create_db_list(my_new_db_list, overwrite = TRUE)
 names(ptt_read_db_list("my_new_db_list"))
+```
+
+To summarize a data base list:
+
+```{r}
+ptt_glimpse_db("my_new_db_list")
 
 ```
+
+## Codes and names
+
+```{r}
+df <- ptt_read_data("tyonv_12u4")
+df
+```
+
+```{r}
+label_key <- get_codes_names("tyonv_12u4", "tyovoimapalvelut_db")
+df <- statficlassifications::key_recode(df, label_key)
+df
+```
+
+Switching between codes and names is straightforward
+
+```{r}
+df <- statficlassifications::key_recode(df, label_key)
+df
+```
+

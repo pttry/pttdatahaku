@@ -2,7 +2,7 @@
 % Please edit documentation in R/ptt_save_load.R
 \name{ptt_create_db_list}
 \alias{ptt_create_db_list}
-\title{Create full databases}
+\title{Create full database lists}
 \usage{
 ptt_create_db_list(
   x,
@@ -25,5 +25,5 @@ on the data corresponding to urls in other columns}
 
 }
 \description{
-Create full databases
+Create full database lists
 }

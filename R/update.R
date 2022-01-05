@@ -39,8 +39,14 @@
 #'
 #'  test1_dat <- ptt_read_data("test2")
 #'
-
-
+#'  ptt_add_query("test_db",
+#'                url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
+#'                query = NULL,
+#'                call = "ptt_get_statfi_robonomist(url)")
+#'
+#'  ptt_db_update("test_db", tables = "vkour_12bq")
+#'
+#'
 ptt_db_update <- function(db_list_name, tables = "all"){
   db_list <- ptt_read_db_list(db_list_name, create = FALSE)
 
@@ -89,12 +95,31 @@ ptt_add_query <- function(db_list_name, url, query = NULL, table_code = NULL,
 
 }
 
+
+#' Get pxweb metadata from pxweb api
+#'
+#' Given either a url or a table code and db list name retrieves pxweb_metadata.
+#'
+#' @param x chr, table_code or url. If table code, function requires db_list_name
+#' @param db_list_name chr
+#'
+#' @return pxweb_metadata
+#' @export
+#'
+ptt_get_pxweb_metadata <- function(x, db_list_name = NULL) {
+
+  if(!is.null(db_list_name)) {x <- table_code_to_url(x, db_list_name = db_list_name)}
+  pxweb::pxweb_get(statfi_parse_url(x))
+
+}
+
 #' Add metadata to databases
+#'
+#' Adds pxweb metadata to a db list entry.
 #'
 #' @param db_list_name chr, name of database
 #' @param table_code chr, code of table
 #'
-#' @return
 #' @export
 #'
 ptt_add_pxweb_metadata <- function(db_list_name, table_code = NULL) {
@@ -104,14 +129,10 @@ ptt_add_pxweb_metadata <- function(db_list_name, table_code = NULL) {
   # If no table code given add metadata for all tables in db.
   if(is.null(table_code)) {
      invisible(lapply(names(db_list), ptt_add_pxweb_metadata, db_list_name = db_list_name))
-
   } else {
-    db_list[[table_code]][c("pxweb_metadata")] <- NULL
-    db_list[[table_code]] <- append(db_list[[table_code]], list(pxweb_metadata = pxweb::pxweb_get(db_list[[table_code]][["url"]])))
-
+    db_list[[table_code]][c("pxweb_metadata")] <- list(pxweb_metadata = ptt_get_pxweb_metadata(table_code, db_list_name))
     ptt_save_db_list(db_list, db_list_name)
     message("pxweb metadata added to table ", table_code, " in database ", db_list_name)
-
   }
 }
 
@@ -133,9 +154,8 @@ ptt_add_manual_metadata <- function(db_list_name, x, table_code = NULL) {
 
   } else {
 
-    db_list[[table_code]]["manual_metadata"] <- NULL
-    db_list[[table_code]] <- append(db_list[[table_code]], setNames(list(x), "manual_metadata"))
-
+    db_list[[table_code]]["manual_metadata"] <- setNames(list(x), "manual_metadata")
+    #db_list[[table_code]] <- append(db_list[[table_code]], setNames(list(x), "manual_metadata"))
     ptt_save_db_list(db_list, db_list_name)
     message("manual_metadata added to table ", table_code, " in database ", db_list_name)
   }

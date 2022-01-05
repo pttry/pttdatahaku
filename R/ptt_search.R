@@ -41,15 +41,15 @@ ptt_search_db <- function(..., path = db_path) {
 }
 
 
+
 #' Browse metadata attached to a database list
 #'
 #' @param db_list_name chr, name of db list
-#' @param ...
 #'
 #' @return
 #' @export
 #'
-ptt_glimpse_db <- function(db_list_name, ...) {
+ptt_glimpse_db <- function(db_list_name) {
 
   db <- ptt_read_db_list(db_list_name)
 
@@ -60,7 +60,7 @@ ptt_glimpse_db <- function(db_list_name, ...) {
                             time_var = sapply(names(db), get_time_var, db_list_name = db_list_name))
 
   rownames(output) <- NULL
-  select(tibble(output), ...)
+  tibble::tibble(output)
 }
 
 
@@ -109,8 +109,7 @@ get_manual_metadata <- function(table_code, db_list_name) {
 #'
 get_title <- function(table_code, db_list_name) {
 
-  x <- ptt_read_db_list(db_list_name)[[table_code]]$pxweb_metadata$title
-  stringr::str_match(x, "-- \\s*(.*?)\\s*\\(")[,2]
+  ptt_read_db_list(db_list_name)[[table_code]]$pxweb_metadata$title
 
 }
 

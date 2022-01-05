@@ -48,7 +48,6 @@ ptt_read_data <- function(x_name, region_level = NULL, path = NULL,
 }
 
 
-
 db_path <- "~/../Pellervon Taloustutkimus PTT ry/Pellervon taloustutkimus - Datapankki/Tietokanta"
 
 
@@ -93,7 +92,7 @@ ptt_read_db_list <- function(db_list_name, create = FALSE){
   db_list
 }
 
-#' Create full databases
+#' Create full database lists
 #'
 #' @param x a vector of urls or a data.frame with urls as first column and information
 #'     on the data corresponding to urls in other columns

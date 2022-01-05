@@ -91,4 +91,8 @@ Hakufunktio:
       - pxweb_print_code_full_query("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
       - _c-versio kirjottaa leikepöydälle
       
+## Filosofiaa
+
+Aineistossa ei tulisi olla kerrallaan sekä code että name muuttujia. Niiden yhtäaikaisuus vaikeuttaa aineiston kääntämistä. 
+      
 

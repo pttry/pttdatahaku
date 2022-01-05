@@ -109,6 +109,33 @@ ptt_get_statfi <- function(url, query, names = "all",
 utils::globalVariables(c("time", "values", "where"))
 
 
+#' Get PTT statfi data via robonomist
+#'
+#'
+#' @param x robonomist id or a table code as defined in the package. If table_code
+#'    give db_list_name.
+#' #' @param query, §-filter, defaults to full query, \code{NULL}
+#' @param db_list_name in case x is a table code db_list gives the mapping from
+#'    table codes to urls. Only use this if x is table_code.
+#' @param labels logical, whether to have variables with labels or codes. Defaults
+#'    to \code{FALSE}
+#'
+#' @return robonomist data
+#' @export
+#'
+ptt_get_statfi_robonomist <- function(x, query = NULL, db_list_name = NULL, labels = FALSE) {
+
+  if(!is.null(db_list_name)) {x <- table_code_to_url(x, db_list_name, with_base_url = FALSE)}
+
+  x <- statfi_parse_url(x, with_base_url = FALSE)
+  x <- paste0(x, query)
+  robonomistClient::data(x, labels = labels, tidy_time = TRUE) |>
+    statfitools::clean_names() |>
+    dplyr::mutate(dplyr::across(where(is.character), forcats::as_factor)) |>
+    droplevels() |>
+    rm_empty_cols()
+
+}
 
 
 #' Get code name mapping from pxweb_data
@@ -173,11 +200,24 @@ get_table_code <- function(url){
 #' TODO: if db_list_name not given, url should be retrievable from statfi.
 #'
 #' @param url A url
+#' @param db_list_name chr
+#' @param with_base_url logical. Defaults to \code{FALSE}
+#'
+#' @export
+#'
 table_code_to_url <- function(x, db_list_name, with_base_url = FALSE) {
 
   statfi_parse_url(ptt_read_db_list(db_list_name)[[x]]$url, with_base_url = with_base_url)
 
 }
 
-
-
+#' Test if table code in existing db_list
+#'
+#' @param x chr, potential table code
+#'
+#' @return logical
+#' @export
+#'
+is_table_code <- function(x) {
+    x %in% unlist(lapply(ptt_search_db(), \(x) names(ptt_read_db_list(x))))
+}

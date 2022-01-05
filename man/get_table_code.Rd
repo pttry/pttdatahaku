@@ -2,7 +2,7 @@
 % Please edit documentation in R/ptt_statfi.R
 \name{get_table_code}
 \alias{get_table_code}
-\title{Get table code}
+\title{Get table code from url}
 \usage{
 get_table_code(url)
 }
@@ -10,5 +10,5 @@ get_table_code(url)
 \item{url}{A url}
 }
 \description{
-Get table code
+Get table code from url
 }

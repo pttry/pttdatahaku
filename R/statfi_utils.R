@@ -90,7 +90,7 @@ statfi_parse_qui_url <- function(url){
 #'
 #'   open_statfi_qui("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
 #'
-open_statfi_qui <- function(x, db_list_name = NULL) {
+open_statfi_qui <- function(x = "", db_list_name = NULL) {
 
   if(!is.null(db_list_name)) {
     x <- table_code_to_url(x, db_list_name = db_list_name)

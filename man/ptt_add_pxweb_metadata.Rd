@@ -11,9 +11,6 @@ ptt_add_pxweb_metadata(db_list_name, table_code = NULL)
 
 \item{table_code}{chr, code of table}
 }
-\value{
-
-}
 \description{
-Add metadata to databases
+Adds pxweb metadata to a db list entry.
 }

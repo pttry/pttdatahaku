@@ -166,7 +166,8 @@ rm_empty_cols <- function(data) {
 
 #' Select columns and filter SSS from columns not selected
 #'
-#' Only removes columns that contain variable SSS.
+#' Only removes columns that contain variable SSS. Note that the data has
+#' to have codes.
 #'
 #' @param data data.frame to modify
 #' @param ... chr, column names to select
@@ -180,10 +181,10 @@ rm_empty_cols <- function(data) {
 #'                        var2 = c("SSS", "a", "b"),
 #'                        var3 = c("SSS", "c", "d")),
 #'               value = rnorm(27))
-#' data |> statfi_select(var3, value)
-#' data |> statfi_select(var2, var3, value)
+#' data |> ptt_select(var3, value)
+#' data |> ptt_select(var2, var3, value)
 #'
-statfi_select <- function(data, ..., SSS = FALSE) {
+ptt_select <- function(data, ..., SSS = FALSE) {
 
   sel_cols <- sapply(substitute(list(...)), deparse)[-1]
 

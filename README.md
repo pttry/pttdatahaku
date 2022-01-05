@@ -6,10 +6,10 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`pttdatahaku` provides tools for creating, managing and using
-data bases. For PTT’s internal use.
+`pttdatahaku` provides tools for creating, managing and maintaining
+PTT’s data bases. This package is for PTT’s internal use.
 
-To use standardized analysis tools, we need data to be in a standardized
+To use standardized analysis tools, the data has to be in standardized
 form. Unfortunately the data available from Statistics Finland and other
 sources vary in its form. This package gives the tools to create a data
 bases and provides the tools and default ways of tidying the data into a
@@ -35,31 +35,68 @@ arguments. To search, you can set a search term.
 
 ``` r
 ptt_search_data()
-#>  [1] "altp_12bc"         "altp_12bd"         "altp_12bf"        
-#>  [4] "altp_12bg"         "aly_11yq"          "alyr_11ft"        
-#>  [7] "asas_115y"         "ashi_112l"         "atp_11n1"         
-#> [10] "kl_tverop"         "koulutus_103_2019" "kta_12ml"         
-#> [13] "ntp_132h"          "perh_12c1"         "test_dat"         
-#> [16] "test_df"           "test2"             "tkke_125t"        
-#> [19] "tulot_102"         "tyokay_115h"       "tyokay_115h_agg"  
-#> [22] "tyokay_115j"       "tyokay_115s"       "tyonv_1001"       
-#> [25] "tyonv_1270"        "tyonv_12r5"        "tyonv_12ti"       
-#> [28] "tyonv_12tk"        "tyonv_12tt"        "tyonv_12tv"       
-#> [31] "tyonv_1310"        "tyonv_1370"        "tyonv_2205"       
-#> [34] "tyti_11af"         "tyti_11ag"         "tyti_11c9"        
-#> [37] "tyti_11pn"         "tyti_135y"         "tyti_135z"        
-#> [40] "vaenn_128v"        "vaenn_128v_agg"    "vaerak_11ra"      
-#> [43] "verot_maksut_102"  "vkour_12bq"        "vkour_12bs"
+#>  [1] "altp_12bc"                "altp_12bd"               
+#>  [3] "altp_12bf"                "altp_12bg"               
+#>  [5] "aly_11yq"                 "alyr_11ft"               
+#>  [7] "asas_115y"                "ashi_112l"               
+#>  [9] "atp_11n1"                 "data_statfi"             
+#> [11] "kl_tverop"                "koulutus_103_2019"       
+#> [13] "kta_12ml"                 "lmp_expenditures"        
+#> [15] "lmp_participants"         "ntp_132h"                
+#> [17] "perh_12c1"                "statfi_participants"     
+#> [19] "statfi_participants_orig" "test_dat"                
+#> [21] "test_df"                  "test2"                   
+#> [23] "tkke_125t"                "tulot_102"               
+#> [25] "tyokay_115h"              "tyokay_115h_agg"         
+#> [27] "tyokay_115j"              "tyokay_115s"             
+#> [29] "tyonv_1001"               "tyonv_1270"              
+#> [31] "tyonv_12r5"               "tyonv_12ti"              
+#> [33] "tyonv_12tk"               "tyonv_12tt"              
+#> [35] "tyonv_12tv"               "tyonv_12tw"              
+#> [37] "tyonv_12u1"               "tyonv_12u2"              
+#> [39] "tyonv_12u3"               "tyonv_12u3_kaikki"       
+#> [41] "tyonv_12u3_SSS"           "tyonv_12u4"              
+#> [43] "tyonv_12u5"               "tyonv_12u6"              
+#> [45] "tyonv_12u8"               "tyonv_12u9"              
+#> [47] "tyonv_12ur"               "tyonv_12us"              
+#> [49] "tyonv_12uu"               "tyonv_12uv"              
+#> [51] "tyonv_12v5"               "tyonv_12v6"              
+#> [53] "tyonv_12v7"               "tyonv_12v7_kaikki"       
+#> [55] "tyonv_12v8"               "tyonv_12v9"              
+#> [57] "tyonv_12va"               "tyonv_1310"              
+#> [59] "tyonv_135e"               "tyonv_1370"              
+#> [61] "tyonv_2205"               "tyti_11af"               
+#> [63] "tyti_11ag"                "tyti_11c9"               
+#> [65] "tyti_11pn"                "tyti_135y"               
+#> [67] "tyti_135z"                "tyti_137h"               
+#> [69] "tyti_137i"                "tyti_137k"               
+#> [71] "tyti_137l"                "tyti_137m"               
+#> [73] "vaenn_128v"               "vaenn_128v_agg"          
+#> [75] "vaerak_11ra"              "verot_maksut_102"        
+#> [77] "vkour_12bq"               "vkour_12bs"
 ptt_search_data("tyonv")
-#>  [1] "tyonv_1001" "tyonv_1270" "tyonv_12r5" "tyonv_12ti" "tyonv_12tk"
-#>  [6] "tyonv_12tt" "tyonv_12tv" "tyonv_1310" "tyonv_1370" "tyonv_2205"
+#>  [1] "tyonv_1001"        "tyonv_1270"        "tyonv_12r5"       
+#>  [4] "tyonv_12ti"        "tyonv_12tk"        "tyonv_12tt"       
+#>  [7] "tyonv_12tv"        "tyonv_12tw"        "tyonv_12u1"       
+#> [10] "tyonv_12u2"        "tyonv_12u3"        "tyonv_12u3_kaikki"
+#> [13] "tyonv_12u3_SSS"    "tyonv_12u4"        "tyonv_12u5"       
+#> [16] "tyonv_12u6"        "tyonv_12u8"        "tyonv_12u9"       
+#> [19] "tyonv_12ur"        "tyonv_12us"        "tyonv_12uu"       
+#> [22] "tyonv_12uv"        "tyonv_12v5"        "tyonv_12v6"       
+#> [25] "tyonv_12v7"        "tyonv_12v7_kaikki" "tyonv_12v8"       
+#> [28] "tyonv_12v9"        "tyonv_12va"        "tyonv_1310"       
+#> [31] "tyonv_135e"        "tyonv_1370"        "tyonv_2205"
 ```
 
 To list all data bases, use `ptt_search_database` without arguments
 
 ``` r
-ptt_search_database()
-#> [1] "aw_db"   "aw_tyo"  "db_list" "test_db" "tp_db"   "tyo_db"
+ptt_search_db()
+#>  [1] "avoimet_tyopaikat_db" "aw_db"                "aw_tyo"              
+#>  [4] "kohtaanto_db"         "my_new_db_list"       "test"                
+#>  [7] "test_db"              "tp_db"                "tyo_db"              
+#> [10] "tyonhakijat_db"       "tyovoimakoulutus_db"  "tyovoimapalvelut_db" 
+#> [13] "x"
 ```
 
 ## Saving Data
@@ -83,11 +120,11 @@ base.
 data <- ptt_read_data("test_df")
 data
 #>   x           y
-#> 1 a  0.79909191
-#> 2 b  0.43809118
-#> 3 c  1.19018285
-#> 4 d  1.49800155
-#> 5 e -0.08317063
+#> 1 a  0.97095434
+#> 2 b  0.04363162
+#> 3 c  1.40704592
+#> 4 d -1.81749600
+#> 5 e -0.45942233
 ```
 
 ## Importing Data from Statistics Finland
@@ -110,7 +147,7 @@ my_url <- api_url
 pxweb_print_full_query(my_url)
 #> pxweb_query_list <- 
 #>   list("Vuosi"=c("*"),
-#>        "Alue"=c("SSS","KU020","KU005","KU009","KU010","KU016","KU018","KU019","KU035","KU043","KU046","KU047","KU049","KU050","KU051","KU052","KU060","KU061","KU062","KU065","KU069","KU071","KU072","KU074","KU075","KU076","KU077","KU078","KU079","KU081","KU082","KU086","KU111","KU090","KU091","KU097","KU098","KU099","KU102","KU103","KU105","KU106","KU108","KU109","KU139","KU140","KU142","KU143","KU145","KU146","KU153","KU148","KU149","KU151","KU152","KU165","KU167","KU169","KU170","KU171","KU172","KU176","KU177","KU178","KU179","KU181","KU182","KU186","KU202","KU204","KU205","KU208","KU211","KU213","KU214","KU216","KU217","KU218","KU224","KU226","KU230","KU231","KU232","KU233","KU235","KU236","KU239","KU240","KU320","KU241","KU322","KU244","KU245","KU249","KU250","KU256","KU257","KU260","KU261","KU263","KU265","KU271","KU272","KU273","KU275","KU276","KU280","KU284","KU285","KU286","KU287","KU288","KU290","KU291","KU295","KU297","KU300","KU301","KU304","KU305","KU312","KU316","KU317","KU318","KU398","KU399","KU400","KU407","KU402","KU403","KU405","KU408","KU410","KU416","KU417","KU418","KU420","KU421","KU422","KU423","KU425","KU426","KU444","KU430","KU433","KU434","KU435","KU436","KU438","KU440","KU441","KU475","KU478","KU480","KU481","KU483","KU484","KU489","KU491","KU494","KU495","KU498","KU499","KU500","KU503","KU504","KU505","KU508","KU507","KU529","KU531","KU535","KU536","KU538","KU541","KU543","KU545","KU560","KU561","KU562","KU563","KU564","KU309","KU576","KU577","KU578","KU445","KU580","KU581","KU599","KU583","KU854","KU584","KU588","KU592","KU593","KU595","KU598","KU601","KU604","KU607","KU608","KU609","KU611","KU638","KU614","KU615","KU616","KU619","KU620","KU623","KU624","KU625","KU626","KU630","KU631","KU635","KU636","KU678","KU710","KU680","KU681","KU683","KU684","KU686","KU687","KU689","KU691","KU694","KU697","KU698","KU700","KU702","KU704","KU707","KU729","KU732","KU734","KU736","KU790","KU738","KU739","KU740","KU742","KU743","KU746","KU747","KU748","KU791","KU749","KU751","KU753","KU755","KU758","KU759","KU761","KU762","KU765","KU766","KU768","KU771","KU777","KU778","KU781","KU783","KU831","KU832","KU833","KU834","KU837","KU844","KU845","KU846","KU848","KU849","KU850","KU851","KU853","KU857","KU858","KU859","KU886","KU887","KU889","KU890","KU892","KU893","KU895","KU785","KU905","KU908","KU092","KU915","KU918","KU921","KU922","KU924","KU925","KU927","KU931","KU934","KU935","KU936","KU941","KU946","KU976","KU977","KU980","KU981","KU989","KU992"),
+#>        "Alue"=c("SSS","KU020","KU005","KU009","KU010","KU016","KU018","KU019","KU035","KU043","KU046","KU047","KU049","KU050","KU051","KU052","KU060","KU061","KU062","KU065","KU069","KU071","KU072","KU074","KU075","KU076","KU077","KU078","KU079","KU081","KU082","KU086","KU111","KU090","KU091","KU097","KU098","KU102","KU103","KU105","KU106","KU108","KU109","KU139","KU140","KU142","KU143","KU145","KU146","KU153","KU148","KU149","KU151","KU152","KU165","KU167","KU169","KU170","KU171","KU172","KU176","KU177","KU178","KU179","KU181","KU182","KU186","KU202","KU204","KU205","KU208","KU211","KU213","KU214","KU216","KU217","KU218","KU224","KU226","KU230","KU231","KU232","KU233","KU235","KU236","KU239","KU240","KU320","KU241","KU322","KU244","KU245","KU249","KU250","KU256","KU257","KU260","KU261","KU263","KU265","KU271","KU272","KU273","KU275","KU276","KU280","KU284","KU285","KU286","KU287","KU288","KU290","KU291","KU295","KU297","KU300","KU301","KU304","KU305","KU312","KU316","KU317","KU318","KU398","KU399","KU400","KU407","KU402","KU403","KU405","KU408","KU410","KU416","KU417","KU418","KU420","KU421","KU422","KU423","KU425","KU426","KU444","KU430","KU433","KU434","KU435","KU436","KU438","KU440","KU441","KU475","KU478","KU480","KU481","KU483","KU484","KU489","KU491","KU494","KU495","KU498","KU499","KU500","KU503","KU504","KU505","KU508","KU507","KU529","KU531","KU535","KU536","KU538","KU541","KU543","KU545","KU560","KU561","KU562","KU563","KU564","KU309","KU576","KU577","KU578","KU445","KU580","KU581","KU599","KU583","KU854","KU584","KU588","KU592","KU593","KU595","KU598","KU601","KU604","KU607","KU608","KU609","KU611","KU638","KU614","KU615","KU616","KU619","KU620","KU623","KU624","KU625","KU626","KU630","KU631","KU635","KU636","KU678","KU710","KU680","KU681","KU683","KU684","KU686","KU687","KU689","KU691","KU694","KU697","KU698","KU700","KU702","KU704","KU707","KU729","KU732","KU734","KU736","KU790","KU738","KU739","KU740","KU742","KU743","KU746","KU747","KU748","KU791","KU749","KU751","KU753","KU755","KU758","KU759","KU761","KU762","KU765","KU766","KU768","KU771","KU777","KU778","KU781","KU783","KU831","KU832","KU833","KU834","KU837","KU844","KU845","KU846","KU848","KU849","KU850","KU851","KU853","KU857","KU858","KU859","KU886","KU887","KU889","KU890","KU892","KU893","KU895","KU785","KU905","KU908","KU092","KU915","KU918","KU921","KU922","KU924","KU925","KU927","KU931","KU934","KU935","KU936","KU941","KU946","KU976","KU977","KU980","KU981","KU989","KU992"),
 #>        "Ikä"=c("SSS","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-"),
 #>        "Sukupuoli"=c("SSS","1","2"),
 #>        "Koulutusaste"=c("SSS","3T8","3","4","5","6","7","8","9"),
@@ -125,7 +162,7 @@ pxweb_print_code_full_query(my_url)
 #>   url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
 #>   query = 
 #>     list("Vuosi"=c("*"),
-#>        "Alue"=c("SSS","KU020","KU005","KU009","KU010","KU016","KU018","KU019","KU035","KU043","KU046","KU047","KU049","KU050","KU051","KU052","KU060","KU061","KU062","KU065","KU069","KU071","KU072","KU074","KU075","KU076","KU077","KU078","KU079","KU081","KU082","KU086","KU111","KU090","KU091","KU097","KU098","KU099","KU102","KU103","KU105","KU106","KU108","KU109","KU139","KU140","KU142","KU143","KU145","KU146","KU153","KU148","KU149","KU151","KU152","KU165","KU167","KU169","KU170","KU171","KU172","KU176","KU177","KU178","KU179","KU181","KU182","KU186","KU202","KU204","KU205","KU208","KU211","KU213","KU214","KU216","KU217","KU218","KU224","KU226","KU230","KU231","KU232","KU233","KU235","KU236","KU239","KU240","KU320","KU241","KU322","KU244","KU245","KU249","KU250","KU256","KU257","KU260","KU261","KU263","KU265","KU271","KU272","KU273","KU275","KU276","KU280","KU284","KU285","KU286","KU287","KU288","KU290","KU291","KU295","KU297","KU300","KU301","KU304","KU305","KU312","KU316","KU317","KU318","KU398","KU399","KU400","KU407","KU402","KU403","KU405","KU408","KU410","KU416","KU417","KU418","KU420","KU421","KU422","KU423","KU425","KU426","KU444","KU430","KU433","KU434","KU435","KU436","KU438","KU440","KU441","KU475","KU478","KU480","KU481","KU483","KU484","KU489","KU491","KU494","KU495","KU498","KU499","KU500","KU503","KU504","KU505","KU508","KU507","KU529","KU531","KU535","KU536","KU538","KU541","KU543","KU545","KU560","KU561","KU562","KU563","KU564","KU309","KU576","KU577","KU578","KU445","KU580","KU581","KU599","KU583","KU854","KU584","KU588","KU592","KU593","KU595","KU598","KU601","KU604","KU607","KU608","KU609","KU611","KU638","KU614","KU615","KU616","KU619","KU620","KU623","KU624","KU625","KU626","KU630","KU631","KU635","KU636","KU678","KU710","KU680","KU681","KU683","KU684","KU686","KU687","KU689","KU691","KU694","KU697","KU698","KU700","KU702","KU704","KU707","KU729","KU732","KU734","KU736","KU790","KU738","KU739","KU740","KU742","KU743","KU746","KU747","KU748","KU791","KU749","KU751","KU753","KU755","KU758","KU759","KU761","KU762","KU765","KU766","KU768","KU771","KU777","KU778","KU781","KU783","KU831","KU832","KU833","KU834","KU837","KU844","KU845","KU846","KU848","KU849","KU850","KU851","KU853","KU857","KU858","KU859","KU886","KU887","KU889","KU890","KU892","KU893","KU895","KU785","KU905","KU908","KU092","KU915","KU918","KU921","KU922","KU924","KU925","KU927","KU931","KU934","KU935","KU936","KU941","KU946","KU976","KU977","KU980","KU981","KU989","KU992"),
+#>        "Alue"=c("SSS","KU020","KU005","KU009","KU010","KU016","KU018","KU019","KU035","KU043","KU046","KU047","KU049","KU050","KU051","KU052","KU060","KU061","KU062","KU065","KU069","KU071","KU072","KU074","KU075","KU076","KU077","KU078","KU079","KU081","KU082","KU086","KU111","KU090","KU091","KU097","KU098","KU102","KU103","KU105","KU106","KU108","KU109","KU139","KU140","KU142","KU143","KU145","KU146","KU153","KU148","KU149","KU151","KU152","KU165","KU167","KU169","KU170","KU171","KU172","KU176","KU177","KU178","KU179","KU181","KU182","KU186","KU202","KU204","KU205","KU208","KU211","KU213","KU214","KU216","KU217","KU218","KU224","KU226","KU230","KU231","KU232","KU233","KU235","KU236","KU239","KU240","KU320","KU241","KU322","KU244","KU245","KU249","KU250","KU256","KU257","KU260","KU261","KU263","KU265","KU271","KU272","KU273","KU275","KU276","KU280","KU284","KU285","KU286","KU287","KU288","KU290","KU291","KU295","KU297","KU300","KU301","KU304","KU305","KU312","KU316","KU317","KU318","KU398","KU399","KU400","KU407","KU402","KU403","KU405","KU408","KU410","KU416","KU417","KU418","KU420","KU421","KU422","KU423","KU425","KU426","KU444","KU430","KU433","KU434","KU435","KU436","KU438","KU440","KU441","KU475","KU478","KU480","KU481","KU483","KU484","KU489","KU491","KU494","KU495","KU498","KU499","KU500","KU503","KU504","KU505","KU508","KU507","KU529","KU531","KU535","KU536","KU538","KU541","KU543","KU545","KU560","KU561","KU562","KU563","KU564","KU309","KU576","KU577","KU578","KU445","KU580","KU581","KU599","KU583","KU854","KU584","KU588","KU592","KU593","KU595","KU598","KU601","KU604","KU607","KU608","KU609","KU611","KU638","KU614","KU615","KU616","KU619","KU620","KU623","KU624","KU625","KU626","KU630","KU631","KU635","KU636","KU678","KU710","KU680","KU681","KU683","KU684","KU686","KU687","KU689","KU691","KU694","KU697","KU698","KU700","KU702","KU704","KU707","KU729","KU732","KU734","KU736","KU790","KU738","KU739","KU740","KU742","KU743","KU746","KU747","KU748","KU791","KU749","KU751","KU753","KU755","KU758","KU759","KU761","KU762","KU765","KU766","KU768","KU771","KU777","KU778","KU781","KU783","KU831","KU832","KU833","KU834","KU837","KU844","KU845","KU846","KU848","KU849","KU850","KU851","KU853","KU857","KU858","KU859","KU886","KU887","KU889","KU890","KU892","KU893","KU895","KU785","KU905","KU908","KU092","KU915","KU918","KU921","KU922","KU924","KU925","KU927","KU931","KU934","KU935","KU936","KU941","KU946","KU976","KU977","KU980","KU981","KU989","KU992"),
 #>        "Ikä"=c("SSS","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-"),
 #>        "Sukupuoli"=c("SSS","1","2"),
 #>        "Koulutusaste"=c("SSS","3T8","3","4","5","6","7","8","9"),
@@ -151,10 +188,8 @@ Use function `ptt_get_statfi` to import data:
 
 ``` r
 ptt_get_statfi(my_url, my_query)
-#> Updating:https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px
-#> Without year-argument a general region classification including abolished municipalities got.
-#> [1] "Checking region classifications..."
-#> Region classification check: Classifications ok!
+#> Updating: https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px
+#> Region classification check: passed.
 #> # A tibble: 72 x 12
 #>    time       alue_code ika_code sukupuoli_code koulutusaste_code tiedot_code
 #>  * <date>     <fct>     <fct>    <fct>          <fct>             <fct>      
@@ -265,11 +300,122 @@ all data sets on which the database list has information.
 
 ``` r
 ptt_db_update("test_db")
-#> Updating:https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px
-#> Without year-argument a general region classification including abolished municipalities got.
-#> [1] "Checking region classifications..."
-#> Region classification check: Classifications ok!
+#> Updating: https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px
+#> Region classification check: passed.
 #> Updated: vkour_12bq
+```
+
+To keep better track of your data you might want to add information
+about your data to your database. To add metadata information from SF:
+
+``` r
+ptt_add_pxweb_metadata("test_db")
+#> pxweb metadata added to table vkour_12bq in database test_db
+ptt_read_db_list("test_db")$vkour_12bq$pxweb_metadata
+#> PXWEB METADATA
+#> 15 vuotta täyttänyt väestö koulutusasteen, kunnan, sukupuolen ja ikäryhmän mukaan muuttujina Vuosi, Alue, Ikä, Sukupuoli, Koulutusaste ja Tiedot 
+#> variables:
+#>  [[1]] Vuosi: Vuosi
+#>  [[2]] Alue: Alue
+#>  [[3]] Ikä: Ikä
+#>  [[4]] Sukupuoli: Sukupuoli
+#>  [[5]] Koulutusaste: Koulutusaste
+#>  [[6]] Tiedot: Tiedot
+```
+
+You can also create complete databases using simple the url locations of
+required data:
+
+``` r
+my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11l1.px/", "StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/",
+                    "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px")
+ptt_create_db_list(my_new_db_list, overwrite = TRUE)
+#> atp_11l1 query added to my_new_db_list
+#> atp_11my query added to my_new_db_list
+#> vkour_12bq query added to my_new_db_list
+#> pxweb metadata added to table atp_11l1 in database my_new_db_list
+#> pxweb metadata added to table atp_11my in database my_new_db_list
+#> pxweb metadata added to table vkour_12bq in database my_new_db_list
+names(ptt_read_db_list("my_new_db_list"))
+#> [1] "atp_11l1"   "atp_11my"   "vkour_12bq"
+```
+
+To summarize a data base list:
+
+``` r
+ptt_glimpse_db("my_new_db_list")
+#> # A tibble: 3 x 4
+#>   table   title                             variables                 time_var  
+#>   <chr>   <chr>                             <chr>                     <chr>     
+#> 1 atp_11~ Avoimet työpaikat muuttujina Tie~ Tiedot, Vuosineljännes    vuosinelj~
+#> 2 atp_11~ Avoimet työpaikat toimipaikan he~ Toimipaikan henkilöstömä~ vuosinelj~
+#> 3 vkour_~ 15 vuotta täyttänyt väestö koulu~ Vuosi, Alue, Ikä, Sukupu~ vuosi
+```
+
+## Codes and names
+
+``` r
+df <- ptt_read_data("tyonv_12u4")
+df
+#> # A tibble: 28,466,640 x 6
+#>    alue  sukupuoli ikaryhmat tiedot              time          value
+#>    <fct> <fct>     <fct>     <fct>               <date>        <dbl>
+#>  1 SSS   SSS       SSS       AKTASTE             2006-01-01     22.7
+#>  2 SSS   SSS       SSS       TYOTTOMATLOPUSSA    2006-01-01 278486  
+#>  3 SSS   SSS       SSS       PALVELUISSAYHTEENSA 2006-01-01  81888  
+#>  4 SSS   SSS       SSS       TVKOULUTUSLOP       2006-01-01  26050  
+#>  5 SSS   SSS       SSS       VALMENNUSLOP        2006-01-01      0  
+#>  6 SSS   SSS       SSS       TYOLLISTETTYLOP     2006-01-01  47763  
+#>  7 SSS   SSS       SSS       KOKEILULOP          2006-01-01      0  
+#>  8 SSS   SSS       SSS       VUORVAPLOP          2006-01-01   4942  
+#>  9 SSS   SSS       SSS       KUNTTYOLOP          2006-01-01   3133  
+#> 10 SSS   SSS       SSS       OMAEHTLOP           2006-01-01      0  
+#> # ... with 28,466,630 more rows
+```
+
+``` r
+label_key <- get_codes_names("tyonv_12u4", "tyovoimapalvelut_db")
+df <- statficlassifications::key_recode(df, label_key)
+#> Input time not recoded.
+#> Input value not recoded.
+df
+#> # A tibble: 28,466,640 x 6
+#>    alue    sukupuoli ikaryhmat tiedot                          time        value
+#>    <fct>   <fct>     <fct>     <fct>                           <date>      <dbl>
+#>  1 KOKO M~ Yhteensä  Yhteensä  Aktivointiaste laskentapäivänä~ 2006-01-01 2.27e1
+#>  2 KOKO M~ Yhteensä  Yhteensä  Työttömät työnhakijat laskenta~ 2006-01-01 2.78e5
+#>  3 KOKO M~ Yhteensä  Yhteensä  Palveluissa yhteensä (lkm.)     2006-01-01 8.19e4
+#>  4 KOKO M~ Yhteensä  Yhteensä  Työvoimakoulutuksessa olevat l~ 2006-01-01 2.60e4
+#>  5 KOKO M~ Yhteensä  Yhteensä  Valmennuksessa olevat laskenta~ 2006-01-01 0     
+#>  6 KOKO M~ Yhteensä  Yhteensä  Työllistettynä olevat laskenta~ 2006-01-01 4.78e4
+#>  7 KOKO M~ Yhteensä  Yhteensä  Työ- ja koulutuskokeilussa ole~ 2006-01-01 0     
+#>  8 KOKO M~ Yhteensä  Yhteensä  Vuorotteluvapaasijaiset lasken~ 2006-01-01 4.94e3
+#>  9 KOKO M~ Yhteensä  Yhteensä  Kuntouttavassa työtoiminnassa ~ 2006-01-01 3.13e3
+#> 10 KOKO M~ Yhteensä  Yhteensä  Omaehtoisessa opiskelussa lask~ 2006-01-01 0     
+#> # ... with 28,466,630 more rows
+```
+
+Switching between codes and names is straightforward
+
+``` r
+df <- statficlassifications::key_recode(df, label_key)
+#> Input time not recoded.
+#> Input value not recoded.
+df
+#> # A tibble: 28,466,640 x 6
+#>    alue  sukupuoli ikaryhmat tiedot              time          value
+#>    <fct> <fct>     <fct>     <fct>               <date>        <dbl>
+#>  1 SSS   SSS       SSS       AKTASTE             2006-01-01     22.7
+#>  2 SSS   SSS       SSS       TYOTTOMATLOPUSSA    2006-01-01 278486  
+#>  3 SSS   SSS       SSS       PALVELUISSAYHTEENSA 2006-01-01  81888  
+#>  4 SSS   SSS       SSS       TVKOULUTUSLOP       2006-01-01  26050  
+#>  5 SSS   SSS       SSS       VALMENNUSLOP        2006-01-01      0  
+#>  6 SSS   SSS       SSS       TYOLLISTETTYLOP     2006-01-01  47763  
+#>  7 SSS   SSS       SSS       KOKEILULOP          2006-01-01      0  
+#>  8 SSS   SSS       SSS       VUORVAPLOP          2006-01-01   4942  
+#>  9 SSS   SSS       SSS       KUNTTYOLOP          2006-01-01   3133  
+#> 10 SSS   SSS       SSS       OMAEHTLOP           2006-01-01      0  
+#> # ... with 28,466,630 more rows
 ```
 
 ## Data standardization
@@ -313,6 +459,11 @@ tiedoille. - pxweb\_print\_full\_query(url = statfi\_url(“StatFin”,
 “vrm/tyokay/statfin\_tyokay\_pxt\_115u.px”))\` -
 *pxweb\_print\_code\_full\_query*, *pxweb\_print\_code\_full\_query\_c*
 - Kirjoittaa hakukoodin taulun kaikille tiedoille. - Toimii sekä api
-että web osoitteella, myös arkistokannan osoitteeille -
+että web osoitteella -
 pxweb\_print\_code\_full\_query(“<https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/>”)
 - \_c-versio kirjottaa leikepöydälle
+
+## Filosofiaa
+
+Aineistossa ei tulisi olla kerrallaan sekä code että name muuttujia.
+Niiden yhtäaikaisuus vaikeuttaa aineiston kääntämistä.
