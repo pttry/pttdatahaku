@@ -132,9 +132,7 @@ ptt_get_statfi_robonomist <- function(x, query = NULL, db_list_name = NULL, labe
   robonomistClient::data(x, labels = labels, tidy_time = TRUE) |>
     statfitools::clean_names() |>
     dplyr::mutate(dplyr::across(where(is.character), forcats::as_factor)) |>
-    droplevels() |>
-    rm_empty_cols()
-
+    droplevels()
 }
 
 
