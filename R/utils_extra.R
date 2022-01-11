@@ -46,3 +46,35 @@ alevels <- function(x){
 factor_all <- function(.data){
   dplyr::mutate(.data, dplyr::across(where(is.character), forcats::as_factor))
 }
+
+#' Rebase (or base) index
+#'
+#'
+#' @param x a numeric vector. An index to rebase
+#' @param time a time variable in a Date format.
+#' @param baseyear a numeric year or vector of years.
+#' @param basevalue index base values. if NULL value of x at base year.
+#'
+#' @export
+rebase <- function(x, time, baseyear, basevalue = 100) {
+  time_year <- if (lubridate::is.Date(time)) lubridate::year(time) else time
+  if (is.null(basevalue)) basevalue <- mean(x[time_year %in% baseyear])
+  y <- basevalue * x / mean(x[time_year %in% baseyear])
+  y
+}
+
+#' Calculate percentage change
+#'
+#' @param x A numeric vector
+#' @param n Positive integer of length 1, giving the number of positions to lead or lag by
+#' @param order_by Override the default ordering to use another vector or column
+#'
+#' @export
+#'
+pc <- function(x, n, order_by = time){
+  y <- 100 * (x / dplyr::lag(x, n = n, order_by = order_by))
+  y
+}
+
+
+

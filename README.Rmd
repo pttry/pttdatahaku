@@ -90,6 +90,14 @@ Hakufunktio:
       - Toimii sekä api että web osoitteella
       - pxweb_print_code_full_query("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
       - _c-versio kirjottaa leikepöydälle
+   - *conc*
+      - Kopioi objektin työpöydälle
+   - *alevels*
+      - Antaa kaikkien factor-muuttujien levelit
+   - *factor_all*
+      - Tekee kaikista character-muuttujista factoreita
+   - *pc*
+      - Laskee prosenttimuutokset
       
 ## Filosofiaa
 
