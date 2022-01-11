@@ -136,8 +136,15 @@ ptt_add_pxweb_metadata <- function(db_list_name, table_code = NULL) {
   }
 }
 
-#' @describeIn Add metadata to databases
+
+#' Add manual metadata to databases
+#'
+#' @param db_list_name chr, name of database
+#' @param x data.frame of manual metadata
+#' @param table_code chr, code of table
+#'
 #' @export
+#'
 ptt_add_manual_metadata <- function(db_list_name, x, table_code = NULL) {
 
   db_list <- ptt_read_db_list(db_list_name)
@@ -163,7 +170,6 @@ ptt_add_manual_metadata <- function(db_list_name, x, table_code = NULL) {
 
 #' @describeIn ptt_db_update Remove a query from the database.
 #' @export
-
 ptt_remove_query <- function(db_list_name, table_code){
 
   # read or create db

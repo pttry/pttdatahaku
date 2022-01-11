@@ -4,6 +4,8 @@
 #'
 #' @param ... Character vectors.
 #' @param .base_url A base url for statfi.
+#' @param with_base_url logical, whether to add the base of url to the output.
+#'    Defaults to \code{TRUE}
 #'
 #' @export
 #'

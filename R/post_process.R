@@ -177,7 +177,7 @@ rm_empty_cols <- function(data) {
 #' @export
 #'
 #' @examples
-#' data <- cbind(crossing(var1 = c("SSS", 1, 2),
+#' data <- cbind(tidyr::crossing(var1 = c("SSS", 1, 2),
 #'                        var2 = c("SSS", "a", "b"),
 #'                        var3 = c("SSS", "c", "d")),
 #'               value = rnorm(27))

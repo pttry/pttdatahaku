@@ -16,6 +16,8 @@ ptt_search_db(..., path = db_path)
 \item{...}{a search term}
 
 \item{filetype}{"qs" or "rds"}
+
+\item{path}{chr, filepath, location of databases}
 }
 \value{
 

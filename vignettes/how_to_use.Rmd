@@ -148,9 +148,9 @@ ptt_read_db_list("test_db")$vkour_12bq$pxweb_metadata
 
 You can also create complete databases using simple the url locations of required data: 
 
-```{r}
+```{r, eval = FALSE}
 
-my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11l1.px/", "StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/",
+my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/",
                     "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px")
 ptt_create_db_list(my_new_db_list, overwrite = TRUE)
 names(ptt_read_db_list("my_new_db_list"))

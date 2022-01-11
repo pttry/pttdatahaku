@@ -2,13 +2,30 @@
 % Please edit documentation in R/ptt_save_load.R
 \name{ptt_create_db_list}
 \alias{ptt_create_db_list}
+\alias{ptt_create_db_list_vector}
+\alias{ptt_create_db_list_df}
 \title{Create full database lists}
 \usage{
 ptt_create_db_list(
   x,
   db_list_name = deparse1(substitute(x)),
   pxweb_metadata = TRUE,
-  overwrite = FALSE
+  overwrite = FALSE,
+  call = "ptt_get_statfi(url, query)"
+)
+
+ptt_create_db_list_vector(
+  x,
+  db_list_name = deparse1(substitute(x)),
+  pxweb_metadata = TRUE,
+  call = "ptt_get_statfi(url, query)"
+)
+
+ptt_create_db_list_df(
+  x,
+  db_list_name = deparse1(substitute(x)),
+  pxweb_metadata = TRUE,
+  call = "ptt_get_statfi(url, query)"
 )
 }
 \arguments{
@@ -21,9 +38,13 @@ on the data corresponding to urls in other columns}
 
 \item{overwrite}{logical whether to overwrite possibly existing database}
 }
-\value{
-
-}
 \description{
 Create full database lists
 }
+\section{Functions}{
+\itemize{
+\item \code{ptt_create_db_list_vector}: Create full database lists
+
+\item \code{ptt_create_db_list_df}: Create full database lists
+}}
+

@@ -114,7 +114,7 @@ utils::globalVariables(c("time", "values", "where"))
 #'
 #' @param x robonomist id or a table code as defined in the package. If table_code
 #'    give db_list_name.
-#' #' @param query, §-filter, defaults to full query, \code{NULL}
+#' @param query, §-filter, defaults to full query, \code{NULL}
 #' @param db_list_name in case x is a table code db_list gives the mapping from
 #'    table codes to urls. Only use this if x is table_code.
 #' @param labels logical, whether to have variables with labels or codes. Defaults
@@ -197,7 +197,7 @@ get_table_code <- function(url){
 #'
 #' TODO: if db_list_name not given, url should be retrievable from statfi.
 #'
-#' @param url A url
+#' @param x A url
 #' @param db_list_name chr
 #' @param with_base_url logical. Defaults to \code{FALSE}
 #'

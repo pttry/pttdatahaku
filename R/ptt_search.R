@@ -6,6 +6,7 @@
 #'
 #' @param ... a search term
 #' @param filetype "qs" or "rds"
+#' @param path chr, filepath, location of databases
 #'
 #' @return
 #' @export
@@ -64,8 +65,13 @@ ptt_glimpse_db <- function(db_list_name) {
 }
 
 
-#' @describeIn Browse metadata attached to a database list
+#' Get information about data in db_list
+#'
+#' @param table_code chr
+#' @param db_list_name chr
+#'
 #' @export
+#'
 #'
 get_pxweb_metadata <- function(table_code, db_list_name) {
 
@@ -73,7 +79,7 @@ get_pxweb_metadata <- function(table_code, db_list_name) {
 
 }
 
-#' @describeIn Browse metadata attached to a database list
+#' @describeIn get_pxweb_metadata Get information about data in db_list
 #' @export
 #'
 get_variables <- function(table_code, db_list_name, as_string = FALSE) {
@@ -85,7 +91,7 @@ get_variables <- function(table_code, db_list_name, as_string = FALSE) {
   output
 }
 
-#' @describeIn Browse metadata attached to a database list
+#' @describeIn get_pxweb_metadata Get information about data in db_list
 #' @export
 #'
 get_time_var <- function(table_code, db_list_name) {
@@ -97,14 +103,14 @@ get_time_var <- function(table_code, db_list_name) {
 
 }
 
-#' @describeIn Browse metadata attached to a database list
+#' @describeIn get_pxweb_metadata Get information about data in db_list
 #' @export
 #'
 get_manual_metadata <- function(table_code, db_list_name) {
   ptt_read_db_list(db_list_name)[[table_code]]$manual_metadata
 }
 
-#' @describeIn Browse metadata attached to a database list
+#' @describeIn get_pxweb_metadata Get information about data in db_list
 #' @export
 #'
 get_title <- function(table_code, db_list_name) {

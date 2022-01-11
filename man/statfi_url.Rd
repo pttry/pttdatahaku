@@ -13,6 +13,9 @@ statfi_url(
 \arguments{
 \item{...}{Character vectors.}
 
+\item{with_base_url}{logical, whether to add the base of url to the output.
+Defaults to \code{TRUE}}
+
 \item{.base_url}{A base url for statfi.}
 }
 \description{

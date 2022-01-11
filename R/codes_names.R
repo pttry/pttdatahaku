@@ -63,8 +63,14 @@ get_codes_names <- function(x, db_list_name = NULL, variable = NULL, offline = T
   cn
 }
 
-#' @describeIn Get codes-names key
+
+#' Get code-name key from pxweb_metadata object.
+#'
+#' @param pxweb_metadata pxweb_metadata object
+#'
+#' @return named vector, code-name key
 #' @export
+#'
 pxweb_metadata_to_codes_names <- function(pxweb_metadata) {
 
   purrr::map(rlang::set_names(pxweb_metadata$variables,

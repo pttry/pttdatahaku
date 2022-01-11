@@ -21,7 +21,7 @@ Only removes columns that contain variable SSS. Note that the data has
 to have codes.
 }
 \examples{
-data <- cbind(crossing(var1 = c("SSS", 1, 2),
+data <- cbind(tidyr::crossing(var1 = c("SSS", 1, 2),
                        var2 = c("SSS", "a", "b"),
                        var3 = c("SSS", "c", "d")),
               value = rnorm(27))

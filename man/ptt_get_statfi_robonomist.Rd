@@ -8,8 +8,9 @@ ptt_get_statfi_robonomist(x, query = NULL, db_list_name = NULL, labels = FALSE)
 }
 \arguments{
 \item{x}{robonomist id or a table code as defined in the package. If table_code
-   give db_list_name.
-#' @param query, §-filter, defaults to full query, \code{NULL}}
+give db_list_name.}
+
+\item{query, }{§-filter, defaults to full query, \code{NULL}}
 
 \item{db_list_name}{in case x is a table code db_list gives the mapping from
 table codes to urls. Only use this if x is table_code.}

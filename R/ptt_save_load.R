@@ -100,13 +100,13 @@ ptt_read_db_list <- function(db_list_name, create = FALSE){
 #' @param pxweb_metadata logical whether to add pxweb metadata to the database
 #' @param overwrite logical whether to overwrite possibly existing database
 #'
-#' @return
 #' @export
 #'
 ptt_create_db_list <- function(x,
                                db_list_name = deparse1(substitute(x)),
                                pxweb_metadata = TRUE,
-                               overwrite = FALSE){
+                               overwrite = FALSE,
+                               call = "ptt_get_statfi(url, query)"){
   force(db_list_name)
 
   if(!overwrite) {
@@ -115,9 +115,9 @@ ptt_create_db_list <- function(x,
   } }
 
   if(is.data.frame(x)) {
-    ptt_create_db_list_df(x, db_list_name)
+    ptt_create_db_list_df(x, db_list_name, call = call)
   } else {
-    ptt_create_db_list_vector(x, db_list_name)
+    ptt_create_db_list_vector(x, db_list_name, call = call)
   }
 
   if(pxweb_metadata) {ptt_add_pxweb_metadata(db_list_name)}
@@ -125,27 +125,29 @@ ptt_create_db_list <- function(x,
 }
 
 
-#' @describeIn Create full databases
+#' @describeIn ptt_create_db_list Create full database lists
 #' @export
 #'
 ptt_create_db_list_vector <- function(x,
                                       db_list_name = deparse1(substitute(x)),
-                                      pxweb_metadata = TRUE){
+                                      pxweb_metadata = TRUE,
+                                      call = "ptt_get_statfi(url, query)"){
 
-  invisible(lapply(x, ptt_add_query, db_list_name = db_list_name))
+  invisible(lapply(x, ptt_add_query, db_list_name = db_list_name, call = call))
 
 }
 
-#' @describeIn Create full databases
+#' @describeIn ptt_create_db_list Create full database lists
 #' @export
 #'
 ptt_create_db_list_df <- function(x,
                                   db_list_name = deparse1(substitute(x)),
-                                  pxweb_metadata = TRUE){
+                                  pxweb_metadata = TRUE,
+                                  call = "ptt_get_statfi(url, query)"){
 
   urls <- unlist(x[,sapply(x, function(x) {all(grepl(".px", x))})])
   x[,1] <- get_table_code(unlist(x[,1]))
-  invisible(lapply(urls, ptt_add_query, db_list_name = db_list_name))
+  invisible(lapply(urls, ptt_add_query, db_list_name = db_list_name, call = call))
   ptt_add_manual_metadata(db_list_name, x)
 
 }
@@ -161,10 +163,6 @@ ptt_create_db_list_df <- function(x,
 #'
 #' @return
 #' @export
-#'
-#' @examples
-#' test_dat2 <- ptt_read_data("test_dat")
-#' filter_region_level(data = test_dat2, region_level = "KOKO MAA")
 #'
 filter_region_level <- function(data, region_level) {
 

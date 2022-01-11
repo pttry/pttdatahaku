@@ -7,11 +7,11 @@
 table_code_to_url(x, db_list_name, with_base_url = FALSE)
 }
 \arguments{
+\item{x}{A url}
+
 \item{db_list_name}{chr}
 
 \item{with_base_url}{logical. Defaults to \code{FALSE}}
-
-\item{url}{A url}
 }
 \description{
 Inverse of get_table_code. However, a table code is not sufficient information
