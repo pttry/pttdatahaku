@@ -93,7 +93,7 @@ To list all data bases, use `ptt_search_database` without arguments
 ``` r
 ptt_search_db()
 #>  [1] "avoimet_tyopaikat_db" "aw_db"                "aw_tyo"              
-#>  [4] "kohtaanto_db"         "my_new_db_list"       "test"                
+#>  [4] "kohtaanto_db"         "kohtaantoindeksit_db" "my_new_db_list"      
 #>  [7] "test_db"              "tp_db"                "tyo_db"              
 #> [10] "tyonhakijat_db"       "tyovoimakoulutus_db"  "tyovoimapalvelut_db" 
 #> [13] "x"
@@ -119,12 +119,12 @@ base.
 ``` r
 data <- ptt_read_data("test_df")
 data
-#>   x           y
-#> 1 a  0.97095434
-#> 2 b  0.04363162
-#> 3 c  1.40704592
-#> 4 d -1.81749600
-#> 5 e -0.45942233
+#>   x          y
+#> 1 a  0.2607570
+#> 2 b -1.6543874
+#> 3 c -0.5564711
+#> 4 d  0.3348104
+#> 5 e -0.1871629
 ```
 
 ## Importing Data from Statistics Finland
@@ -327,29 +327,21 @@ You can also create complete databases using simple the url locations of
 required data:
 
 ``` r
-my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11l1.px/", "StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/",
+my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/",
                     "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px")
 ptt_create_db_list(my_new_db_list, overwrite = TRUE)
-#> atp_11l1 query added to my_new_db_list
-#> atp_11my query added to my_new_db_list
-#> vkour_12bq query added to my_new_db_list
-#> pxweb metadata added to table atp_11l1 in database my_new_db_list
-#> pxweb metadata added to table atp_11my in database my_new_db_list
-#> pxweb metadata added to table vkour_12bq in database my_new_db_list
 names(ptt_read_db_list("my_new_db_list"))
-#> [1] "atp_11l1"   "atp_11my"   "vkour_12bq"
 ```
 
 To summarize a data base list:
 
 ``` r
 ptt_glimpse_db("my_new_db_list")
-#> # A tibble: 3 x 4
+#> # A tibble: 2 x 4
 #>   table   title                             variables                 time_var  
 #>   <chr>   <chr>                             <chr>                     <chr>     
-#> 1 atp_11~ Avoimet työpaikat muuttujina Tie~ Tiedot, Vuosineljännes    vuosinelj~
-#> 2 atp_11~ Avoimet työpaikat toimipaikan he~ Toimipaikan henkilöstömä~ vuosinelj~
-#> 3 vkour_~ 15 vuotta täyttänyt väestö koulu~ Vuosi, Alue, Ikä, Sukupu~ vuosi
+#> 1 atp_11~ Avoimet työpaikat toimipaikan he~ Toimipaikan henkilöstömä~ vuosinelj~
+#> 2 vkour_~ 15 vuotta täyttänyt väestö koulu~ Vuosi, Alue, Ikä, Sukupu~ vuosi
 ```
 
 ## Codes and names
@@ -357,7 +349,12 @@ ptt_glimpse_db("my_new_db_list")
 ``` r
 df <- ptt_read_data("tyonv_12u4")
 df
-#> # A tibble: 28,466,640 x 6
+#> # Robonomist id: StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12u4.px
+#> # A tibble:      28,466,640 x 6
+#> # Title:         12u4 -- Aktivointiaste ja palveluissa olevat laskentapäivänä
+#> #   (4250), 2006M01-2021M11
+#> # Last updated:  2021-12-21 08:00:00
+#> # Next update:   2022-01-25 08:00:00
 #>    alue  sukupuoli ikaryhmat tiedot              time          value
 #>    <fct> <fct>     <fct>     <fct>               <date>        <dbl>
 #>  1 SSS   SSS       SSS       AKTASTE             2006-01-01     22.7
@@ -461,7 +458,10 @@ tiedoille. - pxweb\_print\_full\_query(url = statfi\_url(“StatFin”,
 - Kirjoittaa hakukoodin taulun kaikille tiedoille. - Toimii sekä api
 että web osoitteella -
 pxweb\_print\_code\_full\_query(“<https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/>”)
-- \_c-versio kirjottaa leikepöydälle
+- \_c-versio kirjottaa leikepöydälle - *conc* - Kopioi objektin
+työpöydälle - *alevels* - Antaa kaikkien factor-muuttujien levelit -
+*factor\_all* - Tekee kaikista character-muuttujista factoreita - *pc* -
+Laskee prosenttimuutokset
 
 ## Filosofiaa
 
