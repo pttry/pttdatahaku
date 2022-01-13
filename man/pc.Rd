@@ -4,7 +4,7 @@
 \alias{pc}
 \title{Calculate percentage change}
 \usage{
-pc(x, n, order_by = time)
+pc(x, n, order_by = NULL)
 }
 \arguments{
 \item{x}{A numeric vector}
@@ -15,4 +15,9 @@ pc(x, n, order_by = time)
 }
 \description{
 Calculate percentage change
+}
+\examples{
+df <- data.frame(time = c(1,2,3,4), x = c(100,101,100,98))
+dplyr::mutate(df, d = pc(x, 1, time))
+dplyr::mutate(df, d = pc(x, 1))
 }

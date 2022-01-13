@@ -70,9 +70,12 @@ rebase <- function(x, time, baseyear, basevalue = 100) {
 #' @param order_by Override the default ordering to use another vector or column
 #'
 #' @export
-#'
-pc <- function(x, n, order_by = time){
-  y <- 100 * (x / dplyr::lag(x, n = n, order_by = order_by))
+#' @examples
+#' df <- data.frame(time = c(1,2,3,4), x = c(100,101,100,98))
+#' dplyr::mutate(df, d = pc(x, 1, time))
+#' dplyr::mutate(df, d = pc(x, 1))
+pc <- function(x, n, order_by = NULL){
+  y <- 100 * (x / dplyr::lag(x, n = n, order_by = order_by) -1)
   y
 }
 
