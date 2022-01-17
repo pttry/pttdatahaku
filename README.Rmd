@@ -99,6 +99,14 @@ Hakufunktio:
    - *pc*
       - Laskee prosenttimuutokset
       
+### Aggregointi
+
+- agg_key
+- agg_regions
+- add_agg
+- agg_abolished_mun
+- agg_yearly
+      
 ## Filosofiaa
 
 Aineistossa ei tulisi olla kerrallaan sekä code että name muuttujia. Niiden yhtäaikaisuus vaikeuttaa aineiston kääntämistä. 
