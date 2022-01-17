@@ -16,3 +16,14 @@ test_that("Regional aggregation works", {
       all_to_regions = FALSE)$values,
     c(1,2,2))
 })
+
+test_that("Key aggregation works", {
+  expect_equal(
+    agg_key(
+      data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"),
+                 values = c(1,1,1,2)), na.rm = TRUE,
+      key =
+        data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"),
+                   alue = c("SSS", "alue1", "alue1", "alue2")))$values,
+    c(1,2,2))
+})

@@ -206,3 +206,83 @@ ptt_select <- function(data, ..., SSS = FALSE) {
 
   rm_empty_cols(data)
 }
+
+
+#' Aggregate based on key
+#'
+#' @param x A data.frame like object.
+#' @param by A character vector of variables to join by.
+#' @param na.rm	logical. Should missing values (including NaN) be removed?
+#' @param key A data.frame. A classification key in same form as
+#'        as key from \code{\link[statficlassifications]{get_regionkey}}.
+#' @export
+#'
+#' @import dplyr
+#' @examples
+#' x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"), values = c(1,1,1,2))
+#' agg_regions(x, na.rm = TRUE)
+#' agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS")
+#' agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
+#' z <- dplyr::mutate(x, values2 = c(3,4,5,6))
+#' agg_regions(z, na.rm = TRUE, value_cols = c("values", "values2"))
+#' agg_key(x, na.rm = TRUE,
+#'             key = data.frame(
+#'                alue_code = c("SSS", "KU049", "KU091", "KU109"),
+#'                maakunta_name = c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))
+#'                )
+agg_key <- function(x, by = NULL,
+                        value_cols = c("values", "value"),
+                         na.rm = FALSE,
+                        all_to_regions = TRUE,
+                        key = NULL){
+
+# Value_cols
+  value_cols <- intersect(value_cols, names(x))
+  if (is.null(value_cols)) rlang::abort("values_cols must be specified")
+
+
+# by = NULL, copied from dplyr standardise_join_by
+  if (is.null(by)) {
+    by <- intersect(names(x), names(key))
+    if (length(by) == 0) {
+      rlang::abort(c("`by` must be supplied when `x` and `key` have no common variables.",
+              i = "use by = character()` to perform a cross-join."))
+    }
+
+  }
+
+  # region_key[paste0(from, "_name")] <- NULL
+  # region_key <-
+  #   region_key |>
+  #   rename_with(~gsub(paste0("^", from, "_"), "alue_", .x)) |>
+  #   rename_with(~gsub(paste0("^", to, "_"), "to_", .x))
+
+# join
+  y <- x %>%
+    mutate(check = 1) |>
+    right_join(key, by = by)
+
+#check join
+    check_na <- which(is.na(y[["check"]]))
+    if (any(check_na)) {
+      message("Data includes classes not in key. Key missing for rows: ",
+              paste(check_na, collapse = ", "))
+      }
+
+  y <- y |>
+    select(-check) |>
+    select(-all_of(by)) %>%
+    group_by(across(!any_of(value_cols))) %>%
+    summarise_at(value_cols, sum, na.rm = na.rm)
+
+  # if (!is.null(pass_codes)){
+  #   y <- bind_rows(
+  #     filter(x, alue_code %in% pass_codes),
+  #     y
+  #   ) |>
+  #     droplevels()
+  # }
+
+  y <- add_ptt_attr(y, x)
+  y
+}
