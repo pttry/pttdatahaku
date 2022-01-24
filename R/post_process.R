@@ -82,6 +82,7 @@ agg_regions <- function(x, from = "kunta", to = "maakunta",
     rename(alue_code = to_code, alue_name = to_name) %>%
     group_by(across(!all_of(value_cols))) %>%
     summarise_at(value_cols, sum, na.rm = na.rm) %>%
+    ungroup() |>
     relocate(names(x))
 
   if (!is.null(pass_region_codes)){
@@ -137,6 +138,7 @@ agg_yearly <- function(x){
     mutate(time = lubridate::ymd(lubridate::year(time), truncated = 2)) %>%
     group_by(across(!values)) %>%
     summarise(values = sum(values), .groups = "drop") %>%
+    ungroup() |>
     relocate(names(x))
 
   y <- add_ptt_attr(y, x)
@@ -271,9 +273,10 @@ agg_key <- function(x, by = NULL,
 
   y <- y |>
     select(-check) |>
-    select(-all_of(by)) %>%
-    group_by(across(!any_of(value_cols))) %>%
-    summarise_at(value_cols, sum, na.rm = na.rm)
+    select(-all_of(by)) |>
+    group_by(across(!any_of(value_cols))) |>
+    summarise_at(value_cols, sum, na.rm = na.rm) |>
+    ungroup()
 
   # if (!is.null(pass_codes)){
   #   y <- bind_rows(
