@@ -57,7 +57,7 @@ agg_regions(x, na.rm = TRUE,
             custom_key = data.frame(
                kunta_code = c("SSS", "KU049", "KU091", "KU109"),
                kunta_name = c("SSS", "KU049", "KU091", "KU109"),
-               maakunta_code = c("SSS", "MK1", "MK1", "MK2"),
-               maakunta_name = c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))
+               maakunta_code = as.factor(c("SSS", "MK1", "MK1", "MK2")),
+               maakunta_name = as.factor(c("SSS", "Maakunta1", "Maakunta1", "Maakunta2")))
                )
 }

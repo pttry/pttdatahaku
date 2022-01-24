@@ -42,38 +42,39 @@ ptt_search_data()
 #>  [9] "atp_11n1"                 "data_statfi"             
 #> [11] "kl_tverop"                "koulutus_103_2019"       
 #> [13] "kta_12ml"                 "lmp_expenditures"        
-#> [15] "lmp_participants"         "ntp_132h"                
-#> [17] "perh_12c1"                "statfi_participants"     
-#> [19] "statfi_participants_orig" "test_dat"                
-#> [21] "test_df"                  "test2"                   
-#> [23] "tkke_125t"                "tulot_102"               
-#> [25] "tyokay_115h"              "tyokay_115h_agg"         
-#> [27] "tyokay_115j"              "tyokay_115s"             
-#> [29] "tyonv_1001"               "tyonv_1270"              
-#> [31] "tyonv_12r5"               "tyonv_12ti"              
-#> [33] "tyonv_12tk"               "tyonv_12tt"              
-#> [35] "tyonv_12tv"               "tyonv_12tw"              
-#> [37] "tyonv_12u1"               "tyonv_12u2"              
-#> [39] "tyonv_12u3"               "tyonv_12u3_kaikki"       
-#> [41] "tyonv_12u3_SSS"           "tyonv_12u4"              
-#> [43] "tyonv_12u5"               "tyonv_12u6"              
-#> [45] "tyonv_12u8"               "tyonv_12u9"              
-#> [47] "tyonv_12ur"               "tyonv_12us"              
-#> [49] "tyonv_12uu"               "tyonv_12uv"              
-#> [51] "tyonv_12v5"               "tyonv_12v6"              
-#> [53] "tyonv_12v7"               "tyonv_12v7_kaikki"       
-#> [55] "tyonv_12v8"               "tyonv_12v9"              
-#> [57] "tyonv_12va"               "tyonv_1310"              
-#> [59] "tyonv_135e"               "tyonv_1370"              
-#> [61] "tyonv_2205"               "tyti_11af"               
-#> [63] "tyti_11ag"                "tyti_11c9"               
-#> [65] "tyti_11pn"                "tyti_135y"               
-#> [67] "tyti_135z"                "tyti_137h"               
-#> [69] "tyti_137i"                "tyti_137k"               
-#> [71] "tyti_137l"                "tyti_137m"               
-#> [73] "vaenn_128v"               "vaenn_128v_agg"          
-#> [75] "vaerak_11ra"              "verot_maksut_102"        
-#> [77] "vkour_12bq"               "vkour_12bs"
+#> [15] "lmp_participants"         "lmp_STK_kk_ka"           
+#> [17] "ntp_132h"                 "perh_12c1"               
+#> [19] "statfi_participants"      "statfi_participants_orig"
+#> [21] "statfi_participants2"     "test_dat"                
+#> [23] "test_df"                  "test2"                   
+#> [25] "tkke_125t"                "tulot_102"               
+#> [27] "tyokay_115h"              "tyokay_115h_agg"         
+#> [29] "tyokay_115j"              "tyokay_115s"             
+#> [31] "tyonv_1001"               "tyonv_1270"              
+#> [33] "tyonv_12r5"               "tyonv_12ti"              
+#> [35] "tyonv_12tk"               "tyonv_12tt"              
+#> [37] "tyonv_12tv"               "tyonv_12tw"              
+#> [39] "tyonv_12u1"               "tyonv_12u2"              
+#> [41] "tyonv_12u3"               "tyonv_12u3_kaikki"       
+#> [43] "tyonv_12u3_SSS"           "tyonv_12u4"              
+#> [45] "tyonv_12u5"               "tyonv_12u6"              
+#> [47] "tyonv_12u8"               "tyonv_12u9"              
+#> [49] "tyonv_12ur"               "tyonv_12us"              
+#> [51] "tyonv_12uu"               "tyonv_12uv"              
+#> [53] "tyonv_12v5"               "tyonv_12v6"              
+#> [55] "tyonv_12v7"               "tyonv_12v7_kaikki"       
+#> [57] "tyonv_12v8"               "tyonv_12v9"              
+#> [59] "tyonv_12va"               "tyonv_1310"              
+#> [61] "tyonv_135e"               "tyonv_1370"              
+#> [63] "tyonv_2205"               "tyti_11af"               
+#> [65] "tyti_11ag"                "tyti_11c9"               
+#> [67] "tyti_11pn"                "tyti_135y"               
+#> [69] "tyti_135z"                "tyti_137h"               
+#> [71] "tyti_137i"                "tyti_137k"               
+#> [73] "tyti_137l"                "tyti_137m"               
+#> [75] "vaenn_128v"               "vaenn_128v_agg"          
+#> [77] "vaerak_11ra"              "verot_maksut_102"        
+#> [79] "vkour_12bq"               "vkour_12bs"
 ptt_search_data("tyonv")
 #>  [1] "tyonv_1001"        "tyonv_1270"        "tyonv_12r5"       
 #>  [4] "tyonv_12ti"        "tyonv_12tk"        "tyonv_12tt"       
@@ -120,11 +121,11 @@ base.
 data <- ptt_read_data("test_df")
 data
 #>   x          y
-#> 1 a  0.2607570
-#> 2 b -1.6543874
-#> 3 c -0.5564711
-#> 4 d  0.3348104
-#> 5 e -0.1871629
+#> 1 a -0.7629907
+#> 2 b -0.2543767
+#> 3 c  0.6287206
+#> 4 d  0.8892082
+#> 5 e  0.2647567
 ```
 
 ## Importing Data from Statistics Finland
@@ -338,10 +339,10 @@ To summarize a data base list:
 ``` r
 ptt_glimpse_db("my_new_db_list")
 #> # A tibble: 2 x 4
-#>   table   title                             variables                 time_var  
-#>   <chr>   <chr>                             <chr>                     <chr>     
-#> 1 atp_11~ Avoimet työpaikat toimipaikan he~ Toimipaikan henkilöstömä~ vuosinelj~
-#> 2 vkour_~ 15 vuotta täyttänyt väestö koulu~ Vuosi, Alue, Ikä, Sukupu~ vuosi
+#>   table      title                           variables                time_var  
+#>   <chr>      <chr>                           <chr>                    <chr>     
+#> 1 atp_11my   Avoimet työpaikat toimipaikan ~ Toimipaikan henkilöstöm~ vuosinelj~
+#> 2 vkour_12bq 15 vuotta täyttänyt väestö kou~ Vuosi, Alue, Ikä, Sukup~ vuosi
 ```
 
 ## Codes and names
@@ -349,12 +350,7 @@ ptt_glimpse_db("my_new_db_list")
 ``` r
 df <- ptt_read_data("tyonv_12u4")
 df
-#> # Robonomist id: StatFin/tym/tyonv/kk/statfin_tyonv_pxt_12u4.px
-#> # A tibble:      28,466,640 x 6
-#> # Title:         12u4 -- Aktivointiaste ja palveluissa olevat laskentapäivänä
-#> #   (4250), 2006M01-2021M11
-#> # Last updated:  2021-12-21 08:00:00
-#> # Next update:   2022-01-25 08:00:00
+#> # A tibble: 28,466,640 x 6
 #>    alue  sukupuoli ikaryhmat tiedot              time          value
 #>    <fct> <fct>     <fct>     <fct>               <date>        <dbl>
 #>  1 SSS   SSS       SSS       AKTASTE             2006-01-01     22.7
@@ -377,18 +373,18 @@ df <- statficlassifications::key_recode(df, label_key)
 #> Input value not recoded.
 df
 #> # A tibble: 28,466,640 x 6
-#>    alue    sukupuoli ikaryhmat tiedot                          time        value
-#>    <fct>   <fct>     <fct>     <fct>                           <date>      <dbl>
-#>  1 KOKO M~ Yhteensä  Yhteensä  Aktivointiaste laskentapäivänä~ 2006-01-01 2.27e1
-#>  2 KOKO M~ Yhteensä  Yhteensä  Työttömät työnhakijat laskenta~ 2006-01-01 2.78e5
-#>  3 KOKO M~ Yhteensä  Yhteensä  Palveluissa yhteensä (lkm.)     2006-01-01 8.19e4
-#>  4 KOKO M~ Yhteensä  Yhteensä  Työvoimakoulutuksessa olevat l~ 2006-01-01 2.60e4
-#>  5 KOKO M~ Yhteensä  Yhteensä  Valmennuksessa olevat laskenta~ 2006-01-01 0     
-#>  6 KOKO M~ Yhteensä  Yhteensä  Työllistettynä olevat laskenta~ 2006-01-01 4.78e4
-#>  7 KOKO M~ Yhteensä  Yhteensä  Työ- ja koulutuskokeilussa ole~ 2006-01-01 0     
-#>  8 KOKO M~ Yhteensä  Yhteensä  Vuorotteluvapaasijaiset lasken~ 2006-01-01 4.94e3
-#>  9 KOKO M~ Yhteensä  Yhteensä  Kuntouttavassa työtoiminnassa ~ 2006-01-01 3.13e3
-#> 10 KOKO M~ Yhteensä  Yhteensä  Omaehtoisessa opiskelussa lask~ 2006-01-01 0     
+#>    alue     sukupuoli ikaryhmat tiedot                         time        value
+#>    <fct>    <fct>     <fct>     <fct>                          <date>      <dbl>
+#>  1 KOKO MAA Yhteensä  Yhteensä  Aktivointiaste laskentapäivän~ 2006-01-01 2.27e1
+#>  2 KOKO MAA Yhteensä  Yhteensä  Työttömät työnhakijat laskent~ 2006-01-01 2.78e5
+#>  3 KOKO MAA Yhteensä  Yhteensä  Palveluissa yhteensä (lkm.)    2006-01-01 8.19e4
+#>  4 KOKO MAA Yhteensä  Yhteensä  Työvoimakoulutuksessa olevat ~ 2006-01-01 2.60e4
+#>  5 KOKO MAA Yhteensä  Yhteensä  Valmennuksessa olevat laskent~ 2006-01-01 0     
+#>  6 KOKO MAA Yhteensä  Yhteensä  Työllistettynä olevat laskent~ 2006-01-01 4.78e4
+#>  7 KOKO MAA Yhteensä  Yhteensä  Työ- ja koulutuskokeilussa ol~ 2006-01-01 0     
+#>  8 KOKO MAA Yhteensä  Yhteensä  Vuorotteluvapaasijaiset laske~ 2006-01-01 4.94e3
+#>  9 KOKO MAA Yhteensä  Yhteensä  Kuntouttavassa työtoiminnassa~ 2006-01-01 3.13e3
+#> 10 KOKO MAA Yhteensä  Yhteensä  Omaehtoisessa opiskelussa las~ 2006-01-01 0     
 #> # ... with 28,466,630 more rows
 ```
 
@@ -423,10 +419,10 @@ Haettavat tiedot muokataan seuraavaan muotoon:
 -   muuttujanimet
     -   vain pieniä kirjaimia ilman hyvää syytä isoille kirjaimille
     -   ei tyhjää välimerkkiä, sen sijaan alaviiva
-    -   Aluemuuttujat - sekä koodi että nimi sarakkeet
-        ("\*\_code“,”\**name*“), e.g. *(seutu)kunta\_code*,
-        *(maa)kunta\_name*. - ei”Alue“-nimistä muuttujaa,
-        aluemuuttujalla alueen nimi - numerosarake nimellä”values"
+    -   Aluemuuttujat - sekä koodi että nimi sarakkeet (“\*\_code”,
+        “\**name*”), e.g. *(seutu)kunta_code*, *(maa)kunta_name*. - ei
+        “Alue”-nimistä muuttujaa, aluemuuttujalla alueen nimi -
+        numerosarake nimellä “values”
 -   muuttujatyypit
     -   aikamuuttujat - “time” - Date -muodossa
     -   kategoriset muuttujat
@@ -435,33 +431,42 @@ Haettavat tiedot muokataan seuraavaan muotoon:
 
 ### Naming
 
--   Datatiedostojen nimet table\_code: e.g. tyonv\_1001
+-   Datatiedostojen nimet table_code: e.g. tyonv_1001
 
 ### pxweb haut
 
 -   Aika ja aluemuuttujista kaikki anonyymisti (\*)
 -   Muista muuttujista haettavat merkataan (YLEENSÄ KAIKKI ?)
 
-Hakufunktio: *ptt\_get\_statfi* muuntaat tiedostot oikeaan muotoon
+Hakufunktio: *ptt_get_statfi* muuntaat tiedostot oikeaan muotoon
 
 ## Apufunktiot
 
-\#\#\# Olemassa - *statfi\_url* - Koko statfi osoite loppuosan
-perusteella. - statfi\_url(“StatFin”,
-“kou/vkour/statfin\_vkour\_pxt\_12bq.px”) - *statfi\_parse\_url* -
-Statfi api:n osoite taulun web sivun osoitteen perusteella. -
-statfi\_parse\_url(“<https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/>”)
-- *pxweb\_print\_full\_query* - Kirjoittaa hakulistan taulun kaikille
-tiedoille. - pxweb\_print\_full\_query(url = statfi\_url(“StatFin”,
-“vrm/tyokay/statfin\_tyokay\_pxt\_115u.px”))\` -
-*pxweb\_print\_code\_full\_query*, *pxweb\_print\_code\_full\_query\_c*
-- Kirjoittaa hakukoodin taulun kaikille tiedoille. - Toimii sekä api
-että web osoitteella -
-pxweb\_print\_code\_full\_query(“<https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/>”)
+### Olemassa - *statfi_url* - Koko statfi osoite loppuosan perusteella.
+- statfi_url(“StatFin”, “kou/vkour/statfin_vkour_pxt_12bq.px”) -
+*statfi_parse_url* - Statfi api:n osoite taulun web sivun osoitteen
+perusteella. -
+statfi_parse_url(“<https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/>”)
+- *pxweb_print_full_query* - Kirjoittaa hakulistan taulun kaikille
+tiedoille. - pxweb_print_full_query(url = statfi_url(“StatFin”,
+“vrm/tyokay/statfin_tyokay_pxt_115u.px”))\` -
+*pxweb_print_code_full_query*, *pxweb_print_code_full_query_c* -
+Kirjoittaa hakukoodin taulun kaikille tiedoille. - Toimii sekä api että
+web osoitteella -
+pxweb_print_code_full_query(“<https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/>”)
 - \_c-versio kirjottaa leikepöydälle - *conc* - Kopioi objektin
 työpöydälle - *alevels* - Antaa kaikkien factor-muuttujien levelit -
-*factor\_all* - Tekee kaikista character-muuttujista factoreita - *pc* -
-Laskee prosenttimuutokset
+*factor_all* - Tekee kaikista character-muuttujista factoreita - *pc* -
+Laskee prosenttimuutokset - *filter_recode* Easy filtering and recoding
+data
+
+### Aggregointi
+
+-   agg_key
+-   agg_regions
+-   add_agg
+-   agg_abolished_mun
+-   agg_yearly
 
 ## Filosofiaa
 

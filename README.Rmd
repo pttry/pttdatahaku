@@ -98,6 +98,7 @@ Hakufunktio:
       - Tekee kaikista character-muuttujista factoreita
    - *pc*
       - Laskee prosenttimuutokset
+   - *filter_recode* Easy filtering and recoding data
       
 ### Aggregointi
 
