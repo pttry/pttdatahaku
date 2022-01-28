@@ -35,13 +35,13 @@ agg_abolished_mun <- function(x){
 #'        even if not in data.
 #' @param custom_key A data.frame. Custom classification key in same form as
 #'        as key from \code{\link[statficlassifications]{get_regionkey}}.
-
-
+#' @param by_name A locigal to join by name or code (default).
 #' @export
 #'
 #' @import dplyr
 #' @examples
-#' x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"), values = c(1,1,1,2))
+#' x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"),
+#'                 alue_name = c("KOKO MAA", "Espoo", "Helsinki", "Hämeenlinna"), values = c(1,1,1,2))
 #' agg_regions(x, na.rm = TRUE)
 #' agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS")
 #' agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
@@ -50,15 +50,24 @@ agg_abolished_mun <- function(x){
 #' agg_regions(x, na.rm = TRUE,
 #'             custom_key = data.frame(
 #'                kunta_code = c("SSS", "KU049", "KU091", "KU109"),
-#'                kunta_name = c("SSS", "KU049", "KU091", "KU109"),
+#'                kunta_name = c("KOKO MAA", "Espoo", "Helsinki", "Hämeenlinna"),
 #'                maakunta_code = as.factor(c("SSS", "MK1", "MK1", "MK2")),
 #'                maakunta_name = as.factor(c("SSS", "Maakunta1", "Maakunta1", "Maakunta2")))
+#'                )
+#' agg_regions(x, na.rm = TRUE,
+#'             custom_key = data.frame(
+#'                kunta_code = c("SSS", "KU049", "KU091", "KU109"),
+#'                kunta_name = c("KOKO MAA", "Espoo", "Helsinki", "Hämeenlinna"),
+#'                maakunta_code = as.factor(c("SSS", "MK1", "MK1", "MK2")),
+#'                maakunta_name = as.factor(c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))),
+#'                by_name = TRUE
 #'                )
 agg_regions <- function(x, from = "kunta", to = "maakunta",
                         value_cols = c("values"),
                         pass_region_codes = NULL, na.rm = FALSE,
                         all_to_regions = TRUE,
-                        custom_key = NULL){
+                        custom_key = NULL,
+                        by_name = FALSE){
 
   if (is.null(custom_key)){
     region_key <- statficlassifications::get_regionkey(from, to)
@@ -66,7 +75,14 @@ agg_regions <- function(x, from = "kunta", to = "maakunta",
     region_key <- custom_key
   }
 
-  region_key[paste0(from, "_name")] <- NULL
+  if (by_name) {
+    region_key[paste0(from, "_code")] <- NULL
+    by_var <- "alue_name"
+  } else{
+    region_key[paste0(from, "_name")] <- NULL
+    by_var <- "alue_code"
+  }
+
   region_key <-
     region_key |>
     rename_with(~gsub(paste0("^", from, "_"), "alue_", .x)) |>
@@ -75,7 +91,7 @@ agg_regions <- function(x, from = "kunta", to = "maakunta",
 
   y <- x %>%
     mutate(check = 1) |>
-    right_join(region_key, by = "alue_code") %>%
+    right_join(region_key, by = by_var) %>%
     {if (!all_to_regions) filter(., !is.na(check)) else .} %>%
     select(-check) |>
     select(-any_of(c("alue_name", "alue_code"))) %>%
