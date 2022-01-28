@@ -13,7 +13,8 @@ agg_regions(
   pass_region_codes = NULL,
   na.rm = FALSE,
   all_to_regions = TRUE,
-  custom_key = NULL
+  custom_key = NULL,
+  by_name = FALSE
 )
 
 add_regional_agg(x, from = "kunta", to = "maakunta")
@@ -35,6 +36,8 @@ even if not in data.}
 
 \item{custom_key}{A data.frame. Custom classification key in same form as
 as key from \code{\link[statficlassifications]{get_regionkey}}.}
+
+\item{by_name}{A locigal to join by name or code (default).}
 }
 \description{
 Aggregate to other region level
@@ -47,7 +50,8 @@ Add regional aggragation
 }}
 
 \examples{
-x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"), values = c(1,1,1,2))
+x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"),
+                alue_name = c("KOKO MAA", "Espoo", "Helsinki", "Hämeenlinna"), values = c(1,1,1,2))
 agg_regions(x, na.rm = TRUE)
 agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS")
 agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
@@ -56,8 +60,16 @@ agg_regions(z, na.rm = TRUE, value_cols = c("values", "values2"))
 agg_regions(x, na.rm = TRUE,
             custom_key = data.frame(
                kunta_code = c("SSS", "KU049", "KU091", "KU109"),
-               kunta_name = c("SSS", "KU049", "KU091", "KU109"),
+               kunta_name = c("KOKO MAA", "Espoo", "Helsinki", "Hämeenlinna"),
                maakunta_code = as.factor(c("SSS", "MK1", "MK1", "MK2")),
                maakunta_name = as.factor(c("SSS", "Maakunta1", "Maakunta1", "Maakunta2")))
+               )
+agg_regions(x, na.rm = TRUE,
+            custom_key = data.frame(
+               kunta_code = c("SSS", "KU049", "KU091", "KU109"),
+               kunta_name = c("KOKO MAA", "Espoo", "Helsinki", "Hämeenlinna"),
+               maakunta_code = as.factor(c("SSS", "MK1", "MK1", "MK2")),
+               maakunta_name = as.factor(c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))),
+               by_name = TRUE
                )
 }
