@@ -42,3 +42,71 @@ filter_recode <- function(dat, ..., query = NULL){
                                                     name_list[[cur_column()]],
                                                     names(name_list[[cur_column()]]))))
 }
+
+
+#' Print full filtering for codes for data
+#'
+#' Can be used also with robonomist id
+#'
+#' @param x A data.frame of robonomist id
+#' @param conc A locigal whether to copy in clipboard
+#' @export
+#' @examples
+#'   print_full_filter(x = data.frame(a = c()), conc = FALSE)
+#'   pttrobo_print_filter_recode(x = "luke/02_Maatalous/06_Talous/02_Maataloustuotteiden_tuottajahinnat/08_Tuottajahinnat_Vilja_rypsi_rapsi_v.px", conc = FALSE)
+
+print_full_filter <- function(x, conc = TRUE){
+
+  if (!inherits(x, "data.frame")){
+    x <- ptt_data_robo_l(x)
+  }
+
+  y <- lapply(x, function(x) {
+    if (is.character(x) | is.factor(x)) {
+      unique(x)
+    }})
+
+  y <- y[!unlist(lapply(y, is.null))]
+
+
+
+  out <- paste0(
+    "filter(\n  ",
+    paste0(purrr::imap(y, ~paste0(.y," %in% c(\"", paste0(as.character(.x), collapse = "\", \""), "\")")), collapse = ",\n  "),
+    "\n  )"
+
+
+  )
+  cat(out)
+  if (conc) cat(out, file = "clipboard-128")
+
+}
+
+#' @describeIn print_full_filter_recode version for pttdatahaku::filter_recode()
+#' @export
+print_full_filter_recode <- function(x, conc = TRUE){
+
+  if (!inherits(x, "data.frame")){
+    x <- ptt_data_robo_l(x)
+  }
+
+  y <- lapply(x, function(x) {
+    if (is.character(x) | is.factor(x)) {
+      unique(x)
+    }})
+
+  y <- y[!unlist(lapply(y, is.null))]
+
+
+
+  out <- paste0(
+    "filter_recode(\n  ",
+    paste0(purrr::imap(y, ~paste0(.y," = c(\"", paste0(as.character(.x), collapse = "\", \""), "\")")), collapse = ",\n  "),
+    "\n  )"
+
+
+  )
+  cat(out)
+  if (conc) cat(out, file = "clipboard-128")
+
+}
