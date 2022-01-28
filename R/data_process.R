@@ -82,7 +82,7 @@ print_full_filter <- function(x, conc = TRUE){
 
 }
 
-#' @describeIn print_full_filter_recode version for pttdatahaku::filter_recode()
+#' @describeIn print_full_filter Code for filter_recode()
 #' @export
 print_full_filter_recode <- function(x, conc = TRUE){
 

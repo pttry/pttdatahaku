@@ -99,6 +99,7 @@ Hakufunktio:
    - *pc*
       - Laskee prosenttimuutokset
    - *filter_recode* Easy filtering and recoding data
+      - *print_full_filter_recode* to print full filtering code for data to edit
       
 ### Aggregointi
 
