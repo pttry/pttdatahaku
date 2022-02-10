@@ -8,6 +8,7 @@
 #' @param dat A data.frame to filter and recode.
 #' @param ... A (named) vector with a name.
 #' @param query A same as ... as a list. Overrides dots.
+#' @param droplevels A locigal to droplevels of factors. Default TRUE.
 #'
 #' @import dplyr
 #' @export
@@ -19,7 +20,7 @@
 #'   tieto2 = c("b", "c")) |>
 #'   str()
 
-filter_recode <- function(dat, ..., query = NULL){
+filter_recode <- function(dat, ..., query = NULL, droplevels = TRUE){
 
   if (is.null(query)){
     filter_list <- list(...)
@@ -34,13 +35,18 @@ filter_recode <- function(dat, ..., query = NULL){
     purrr::keep(~!is.null(names(.x))) |>
     purrr::map(~purrr::set_names(.x, if_else(nchar(names(.x)) == 0, .x, names(.x))))
 
-  dat |>
+  dat <- dat |>
     filter(
       !!!unname(purrr::imap(filter_list, ~expr(!!sym(.y) %in% !!.x)))
     ) |>
     mutate(across(all_of(names(name_list)), ~factor(.x,
                                                     name_list[[cur_column()]],
                                                     names(name_list[[cur_column()]]))))
+  if (droplevels) {
+    dat <- dat |> droplevels()
+  }
+  dat
+
 }
 
 
