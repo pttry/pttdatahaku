@@ -114,23 +114,31 @@ utils::globalVariables(c("time", "values", "where"))
 #'
 #' @param x robonomist id or a table code as defined in the package. If table_code
 #'    give db_list_name.
-#' @param query, §-filter, defaults to full query, \code{NULL}
+#' @param query pxweb query list, defaults to full query
 #' @param db_list_name in case x is a table code db_list gives the mapping from
 #'    table codes to urls. Only use this if x is table_code.
 #' @param labels logical, whether to have variables with labels or codes. Defaults
 #'    to \code{FALSE}
+#' @param robonomistquery, §-filter, defaults to full query, \code{NULL}
 #'
 #' @return robonomist data
 #' @export
 #'
-ptt_get_statfi_robonomist <- function(x, query = NULL, db_list_name = NULL, labels = FALSE) {
+ptt_get_statfi_robonomist <- function(x,
+                                      query = NULL,
+                                      db_list_name = NULL,
+                                      labels = FALSE,
+                                      robonomistquery = NULL) {
 
+  query <- query[query != "*"]
   if(!is.null(db_list_name)) {x <- table_code_to_url(x, db_list_name, with_base_url = FALSE)}
 
   x <- statfi_parse_url(x, with_base_url = FALSE)
-  x <- paste0(x, query)
-  robonomistClient::data(x, labels = labels, tidy_time = TRUE) |>
+  x <- paste0(x, robonomistquery)
+  robonomistClient::data(x, labels = labels, tidy_time = FALSE) |>
+    filter_recode(query = query) |>
     statfitools::clean_names() |>
+    statfitools::clean_times2() |>
     dplyr::mutate(dplyr::across(where(is.character), forcats::as_factor)) |>
     droplevels()
 }
