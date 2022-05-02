@@ -133,7 +133,7 @@ ptt_get_statfi_robonomist <- function(x,
   query <- query[query != "*"]
   if(!is.null(db_list_name)) {x <- table_code_to_url(x, db_list_name, with_base_url = FALSE)}
 
-  x <- statfi_parse_url(x, with_base_url = FALSE)
+  x <- statfitools::statfi_parse_url(x, with_base_url = FALSE)
   x <- paste0(x, robonomistquery)
   robonomistClient::data(x, labels = labels, tidy_time = FALSE) |>
     filter_recode(query = query) |>
