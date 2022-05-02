@@ -4,7 +4,7 @@
 \alias{filter_recode}
 \title{Filtering and recoding data}
 \usage{
-filter_recode(dat, ..., query = NULL)
+filter_recode(dat, ..., query = NULL, droplevels = TRUE)
 }
 \arguments{
 \item{dat}{A data.frame to filter and recode.}
@@ -12,6 +12,8 @@ filter_recode(dat, ..., query = NULL)
 \item{...}{A (named) vector with a name.}
 
 \item{query}{A same as ... as a list. Overrides dots.}
+
+\item{droplevels}{A locigal to droplevels of factors. Default TRUE.}
 }
 \description{
 Filters data based on named vectors or list of them.

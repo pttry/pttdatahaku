@@ -137,6 +137,7 @@ ptt_get_statfi_robonomist <- function(x,
   x <- paste0(x, robonomistquery)
   robonomistClient::data(x, labels = labels, tidy_time = FALSE) |>
     filter_recode(query = query) |>
+    dplyr::select(-all_of(names(query)[query == "SSS"])) |>
     statfitools::clean_names() |>
     statfitools::clean_times2() |>
     dplyr::mutate(dplyr::across(where(is.character), forcats::as_factor)) |>

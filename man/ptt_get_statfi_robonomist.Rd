@@ -4,19 +4,27 @@
 \alias{ptt_get_statfi_robonomist}
 \title{Get PTT statfi data via robonomist}
 \usage{
-ptt_get_statfi_robonomist(x, query = NULL, db_list_name = NULL, labels = FALSE)
+ptt_get_statfi_robonomist(
+  x,
+  query = NULL,
+  db_list_name = NULL,
+  labels = FALSE,
+  robonomistquery = NULL
+)
 }
 \arguments{
 \item{x}{robonomist id or a table code as defined in the package. If table_code
 give db_list_name.}
 
-\item{query, }{§-filter, defaults to full query, \code{NULL}}
+\item{query}{pxweb query list, defaults to full query}
 
 \item{db_list_name}{in case x is a table code db_list gives the mapping from
 table codes to urls. Only use this if x is table_code.}
 
 \item{labels}{logical, whether to have variables with labels or codes. Defaults
 to \code{FALSE}}
+
+\item{robonomistquery, }{§-filter, defaults to full query, \code{NULL}}
 }
 \value{
 robonomist data
