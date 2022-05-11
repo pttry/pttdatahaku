@@ -4,7 +4,7 @@
 \alias{pc}
 \title{Calculate percentage change}
 \usage{
-pc(x, n, order_by = time)
+pc(x, n, order_by = NULL)
 }
 \arguments{
 \item{x}{A numeric vector}

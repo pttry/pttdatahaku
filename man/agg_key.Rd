@@ -7,7 +7,9 @@
 agg_key(
   x,
   by = NULL,
+  .fns = sum,
   value_cols = c("values", "value"),
+  w = NULL,
   na.rm = FALSE,
   all_to_regions = TRUE,
   key = NULL
@@ -34,6 +36,20 @@ agg_regions(x, na.rm = TRUE, pass_region_codes = "SSS", all_to_regions = FALSE)
 z <- dplyr::mutate(x, values2 = c(3,4,5,6))
 agg_regions(z, na.rm = TRUE, value_cols = c("values", "values2"))
 agg_key(x, na.rm = TRUE,
+            key = data.frame(
+               alue_code = c("SSS", "KU049", "KU091", "KU109"),
+               maakunta_name = c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))
+               )
+agg_key(x,
+            .fns = mean,
+            key = data.frame(
+               alue_code = c("SSS", "KU049", "KU091", "KU109"),
+               maakunta_name = c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))
+               )
+xx <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"), values = c(1,2,1,1), size = c(1,2,1,1))
+agg_key(xx,
+            .fns = weighted.mean,
+            w = size,
             key = data.frame(
                alue_code = c("SSS", "KU049", "KU091", "KU109"),
                maakunta_name = c("SSS", "Maakunta1", "Maakunta1", "Maakunta2"))

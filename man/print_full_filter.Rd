@@ -23,6 +23,6 @@ Can be used also with robonomist id
 }}
 
 \examples{
-  print_full_filter(x = data.frame(a = c()), conc = FALSE)
-  pttrobo_print_filter_recode(x = "luke/02_Maatalous/06_Talous/02_Maataloustuotteiden_tuottajahinnat/08_Tuottajahinnat_Vilja_rypsi_rapsi_v.px", conc = FALSE)
+  print_full_filter(x = data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")), conc = FALSE)
+  pttrobo::pttrobo_print_filter_recode(x = "luke/02_Maatalous/06_Talous/02_Maataloustuotteiden_tuottajahinnat/08_Tuottajahinnat_Vilja_rypsi_rapsi_v.px", conc = FALSE)
 }
