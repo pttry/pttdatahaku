@@ -1,7 +1,7 @@
 Package: pttdatahaku
 Type: Package
 Title: Data management in PTT
-Version: 0.2.10.9001
+Version: 0.2.10.9002
 Authors@R: c(person("Janne", "Huovari", email = "janne.huovari@ptt.fi",
                   role = c("aut", "cre")),
              person("Juho", "Alasalmi", email = "juho.alasalmi@ptt.fi",
