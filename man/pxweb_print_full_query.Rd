@@ -32,6 +32,6 @@ Return full query as a list
 }}
 
 \examples{
-  pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))
+  pxweb_print_full_query(url = statfi_url("StatFin", "tyokay/statfin_tyokay_pxt_115u.px"))
 
 }

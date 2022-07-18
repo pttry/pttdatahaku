@@ -58,7 +58,7 @@ data
 To import data, you need an url that tells you where the data is. Function `statfi_parse_url` transforms the addresses in the GUI of pxweb to the addresses of API of pxweb:
 
 ```{r}
-gui_url <- "https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__kou__vkour/statfin_vkour_pxt_12bq.px/"
+gui_url <- "https://pxweb2.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vkour/statfin_vkour_pxt_12bq.px/"
 api_url <- statfi_parse_url(gui_url)
 api_url
 ```
@@ -152,8 +152,8 @@ You can also create complete databases using simple the url locations of require
 
 ```{r, eval = FALSE}
 
-my_new_db_list <- c("StatFin__tym__atp__nj/statfin_atp_pxt_11my.px/",
-                    "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px")
+my_new_db_list <- c("StatFin__atp/statfin_atp_pxt_11my.px/",
+                    "https://pxweb2.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vkour/statfin_vkour_pxt_12bq.px/")
 ptt_create_db_list(my_new_db_list, overwrite = TRUE)
 names(ptt_read_db_list("my_new_db_list"))
 ```

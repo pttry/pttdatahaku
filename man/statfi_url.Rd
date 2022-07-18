@@ -7,7 +7,7 @@
 statfi_url(
   ...,
   with_base_url = TRUE,
-  .base_url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi"
+  .base_url = "https://statfin.stat.fi/PXWeb/api/v1/fi"
 )
 }
 \arguments{
@@ -22,6 +22,6 @@ Defaults to \code{TRUE}}
 Gives full statfi url
 }
 \examples{
-  statfi_url("StatFin", "kou/vkour/statfin_vkour_pxt_12bq.px")
+  statfi_url("StatFin", "vkour/statfin_vkour_pxt_12bq.px")
 
 }

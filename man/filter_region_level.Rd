@@ -12,9 +12,6 @@ filter_region_level(data, region_level)
 \item{region_level}{\code{"kunta"}, \code{"seutukunta"}, \code{"maakunta"} or \code{"suuralue"}.
 The desired region level}
 }
-\value{
-
-}
 \description{
 Filters, from a data.frame with a reigon code variable (with standardized region code prefixes)
 desired region level and renames the the region variables in case of unique region level.

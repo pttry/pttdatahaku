@@ -24,9 +24,9 @@ argument as such.
 }}
 
 \examples{
-  statfi_parse_url("https://pxnet2.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
+  statfi_parse_url("https://pxweb2.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__muutl/statfin_muutl_pxt_119z.px/")
   statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/", with_base_url = FALSE)
-  statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/", )
+  statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/")
   statfi_parse_url("https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/vrm/muutl/statfin_muutl_pxt_119z.px")
   statfi_parse_url("https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/vrm/muutl/statfin_muutl_pxt_119z.px", with_base_url = FALSE)
 

@@ -9,9 +9,6 @@ ptt_glimpse_db(db_list_name)
 \arguments{
 \item{db_list_name}{chr, name of db list}
 }
-\value{
-
-}
 \description{
 Browse metadata attached to a database list
 }

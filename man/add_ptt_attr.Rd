@@ -11,9 +11,6 @@ add_ptt_attr(to, from)
 
 \item{from}{A df to get attributes froms}
 }
-\value{
-
-}
 \description{
 Re-add ptt attributes back
 }

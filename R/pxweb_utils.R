@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#'   pxweb_print_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))
+#'   pxweb_print_full_query(url = statfi_url("StatFin", "tyokay/statfin_tyokay_pxt_115u.px"))
 #'
 pxweb_print_full_query <- function(url, time_all = TRUE){
 
@@ -24,7 +24,7 @@ pxweb_print_full_query <- function(url, time_all = TRUE){
 #' @export
 #'
 #' @examples
-#'   pxweb_print_code_full_query(url = statfi_url("StatFin", "vrm/tyokay/statfin_tyokay_pxt_115u.px"))
+#'   pxweb_print_code_full_query(url = statfi_url("StatFin", "tyokay/statfin_tyokay_pxt_115u.px"))
 #'
 pxweb_print_code_full_query <- function(url, time_all = TRUE, target = ""){
 

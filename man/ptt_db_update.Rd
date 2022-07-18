@@ -51,7 +51,7 @@ A named list with update: names of updated tables and
  ptt_add_query(
    "test_db",
    "test2",
-   url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
+   url = "https://pxweb2.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vkour/statfin_vkour_pxt_12bq.px/",
    query =
           list(
             "Vuosi"=c("1980"),
@@ -68,7 +68,7 @@ A named list with update: names of updated tables and
  test1_dat <- ptt_read_data("test2")
 
  ptt_add_query("test_db",
-               url = "https://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_12bq.px",
+               url = "https://pxweb2.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vkour/statfin_vkour_pxt_12bq.px/",
                query = NULL,
                call = "ptt_get_statfi_robonomist(url)")
 

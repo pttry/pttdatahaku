@@ -11,9 +11,6 @@ open_statfi_qui(x = "", db_list_name = NULL)
 
 \item{db_list_name}{character, database of the table}
 }
-\value{
-
-}
 \description{
 Open table in QUI PxWeb
 }

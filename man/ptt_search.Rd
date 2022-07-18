@@ -19,9 +19,6 @@ ptt_search_db(..., path = db_path)
 
 \item{path}{chr, filepath, location of databases}
 }
-\value{
-
-}
 \description{
 Search PTT data bases
 }
