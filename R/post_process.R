@@ -1,6 +1,9 @@
 #' Aggregate abolished municipalicities
 #'
 #' @param x A data.frame like object.
+#' @param value_cols A character vector of name of columns to aggregate.
+#' @param n_col A locigal to include number of observations in aggragation
+#' @param na.rm	logical. Should missing values (including NaN) be removed?
 #' @export
 #'
 #' @examples
@@ -8,15 +11,23 @@
 #'   alue_code = c("KU911", "KU541"),
 #'    alue_name = c("A", "B"), values = c(1,2))
 #' agg_abolished_mun(x)
+#' agg_abolished_mun(x, n_col = TRUE)
 #'
-agg_abolished_mun <- function(x){
+agg_abolished_mun <- function(x, value_cols = c("values"), n_col = FALSE, na.rm = FALSE){
+
+  # Should think better solution to calculate n only if n_col = TRUE
+  if (hasName(x, "n")) warning("Column n will be overwriten")
+
   y <- x %>%
     statficlassifications::join_abolished_mun("alue_code") %>%
     select(!alue_name) %>%
-    group_by(across(!values)) %>%
-    summarise(values = sum(values), .groups = "drop") %>%
+    group_by(across(!any_of(value_cols))) %>%
+    summarise(across(any_of(value_cols), sum, na.rm = na.rm), n = n()) %>%
+    ungroup() |>
     mutate(alue_name = statficlassifications::codes_to_names(alue_code)) %>%
     relocate(names(x))
+
+  if (!n_col) y$n <- NULL
 
   y <- add_ptt_attr(y, x)
   y
@@ -28,6 +39,7 @@ agg_abolished_mun <- function(x){
 #' @param x A data.frame like object.
 #' @param from A name of reginal classification.
 #' @param to A name of reginal classification.
+#' @param value_cols A character vector of name of columns to aggregate.
 #' @param pass_region_codes Region codes to be passed true. For example whole
 #'        country "SSS". Does not affect aggregation. Default NULL.
 #' @param na.rm	logical. Should missing values (including NaN) be removed?
