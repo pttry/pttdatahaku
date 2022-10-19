@@ -26,11 +26,11 @@ Return full query as a list
 }
 \section{Functions}{
 \itemize{
-\item \code{pxweb_prepare_full_query}: 
+\item \code{pxweb_prepare_full_query()}: 
 
-\item \code{pxweb_full_query_as_list}: 
+\item \code{pxweb_full_query_as_list()}: 
+
 }}
-
 \examples{
   pxweb_print_full_query(url = statfi_url("StatFin", "tyokay/statfin_tyokay_pxt_115u.px"))
 

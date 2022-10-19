@@ -26,6 +26,8 @@ add_regional_agg(x, from = "kunta", to = "maakunta")
 
 \item{to}{A name of reginal classification.}
 
+\item{value_cols}{A character vector of name of columns to aggregate.}
+
 \item{pass_region_codes}{Region codes to be passed true. For example whole
 country "SSS". Does not affect aggregation. Default NULL.}
 
@@ -46,9 +48,9 @@ Add regional aggragation
 }
 \section{Functions}{
 \itemize{
-\item \code{add_regional_agg}: 
-}}
+\item \code{add_regional_agg()}: 
 
+}}
 \examples{
 x <- data.frame(alue_code = c("SSS", "KU049", "KU091", "KU109"),
                 alue_name = c("KOKO MAA", "Espoo", "Helsinki", "Hämeenlinna"), values = c(1,1,1,2))

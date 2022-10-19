@@ -43,8 +43,8 @@ Create full database lists
 }
 \section{Functions}{
 \itemize{
-\item \code{ptt_create_db_list_vector}: Create full database lists
+\item \code{ptt_create_db_list_vector()}: Create full database lists
 
-\item \code{ptt_create_db_list_df}: Create full database lists
+\item \code{ptt_create_db_list_df()}: Create full database lists
+
 }}
-

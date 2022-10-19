@@ -31,9 +31,9 @@ The folder must be synced.
 }
 \section{Functions}{
 \itemize{
-\item \code{ptt_read_data}: Read data
-}}
+\item \code{ptt_read_data()}: Read data
 
+}}
 \examples{
 test_dat <- data.frame(alue_name = factor(c("KOKO MAA", "Uusimaa")),
                        alue_code = factor(c("SSS", "MK01")),

@@ -28,12 +28,12 @@ Get information about data in db_list
 }
 \section{Functions}{
 \itemize{
-\item \code{get_variables}: Get information about data in db_list
+\item \code{get_variables()}: Get information about data in db_list
 
-\item \code{get_time_var}: Get information about data in db_list
+\item \code{get_time_var()}: Get information about data in db_list
 
-\item \code{get_manual_metadata}: Get information about data in db_list
+\item \code{get_manual_metadata()}: Get information about data in db_list
 
-\item \code{get_title}: Get information about data in db_list
+\item \code{get_title()}: Get information about data in db_list
+
 }}
-

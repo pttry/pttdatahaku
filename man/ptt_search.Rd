@@ -24,8 +24,8 @@ Search PTT data bases
 }
 \section{Functions}{
 \itemize{
-\item \code{ptt_search_data}: Search data sets in PTT database
+\item \code{ptt_search_data()}: Search data sets in PTT database
 
-\item \code{ptt_search_db}: Search database lists in PTT database
+\item \code{ptt_search_db()}: Search database lists in PTT database
+
 }}
-

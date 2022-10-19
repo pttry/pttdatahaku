@@ -21,9 +21,9 @@ Print a code to get a full query from table url
 }
 \section{Functions}{
 \itemize{
-\item \code{pxweb_print_code_full_query_c}: Prints to clipboard
-}}
+\item \code{pxweb_print_code_full_query_c()}: Prints to clipboard
 
+}}
 \examples{
   pxweb_print_code_full_query(url = statfi_url("StatFin", "tyokay/statfin_tyokay_pxt_115u.px"))
 

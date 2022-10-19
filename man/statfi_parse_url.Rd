@@ -20,9 +20,9 @@ argument as such.
 }
 \section{Functions}{
 \itemize{
-\item \code{statfi_parse_url_arch}: Parsing function for archived databases.
-}}
+\item \code{statfi_parse_url_arch()}: Parsing function for archived databases.
 
+}}
 \examples{
   statfi_parse_url("https://pxweb2.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__muutl/statfin_muutl_pxt_119z.px/")
   statfi_parse_url("StatFin__vrm__muutl/statfin_muutl_pxt_119z.px/", with_base_url = FALSE)

@@ -19,9 +19,9 @@ Can be used also with robonomist id
 }
 \section{Functions}{
 \itemize{
-\item \code{print_full_filter_recode}: Code for filter_recode()
-}}
+\item \code{print_full_filter_recode()}: Code for filter_recode()
 
+}}
 \examples{
   print_full_filter(x = data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")), conc = FALSE)
   pttrobo::pttrobo_print_filter_recode(x = "luke/02_Maatalous/06_Talous/02_Maataloustuotteiden_tuottajahinnat/08_Tuottajahinnat_Vilja_rypsi_rapsi_v.px", conc = FALSE)

@@ -41,11 +41,11 @@ A named list with update: names of updated tables and
 }
 \section{Functions}{
 \itemize{
-\item \code{ptt_add_query}: Add a query to the database.
+\item \code{ptt_add_query()}: Add a query to the database.
 
-\item \code{ptt_remove_query}: Remove a query from the database.
+\item \code{ptt_remove_query()}: Remove a query from the database.
+
 }}
-
 \examples{
 
  ptt_add_query(
