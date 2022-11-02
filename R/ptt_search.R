@@ -8,7 +8,6 @@
 #' @param filetype "qs" or "rds"
 #' @param path chr, filepath, location of databases
 #'
-#' @return
 #' @export
 #'
 ptt_search <- function(..., filetype = NULL, path = db_path) {
@@ -47,7 +46,6 @@ ptt_search_db <- function(..., path = db_path) {
 #'
 #' @param db_list_name chr, name of db list
 #'
-#' @return
 #' @export
 #'
 ptt_glimpse_db <- function(db_list_name) {

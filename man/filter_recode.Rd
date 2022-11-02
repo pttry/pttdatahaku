@@ -21,11 +21,22 @@ Filtered series can be recoded at the same time, and
 also columns are returned as factor with levels in
 order of filtering information.
 }
+\details{
+Gives message for missing filtering levels.
+}
 \examples{
 data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")) |>
   filter_recode(
   tieto = c("Yksi" = "taso yksi",
             "Kaksi" = "taso kaksi"),
   tieto2 = c("b", "c")) |>
+  str()
+
+data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")) |>
+  filter_recode(
+  tieto = c("Yksi" = "taso yksi",
+            "Kaksi" = "taso kaksi",
+            "Kolme" = "taso kolme"),
+  tieto2 = c("b", "c", "d", "e")) |>
   str()
 }

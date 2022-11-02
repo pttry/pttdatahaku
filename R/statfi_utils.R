@@ -64,7 +64,6 @@ statfi_parse_url_arch <- function(url){
 #'
 #' @param url character, url
 #'
-#' @return
 #' @export
 #'
 #' @examples
@@ -87,7 +86,6 @@ statfi_parse_qui_url <- function(url){
 #' @param x character, url or table code. If table code, set db_list_name
 #' @param db_list_name character, database of the table
 #'
-#' @return
 #' @export
 #'
 #' @examples

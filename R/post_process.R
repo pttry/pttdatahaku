@@ -143,7 +143,7 @@ add_regional_agg <- function(x, from = "kunta", to = "maakunta"){
 #' @param to A df to put attributes
 #' @param from A df to get attributes froms
 #'
-#' @return
+
 
 add_ptt_attr <- function(to, from){
   attr(to, "citation") <- attr(from, "citation")

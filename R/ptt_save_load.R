@@ -161,7 +161,6 @@ ptt_create_db_list_df <- function(x,
 #' @param region_level \code{"kunta"}, \code{"seutukunta"}, \code{"maakunta"} or \code{"suuralue"}.
 #'    The desired region level
 #'
-#' @return
 #' @export
 #'
 filter_region_level <- function(data, region_level) {
