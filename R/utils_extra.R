@@ -81,18 +81,42 @@ pc <- function(x, n, order_by = NULL){
 
 
 
-#' Title
+#' Deflate nominal series to real ones
 #'
-#' @param x
-#' @param time
-#' @param deflator
-#' @param series
-#' @param tol
-#' @param freq
-#' @param baseyear
+#' Gets a price index and aggregates it, if needed. Then
+#' divides the series with the price index and rebase result to base year.
+#'
+#' Price index available:
+#'
+#'  * eki Elinkustannusindeksi
+#'  * thi Tuottajahintaideksi
+#'
+#'  For thi index and class have be specified:
+#'
+#'  index, one of: "Teollisuuden tuottajahintaindeksi",
+#'  "Teollisuuden tuottajahintaindeksi, kotimaiset tavarat",
+#'  "Teollisuuden tuottajahintaindeksi, vientitavarat",
+#'  "Vientihintaindeksi",
+#'   "Tuontihintaindeksi",
+#'    "Kotimarkkinoiden perushintaindeksi",
+#'    "Kotimarkkinoiden perushintaindeksi, kotimaiset tavarat",
+#'     "Kotimarkkinoiden perushintaindeksi, tuontitavarat",
+#'     "Verollinen kotimarkkinoiden perushintaindeksi",
+#'     "Verollinen kotimarkkinoiden perushintaindeksi, kotimaiset tavarat",
+#'     "Verollinen kotimarkkinoiden perushintaindeksi, tuontitavarat"
+#'
+#'   class one of Tuotteet toimialoittain (CPA 2015, MIG) classification
+#'
+#' @param x A series to deflate
+#' @param time A time vector.
+#' @param deflator A name of the deflatior. "eki" or "thi".
+#' @param series A name of index series for thi.
+#' @param class A name of classification for thi
+#' @param freq A frequency of `x`.
+#' @param baseyear A base year to rebase.
 #'
 #' @import dplyr
-#' @return
+#' @return A numeric vector
 #' @export
 #'
 #' @examples
@@ -100,20 +124,35 @@ pc <- function(x, n, order_by = NULL){
 #'   filter_recode(
 #'     tiedot = c("Ansiotaso" = "Ansiotasoindeksi 1964=100")
 #'   ) |>
-#'     mutate(real = deflate(value, time, deflator = "eki", freq = "q", baseyear = 2015))
+#'     mutate(real = deflate(value, time, deflator = "eki", freq = "q", baseyear = 2015)) |>
+#'     tail()
+#'
+#'  pttrobo::ptt_data_robo(
+#'    "tulli/uljas_sitc",
+#'    dl_filter = list(
+#'      "Tavaraluokitus SITC2" = c("01 (2002--.) Liha ja lihatuotteet"),
+#'      "Maa" = "AA",
+#'      "Suunta" = c("Tuonti alkuperämaittain"),
+#'      "Indikaattorit" = c("Tilastoarvo (euro)"))) |>
+#'      mutate(real = deflate(value, time, deflator = "thi",
+#'                      index = "Tuontihintaindeksi",
+#'                      class = "10.1 Säilötty liha ja lihavalmisteet")) |>
+#'    tail()
 
-deflate <- function(x, time, deflator = "eki", index = NULL, tol = NULL, freq = "m", baseyear = 2015) {
+deflate <- function(x, time, deflator = "eki", index = NULL, class = NULL,
+                    freq = "m",
+                    baseyear = 2015) {
 
   series <- list(
-    eki = function(index, tol) {
+    eki = function(index, class) {
       pttrobo::ptt_data_robo("StatFin/khi/statfin_khi_pxt_11xl.px") |>
         filter_recode(tiedot = c("Pisteluku")) |>
         select(time, p_ind = value)
     },
-    thi = function(index, tol) {
+    thi = function(index, class) {
       pttrobo::ptt_data_robo("StatFin/thi/statfin_thi_pxt_118g.px") |>
         filter_recode(
-          tuotteet_toimialoittain_cpa_2015_mig = tol,
+          tuotteet_toimialoittain_cpa_2015_mig = class,
           indeksisarja = c(index),
           tiedot = c("Pisteluku (2015=100)")
         ) |>
@@ -121,7 +160,7 @@ deflate <- function(x, time, deflator = "eki", index = NULL, tol = NULL, freq = 
     }
   )
 
-  price_dat <- series[[deflator]](index, tol)
+  price_dat <- series[[deflator]](index, class)
 
   freq_funs <- list(
     m = function(x) x,
@@ -147,7 +186,9 @@ deflate <- function(x, time, deflator = "eki", index = NULL, tol = NULL, freq = 
   y = tibble::tibble(value = x, time = time) |>
     dplyr::left_join(price_dat, by = "time") |>
     mutate(value = value / p_ind) |>
-    mutate(value = rebase(value, time, baseyear = baseyear))
+    mutate(value =
+             rebase(value, time, baseyear = baseyear,
+                    basevalue = mean(value[lubridate::year(time) == baseyear])))
 
   y$value
 }
