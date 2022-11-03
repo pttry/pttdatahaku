@@ -22,12 +22,10 @@ Imports:
     here,
     statficlassifications,
     magrittr,
-    readxl,
-    pttrobo
+    readxl
 Remotes:
     github::pttry/statficlassifications,
-    github::pttry/statfitools,
-    github::pttry/pttrobo
+    github::pttry/statfitools
 RoxygenNote: 7.2.1
 Suggests: 
     rmarkdown,
