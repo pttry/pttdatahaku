@@ -11,6 +11,7 @@
 #' @param ... A (named) vector with a name.
 #' @param query A same as ... as a list. Overrides dots.
 #' @param droplevels A locigal to droplevels of factors. Default TRUE.
+#' @param check Whether to check missing levels.
 #'
 #' @import dplyr
 #' @export
@@ -22,15 +23,22 @@
 #'   tieto2 = c("b", "c")) |>
 #'   str()
 #'
+#' # Puuttuvan tiedon tarkistaminen
 #' data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")) |>
 #'   filter_recode(
 #'   tieto = c("Yksi" = "taso yksi",
 #'             "Kaksi" = "taso kaksi",
 #'             "Kolme" = "taso kolme"),
-#'   tieto2 = c("b", "c", "d", "e")) |>
+#'   tieto2 = c("a", "b", "c", "d"), check = TRUE) |>
+#'   str()
+#'
+#' data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")) |>
+#'   filter_recode(
+#'   tieto = c("Yksi" = "taso"),
+#'   tieto2 = c("a", "b", "c"), check = TRUE) |>
 #'   str()
 
-filter_recode <- function(dat, ..., query = NULL, droplevels = TRUE){
+filter_recode <- function(dat, ..., query = NULL, droplevels = TRUE, check = FALSE){
 
   if (is.null(query)){
     filter_list <- list(...)
@@ -45,18 +53,20 @@ filter_recode <- function(dat, ..., query = NULL, droplevels = TRUE){
     purrr::keep(~!is.null(names(.x))) |>
     purrr::map(~purrr::set_names(.x, if_else(nchar(names(.x)) == 0, .x, names(.x))))
 
+  # Check missing
+  if (check == TRUE) {
+    lst_check <-
+      purrr::imap(filter_list, ~.x[!(.x %in% unique(dat[[.y]]))])
+
+      purrr::imap(lst_check, ~(if (length(.x) > 0) message("From ", .y, " missing: ", paste0(.x, collapse = ", "))))
+  }
   # filter
   dat <- dat |>
     filter(
       !!!unname(purrr::imap(filter_list, ~expr(!!sym(.y) %in% !!.x)))
     )
 
-  # Check missing
-  lst_check <-
-    purrr::imap(filter_list, ~.x[!(.x %in% unique(dat[[.y]]))])
 
-
-  purrr::imap(lst_check, ~(if (length(.x) > 0) message("From ", .y, " missing: ", paste0(.x, collapse = ", "))))
 
 
   # rename
