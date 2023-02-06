@@ -30,9 +30,9 @@ pxweb_print_code_full_query <- function(url, time_all = TRUE, target = ""){
 
   if (!grepl("api", url)) {
     if (grepl("Passiivi", url))
-      {url <- statfi_parse_url_arch(url)}
+      {url <- statfitools::statfi_parse_url_arch(url)}
     else
-      {url <- statfi_parse_url(url)}}
+      {url <- statfitools::statfi_parse_url(url)}}
 
   full_query <- pxweb_prepare_full_query(url = url, time_all = time_all)
 
