@@ -89,7 +89,7 @@ ptt_search_data("tyonv")
 #> [31] "tyonv_135e"        "tyonv_1370"        "tyonv_2205"
 ```
 
-To list all data bases, use `ptt_search_database` without arguments
+To list all data bases, use `ptt_search_db` without arguments
 
 ``` r
 ptt_search_db()
