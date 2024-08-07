@@ -42,6 +42,8 @@ statfi_parse_url <- function(url, with_base_url = TRUE){
   url <- stringr::str_remove(url, "https://pxweb2.stat.fi/PxWeb/pxweb/fi/StatFin/")
   url <- stringr::str_remove(url, "https://statfin.stat.fi/PXWeb/api/v1/fi")
   url <- stringr::str_replace_all(url, "__", "/")
+  # if still full url path, pass through
+  if(grepl("http", url)) return(url)
   statfi_url(url, with_base_url = with_base_url)
 
 }
