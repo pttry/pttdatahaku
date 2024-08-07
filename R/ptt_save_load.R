@@ -48,8 +48,9 @@ ptt_read_data <- function(x_name, region_level = NULL, path = NULL,
 }
 
 
-db_path <- "~/../Pellervon Taloustutkimus PTT ry/Pellervon taloustutkimus - Datapankki/Tietokanta"
-
+db_path <- file.path("~/../Pellervon Taloustutkimus PTT ry", c("Pellervon taloustutkimus - Datapankki/Tietokanta",
+               "Pellervon taloustutkimus - Tietokanta"))
+db_path <- db_path[dir.exists(db_path)][1]
 
 #' Save and read database list
 #'
