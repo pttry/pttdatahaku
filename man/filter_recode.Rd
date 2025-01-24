@@ -4,7 +4,7 @@
 \alias{filter_recode}
 \title{Filtering and recoding data}
 \usage{
-filter_recode(dat, ..., query = NULL, droplevels = TRUE)
+filter_recode(dat, ..., query = NULL, droplevels = TRUE, check = FALSE)
 }
 \arguments{
 \item{dat}{A data.frame to filter and recode.}
@@ -14,6 +14,8 @@ filter_recode(dat, ..., query = NULL, droplevels = TRUE)
 \item{query}{A same as ... as a list. Overrides dots.}
 
 \item{droplevels}{A locigal to droplevels of factors. Default TRUE.}
+
+\item{check}{Whether to check missing levels.}
 }
 \description{
 Filters data based on named vectors or list of them.
@@ -32,11 +34,18 @@ data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "
   tieto2 = c("b", "c")) |>
   str()
 
+# Puuttuvan tiedon tarkistaminen
 data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")) |>
   filter_recode(
   tieto = c("Yksi" = "taso yksi",
             "Kaksi" = "taso kaksi",
             "Kolme" = "taso kolme"),
-  tieto2 = c("b", "c", "d", "e")) |>
+  tieto2 = c("a", "b", "c", "d"), check = TRUE) |>
+  str()
+
+data.frame(tieto = c("taso kaksi", "taso kaksi", "taso yksi"), tieto2 = c("a", "b", "c")) |>
+  filter_recode(
+  tieto = c("Yksi" = "taso"),
+  tieto2 = c("a", "b", "c"), check = TRUE) |>
   str()
 }
