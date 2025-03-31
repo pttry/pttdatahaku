@@ -4,10 +4,13 @@
 \alias{agg_yearly}
 \title{Aggregate to yearly data}
 \usage{
-agg_yearly(x)
+agg_yearly(x, na.rm = FALSE)
 }
 \arguments{
 \item{x}{A data.frame like object.}
+
+\item{na.rm}{logical. For \code{\link[base]{sum}}, should missing values
+(including NaN) be removed?}
 }
 \description{
 Time variable have to be Date in time column.

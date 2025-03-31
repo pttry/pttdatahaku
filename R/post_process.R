@@ -157,15 +157,17 @@ add_ptt_attr <- function(to, from){
 #' Time variable have to be Date in time column.
 #'
 #' @param x A data.frame like object.
+#' @param na.rm logical. For \code{\link[base]{sum}}, should missing values
+#'        (including NaN) be removed?
 #' @export
 #'
 #'
-agg_yearly <- function(x){
+agg_yearly <- function(x, na.rm = FALSE){
 
   y <- x %>%
     mutate(time = lubridate::ymd(lubridate::year(time), truncated = 2)) %>%
     group_by(across(!values)) %>%
-    summarise(values = sum(values), .groups = "drop") %>%
+    summarise(values = sum(values, na.rm = na.rm), .groups = "drop") %>%
     ungroup() |>
     relocate(names(x))
 
