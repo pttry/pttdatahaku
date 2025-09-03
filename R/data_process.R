@@ -50,8 +50,10 @@ filter_recode <- function(dat, ..., query = NULL, droplevels = TRUE, check = FAL
   #naming empty
   name_list <-
     filter_list |>
-    purrr::keep(~!is.null(names(.x))) |>
-    purrr::map(~purrr::set_names(.x, if_else(nchar(names(.x)) == 0, .x, names(.x))))
+    purrr::map(~if (is.null(names(.x)))
+    {purrr::set_names(.x)}
+    else
+    {purrr::set_names(.x, dplyr::coalesce(dplyr::na_if(names(.x), ""), .x, names(.x)))})
 
   # Check missing
   if (check == TRUE) {
