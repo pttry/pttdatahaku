@@ -18,7 +18,6 @@ Imports:
     rlang,
     purrr,
     tidyr,
-    qs,
     here,
     statficlassifications,
     magrittr,
@@ -26,6 +25,7 @@ Imports:
 Remotes:
     github::pttry/statficlassifications,
     github::pttry/statfitools
+    github::qsbase/qs
 RoxygenNote: 7.3.2
 Suggests: 
     rmarkdown,
